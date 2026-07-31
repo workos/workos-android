@@ -47,6 +47,13 @@ dependencies {
 
   implementation("com.squareup.okhttp3:okhttp:4.12.0")
 
+  // JWT verification + JWKS handling for the session helpers (hand-maintained).
+  // Matches workos-kotlin so session behavior is identical across the two Kotlin SDKs.
+  // Note for Android consumers: this is a JVM-sized dependency; R8 shrinking is
+  // effective on it, but if APK size becomes a concern the alternative is a
+  // hand-rolled RS256 verifier, which trades size for hand-audited crypto.
+  implementation("com.nimbusds:nimbus-jose-jwt:10.9.1")
+
   testImplementation(kotlin("test"))
 
   testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.9.0")

@@ -2,10 +2,9 @@
 
 Official Kotlin SDK for the WorkOS API, targeting Android.
 
-> **Status: pre-release.** The spec-driven surface is complete and tested. The
-> hand-maintained helper layer (webhook verification, AuthKit/SSO PKCE helpers,
-> session handling, Vault client-side crypto) is **not yet implemented** — see
-> [Helper coverage](#helper-coverage).
+> **Status: pre-release.** The spec-driven surface is complete and tested, and the
+> hand-maintained helper layer is implemented apart from the two SSO PKCE helpers
+> that the OpenAPI spec cannot yet express — see [Helper coverage](#helper-coverage).
 
 ## Installation
 
@@ -100,18 +99,43 @@ Hand-maintained in `helpers/`:
 | H01 | `webhook_verify`        | ✅ `WebhookVerification().constructEvent(...)` |
 | H02 | `webhook_signature_primitives` | ✅ `verifyHeader` / `createSignature` |
 | H03 | `actions_helper`        | ✅ `client.actions` — verify + sign |
-| H04 | `session_cookie_object` | ⏳ needs a JWT/JWKS dependency decision — Iron substrate is done |
-| H05 | `session_cookie_inline` | ⏳ needs a JWT/JWKS dependency decision — Iron substrate is done |
+| H04 | `session_cookie_object` | ✅ `client.session.loadSealedSession(...)` — `authenticate` / `refresh` / `getLogoutUrl` |
+| H05 | `session_cookie_inline` | ✅ `client.session.authenticateWithSessionCookie` / `refreshSession` |
 | H06 | `session_cookie_raw_seal` | ✅ `Iron.seal` / `Iron.unseal` (Fe26.2, workos-node interop verified) |
-| H07 | `auth_response_session_sealing` | ⏳ needs a JWT/JWKS dependency decision — Iron substrate is done |
+| H07 | `auth_response_session_sealing` | ✅ `client.session.sealAuthResponse(response, password)` |
 | H15 | `sso_pkce_authorization_url` | ⛔ blocked — `/sso/authorize` accepts no `code_challenge` in the spec |
 | H16 | `sso_pkce_code_exchange` | ⛔ blocked — `sso.getProfileAndToken` takes no `codeVerifier` and sends `client_secret` |
 | H18 | `vault_local_crypto`    | ✅ `client.vaultCrypto.encrypt` / `.decrypt` |
 
-H01-H07 and H18 are **wire-compatibility-critical**: sealing and signing schemes must
-interoperate with the Node/Python/Kotlin SDKs, so they should be ported from an
-existing implementation and verified against a cross-SDK fixture rather than written
-from the spec text.
+H01-H07 and H18 are **wire-compatibility-critical**: their sealing and signing
+schemes have to interoperate with the Node/Python/Kotlin SDKs, so each is verified
+against a cross-SDK fixture rather than written from spec text alone. `IronTest`
+opens a seal produced by `workos-node`, and `SessionTest` decodes both the
+`workos-node` and `workos-kotlin` cookie payload shapes.
+
+### Session cookies
+
+`client.session` needs a `clientId` on the client, because verifying a session's
+access token means fetching the environment's JWKS from
+`{baseUrl}/sso/jwks/{clientId}`.
+
+```kotlin
+val client = WorkOSClient(apiKey = "sk_test_...", clientId = "client_123")
+
+when (val result = client.session.authenticateWithSessionCookie(cookie, cookiePassword)) {
+    is AuthenticateSessionResult.Success -> result.user      // verified
+    is AuthenticateSessionResult.Failure -> result.reason    // why not
+}
+```
+
+`authenticate()` and `refresh()` are `suspend` functions — unlike `workos-kotlin`,
+where they block. JWKS retrieval is network I/O, and on Android that must not run on
+the main thread.
+
+Cookies are **written** in the camelCase shape `workos-node` produces, at every
+level including inside `user`. They are **read** permissively, accepting either
+camelCase or snake_case keys, so cookies sealed by `workos-kotlin` (which emits
+snake_case inside `user`) also open here.
 
 ### Public-client usage (Android)
 
