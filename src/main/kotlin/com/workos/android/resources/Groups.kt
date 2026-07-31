@@ -74,7 +74,7 @@ public class Groups internal constructor(
         autoPagingFlow { cursor ->
             listOrganizationGroups(
                 organizationId = organizationId,
-                before = before,
+                before = if (cursor == null) before else null,
                 after = cursor,
                 limit = limit,
                 order = order,
@@ -254,7 +254,7 @@ public class Groups internal constructor(
             listOrganizationMemberships(
                 organizationId = organizationId,
                 groupId = groupId,
-                before = before,
+                before = if (cursor == null) before else null,
                 after = cursor,
                 limit = limit,
                 order = order,

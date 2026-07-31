@@ -746,7 +746,7 @@ public class UserManagement internal constructor(
     ): Flow<CorsOriginResponse> =
         autoPagingFlow { cursor ->
             listCorsOrigins(
-                before = before,
+                before = if (cursor == null) before else null,
                 after = cursor,
                 limit = limit,
                 order = order,
@@ -944,7 +944,7 @@ public class UserManagement internal constructor(
     ): Flow<User> =
         autoPagingFlow { cursor ->
             list(
-                before = before,
+                before = if (cursor == null) before else null,
                 after = cursor,
                 limit = limit,
                 order = order,
@@ -1324,7 +1324,7 @@ public class UserManagement internal constructor(
         autoPagingFlow { cursor ->
             listSessions(
                 id = id,
-                before = before,
+                before = if (cursor == null) before else null,
                 after = cursor,
                 limit = limit,
                 order = order,
@@ -1393,7 +1393,7 @@ public class UserManagement internal constructor(
     ): Flow<UserInvite> =
         autoPagingFlow { cursor ->
             listInvitations(
-                before = before,
+                before = if (cursor == null) before else null,
                 after = cursor,
                 limit = limit,
                 order = order,
@@ -1720,7 +1720,7 @@ public class UserManagement internal constructor(
     ): Flow<RedirectUri> =
         autoPagingFlow { cursor ->
             listRedirectUris(
-                before = before,
+                before = if (cursor == null) before else null,
                 after = cursor,
                 limit = limit,
                 order = order,
@@ -1831,7 +1831,7 @@ public class UserManagement internal constructor(
         autoPagingFlow { cursor ->
             listAuthorizedApplications(
                 userId = userId,
-                before = before,
+                before = if (cursor == null) before else null,
                 after = cursor,
                 limit = limit,
                 order = order,
@@ -1924,7 +1924,7 @@ public class UserManagement internal constructor(
         autoPagingFlow { cursor ->
             listApiKeys(
                 userId = userId,
-                before = before,
+                before = if (cursor == null) before else null,
                 after = cursor,
                 limit = limit,
                 order = order,

@@ -127,7 +127,7 @@ public class AuditLogs internal constructor(
     ): Flow<AuditLogAction> =
         autoPagingFlow { cursor ->
             listActions(
-                before = before,
+                before = if (cursor == null) before else null,
                 after = cursor,
                 limit = limit,
                 order = order,
@@ -191,7 +191,7 @@ public class AuditLogs internal constructor(
         autoPagingFlow { cursor ->
             listActionSchemas(
                 actionName = actionName,
-                before = before,
+                before = if (cursor == null) before else null,
                 after = cursor,
                 limit = limit,
                 order = order,

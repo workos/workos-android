@@ -130,7 +130,7 @@ public class Connect internal constructor(
     ): Flow<ConnectApplication> =
         autoPagingFlow { cursor ->
             listApplications(
-                before = before,
+                before = if (cursor == null) before else null,
                 after = cursor,
                 limit = limit,
                 order = order,

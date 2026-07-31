@@ -164,7 +164,7 @@ public class Vault internal constructor(
         autoPagingFlow { cursor ->
             listKv(
                 limit = limit,
-                before = before,
+                before = if (cursor == null) before else null,
                 after = cursor,
                 order = order,
                 search = search,

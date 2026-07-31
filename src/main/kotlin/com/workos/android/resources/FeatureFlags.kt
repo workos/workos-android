@@ -68,7 +68,7 @@ public class FeatureFlags internal constructor(
     ): Flow<Flag> =
         autoPagingFlow { cursor ->
             list(
-                before = before,
+                before = if (cursor == null) before else null,
                 after = cursor,
                 limit = limit,
                 order = order,
@@ -249,7 +249,7 @@ public class FeatureFlags internal constructor(
         autoPagingFlow { cursor ->
             listOrganizationFeatureFlags(
                 organizationId = organizationId,
-                before = before,
+                before = if (cursor == null) before else null,
                 after = cursor,
                 limit = limit,
                 order = order,
@@ -313,7 +313,7 @@ public class FeatureFlags internal constructor(
         autoPagingFlow { cursor ->
             listUserFeatureFlags(
                 userId = userId,
-                before = before,
+                before = if (cursor == null) before else null,
                 after = cursor,
                 limit = limit,
                 order = order,

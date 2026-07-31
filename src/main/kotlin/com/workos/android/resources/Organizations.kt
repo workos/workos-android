@@ -85,7 +85,7 @@ public class Organizations internal constructor(
     ): Flow<Organization> =
         autoPagingFlow { cursor ->
             list(
-                before = before,
+                before = if (cursor == null) before else null,
                 after = cursor,
                 limit = limit,
                 order = order,
@@ -327,7 +327,7 @@ public class Organizations internal constructor(
         autoPagingFlow { cursor ->
             listAuthorizedApplications(
                 organizationId = organizationId,
-                before = before,
+                before = if (cursor == null) before else null,
                 after = cursor,
                 limit = limit,
                 order = order,

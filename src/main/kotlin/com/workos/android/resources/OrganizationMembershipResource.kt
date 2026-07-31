@@ -90,7 +90,7 @@ public class OrganizationMembershipResource internal constructor(
     ): Flow<UserOrganizationMembership> =
         autoPagingFlow { cursor ->
             list(
-                before = before,
+                before = if (cursor == null) before else null,
                 after = cursor,
                 limit = limit,
                 order = order,
@@ -324,7 +324,7 @@ public class OrganizationMembershipResource internal constructor(
         autoPagingFlow { cursor ->
             listGroups(
                 omId = omId,
-                before = before,
+                before = if (cursor == null) before else null,
                 after = cursor,
                 limit = limit,
                 order = order,

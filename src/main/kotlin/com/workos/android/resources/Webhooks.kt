@@ -71,7 +71,7 @@ public class Webhooks internal constructor(
     ): Flow<WebhookEndpoint> =
         autoPagingFlow { cursor ->
             listEndpoints(
-                before = before,
+                before = if (cursor == null) before else null,
                 after = cursor,
                 limit = limit,
                 order = order,

@@ -214,7 +214,7 @@ public class MultiFactorAuth internal constructor(
         autoPagingFlow { cursor ->
             listUserAuthFactors(
                 userlandUserId = userlandUserId,
-                before = before,
+                before = if (cursor == null) before else null,
                 after = cursor,
                 limit = limit,
                 order = order,
