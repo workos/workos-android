@@ -8,6 +8,7 @@ import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
 import org.junit.jupiter.api.Test
+import java.util.concurrent.TimeUnit
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 import kotlin.test.assertNull
@@ -181,5 +182,45 @@ class TransportBehaviorTest {
                 assertEquals("nope", error.message)
                 assertEquals("some_code", error.code)
             }
+        }
+
+    @Test
+    fun `request options override maxRetries, beating the client configuration`() =
+        runTest {
+            val server = MockWebServer()
+            server.start()
+            repeat(2) { server.enqueue(MockResponse().setResponseCode(500).setBody("""{"message":"boom"}""")) }
+            server.enqueue(MockResponse().setResponseCode(200).setBody("""{"data":[],"list_metadata":{}}"""))
+
+            // The client disables retries entirely; only the per-request override can
+            // re-enable them, so a successful call here proves the override is read.
+            client(server, maxRetries = 0).organizations.list(requestOptions = RequestOptions(maxRetries = 2))
+
+            assertEquals(3, server.requestCount) // 1 initial + 2 retries
+        }
+
+    @Test
+    fun `request options override the timeout`() =
+        runTest {
+            val server = MockWebServer()
+            server.start()
+            // Answer far later than the per-request timeout allows.
+            server.enqueue(
+                MockResponse()
+                    .setResponseCode(200)
+                    .setBody("""{"data":[],"list_metadata":{}}""")
+                    .setBodyDelay(5, TimeUnit.SECONDS),
+            )
+
+            val error =
+                runCatching {
+                    client(server, maxRetries = 0).organizations.list(
+                        requestOptions = RequestOptions(timeoutSeconds = 1, maxRetries = 0),
+                    )
+                }.exceptionOrNull()
+
+            // A timeout is a transport failure, so it must surface as the SDK's own
+            // NetworkException rather than leaking OkHttp's InterruptedIOException.
+            assertTrue(error is NetworkException, "expected NetworkException, got $error")
         }
 }
