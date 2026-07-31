@@ -24,3 +24,8 @@ signing.key
 
 # Generated API docs site
 docs/_site/
+
+# Staging-only smoke call plan (integrateTarget: false). Produced alongside the SDK
+# for the smoke runner to consume; not part of the published SDK. Mirrors how
+# workos-ios ignores .oagen-ios-smoke.json while committing .oagen-manifest.json.
+.oagen-android-smoke.json
