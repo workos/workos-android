@@ -99,14 +99,14 @@ Hand-maintained in `helpers/`:
 | H19 | `public_client_factory` | ✅ `PublicClient.create(clientId)` |
 | H01 | `webhook_verify`        | ✅ `WebhookVerification().constructEvent(...)` |
 | H02 | `webhook_signature_primitives` | ✅ `verifyHeader` / `createSignature` |
-| H03 | `actions_helper`        | ❌ TODO |
-| H04 | `session_cookie_object` | ❌ TODO |
-| H05 | `session_cookie_inline` | ❌ TODO |
-| H06 | `session_cookie_raw_seal` | ❌ TODO |
-| H07 | `auth_response_session_sealing` | ❌ TODO |
+| H03 | `actions_helper`        | ✅ `client.actions` — verify + sign |
+| H04 | `session_cookie_object` | ⏳ needs a JWT/JWKS dependency decision — Iron substrate is done |
+| H05 | `session_cookie_inline` | ⏳ needs a JWT/JWKS dependency decision — Iron substrate is done |
+| H06 | `session_cookie_raw_seal` | ✅ `Iron.seal` / `Iron.unseal` (Fe26.2, workos-node interop verified) |
+| H07 | `auth_response_session_sealing` | ⏳ needs a JWT/JWKS dependency decision — Iron substrate is done |
 | H15 | `sso_pkce_authorization_url` | ⛔ blocked — `/sso/authorize` accepts no `code_challenge` in the spec |
 | H16 | `sso_pkce_code_exchange` | ⛔ blocked — `sso.getProfileAndToken` takes no `codeVerifier` and sends `client_secret` |
-| H18 | `vault_local_crypto`    | ❌ TODO |
+| H18 | `vault_local_crypto`    | ✅ `client.vaultCrypto.encrypt` / `.decrypt` |
 
 H01-H07 and H18 are **wire-compatibility-critical**: sealing and signing schemes must
 interoperate with the Node/Python/Kotlin SDKs, so they should be ported from an
