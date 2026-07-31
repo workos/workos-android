@@ -192,7 +192,11 @@ public class SSO internal constructor(
                 query.add(QueryParam("provider_scopes", value))
             }
         }
-        providerQueryParams?.let { query.add(QueryParam("provider_query_params", it.toString())) }
+        providerQueryParams?.let {
+            for ((key, value) in it) {
+                query.add(QueryParam("provider_query_params[$key]", value))
+            }
+        }
         domain?.let { query.add(QueryParam("domain", it)) }
         provider?.let { query.add(QueryParam("provider", it.rawValue)) }
         query.add(QueryParam("redirect_uri", redirectUri))

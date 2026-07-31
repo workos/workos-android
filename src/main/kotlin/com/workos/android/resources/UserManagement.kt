@@ -548,7 +548,11 @@ public class UserManagement internal constructor(
         codeChallenge?.let { query.add(QueryParam("code_challenge", it)) }
         domainHint?.let { query.add(QueryParam("domain_hint", it)) }
         connectionId?.let { query.add(QueryParam("connection_id", it)) }
-        providerQueryParams?.let { query.add(QueryParam("provider_query_params", it.toString())) }
+        providerQueryParams?.let {
+            for ((key, value) in it) {
+                query.add(QueryParam("provider_query_params[$key]", value))
+            }
+        }
         providerScopes?.let {
             for (value in it) {
                 query.add(QueryParam("provider_scopes", value))
