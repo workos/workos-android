@@ -35,7 +35,7 @@ public class SSO internal constructor(
      * @param domain Filter Connections by their associated domain.
      * @param organizationId Filter Connections by their associated organization.
      * @param search Searchable text to match against Connection names.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `Page<Connection>` returned by the API.
      */
     public suspend fun listConnections(
@@ -78,7 +78,7 @@ public class SSO internal constructor(
      * @param domain Filter Connections by their associated domain.
      * @param organizationId Filter Connections by their associated organization.
      * @param search Searchable text to match against Connection names.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return A cold flow of `Connection` values.
      */
     public fun listConnectionsAutoPaging(
@@ -111,7 +111,7 @@ public class SSO internal constructor(
      * Get the details of an existing connection.
      *
      * @param id Unique identifier for the Connection.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `Connection` returned by the API.
      */
     public suspend fun getConnection(
@@ -134,7 +134,7 @@ public class SSO internal constructor(
      * Permanently deletes an existing connection. It cannot be undone.
      *
      * @param id Unique identifier for the Connection.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      */
     public suspend fun deleteConnection(
         id: String,
@@ -229,7 +229,7 @@ public class SSO internal constructor(
      * You should call this endpoint from your server to generate a logout token which is required for the [Logout Redirect](https://workos.com/docs/reference/sso/logout) endpoint.
      *
      * @param profileId The unique ID of the profile to log out.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `SSOLogoutAuthorizeResponse` returned by the API.
      */
     public suspend fun authorizeLogout(
@@ -253,7 +253,7 @@ public class SSO internal constructor(
      *
      * Exchange an access token for a user's [Profile](https://workos.com/docs/reference/sso/profile). Because this profile is returned in the [Get a Profile and Token endpoint](https://workos.com/docs/reference/sso/profile/get-profile-and-token) your application usually does not need to call this endpoint. It is available for any authentication flows that require an additional endpoint to retrieve a user's profile.
      *
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `Profile` returned by the API.
      */
     public suspend fun getProfile(requestOptions: RequestOptions? = null): Profile {
@@ -274,7 +274,7 @@ public class SSO internal constructor(
      *
      * @param code The authorization code received from the authorization callback.
      * @param code2 The authorization code received from the authorization callback.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `SSOTokenResponse` returned by the API.
      */
     public suspend fun getProfileAndToken(

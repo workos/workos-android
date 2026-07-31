@@ -29,7 +29,7 @@ public class MultiFactorAuth internal constructor(
      *
      * @param id The unique ID of the Authentication Challenge.
      * @param code The one-time code to verify.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `AuthenticationChallengeVerifyResponse` returned by the API.
      */
     public suspend fun verifyChallenge(
@@ -59,7 +59,7 @@ public class MultiFactorAuth internal constructor(
      * @param totpIssuer Required when type is 'totp'.
      * @param totpUser Required when type is 'totp'.
      * @param userId The ID of the user to associate the factor with.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `AuthenticationFactorEnrolled` returned by the API.
      */
     public suspend fun enrollFactor(
@@ -92,7 +92,7 @@ public class MultiFactorAuth internal constructor(
      * Gets an Authentication Factor.
      *
      * @param id The unique ID of the Factor.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `AuthenticationFactor` returned by the API.
      */
     public suspend fun getFactor(
@@ -115,7 +115,7 @@ public class MultiFactorAuth internal constructor(
      * Permanently deletes an Authentication Factor. It cannot be undone.
      *
      * @param id The unique ID of the Factor.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      */
     public suspend fun deleteFactor(
         id: String,
@@ -138,7 +138,7 @@ public class MultiFactorAuth internal constructor(
      *
      * @param id The unique ID of the Authentication Factor to be challenged.
      * @param smsTemplate A custom template for the SMS message. Use the {{code}} placeholder to include the verification code.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `AuthenticationChallenge` returned by the API.
      */
     public suspend fun challengeFactor(
@@ -168,7 +168,7 @@ public class MultiFactorAuth internal constructor(
      * @param after An object ID that defines your place in the list. When the ID is not present, you are at the end of the list.
      * @param limit Upper limit on the number of objects to return, between `1` and `100`.
      * @param order Order the results by the creation time.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `Page<AuthenticationFactor>` returned by the API.
      */
     public suspend fun listUserAuthFactors(
@@ -201,7 +201,7 @@ public class MultiFactorAuth internal constructor(
      * @param before An object ID that defines your place in the list. When the ID is not present, you are at the end of the list.
      * @param limit Upper limit on the number of objects to return, between `1` and `100`.
      * @param order Order the results by the creation time.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return A cold flow of `AuthenticationFactor` values.
      */
     public fun listUserAuthFactorsAutoPaging(
@@ -232,7 +232,7 @@ public class MultiFactorAuth internal constructor(
      * @param totpIssuer Your application or company name displayed in the user's authenticator app.
      * @param totpUser The user's account name displayed in their authenticator app.
      * @param totpSecret The Base32-encoded shared secret for TOTP factors. This can be provided when creating the auth factor, otherwise it will be generated. The algorithm used to derive TOTP codes is SHA-1, the code length is 6 digits, and the timestep is 30 seconds – the secret must be compatible with these parameters.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `UserAuthenticationFactorEnrollResponse` returned by the API.
      */
     public suspend fun createUserAuthFactor(

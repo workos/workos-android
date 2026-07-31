@@ -755,6 +755,7 @@
     "src/test/kotlin/com/workos/android/ClientApiTest.kt",
     "src/test/kotlin/com/workos/android/ConnectTest.kt",
     "src/test/kotlin/com/workos/android/DirectorySyncTest.kt",
+    "src/test/kotlin/com/workos/android/EnumForwardCompatTest.kt",
     "src/test/kotlin/com/workos/android/EventsTest.kt",
     "src/test/kotlin/com/workos/android/FeatureFlagsTest.kt",
     "src/test/kotlin/com/workos/android/GroupsTest.kt",

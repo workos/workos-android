@@ -26,7 +26,7 @@ public class FeatureFlags internal constructor(
      * @param after An object ID that defines your place in the list. When the ID is not present, you are at the end of the list.
      * @param limit Upper limit on the number of objects to return, between `1` and `100`.
      * @param order Order the results by the creation time.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `Page<Flag>` returned by the API.
      */
     public suspend fun list(
@@ -57,7 +57,7 @@ public class FeatureFlags internal constructor(
      * @param before An object ID that defines your place in the list. When the ID is not present, you are at the end of the list.
      * @param limit Upper limit on the number of objects to return, between `1` and `100`.
      * @param order Order the results by the creation time.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return A cold flow of `Flag` values.
      */
     public fun listAutoPaging(
@@ -82,7 +82,7 @@ public class FeatureFlags internal constructor(
      * Get the details of an existing feature flag by its slug.
      *
      * @param slug A unique key to reference the Feature Flag.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `Flag` returned by the API.
      */
     public suspend fun get(
@@ -105,7 +105,7 @@ public class FeatureFlags internal constructor(
      * Disables a feature flag in the current environment.
      *
      * @param slug A unique key to reference the Feature Flag.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `FeatureFlag` returned by the API.
      */
     public suspend fun disable(
@@ -128,7 +128,7 @@ public class FeatureFlags internal constructor(
      * Enables a feature flag in the current environment.
      *
      * @param slug A unique key to reference the Feature Flag.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `FeatureFlag` returned by the API.
      */
     public suspend fun enable(
@@ -152,7 +152,7 @@ public class FeatureFlags internal constructor(
      *
      * @param slug The unique slug identifier of the feature flag.
      * @param resourceId The resource ID in format "user_<id>" or "org_<id>".
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      */
     public suspend fun addFlagTarget(
         slug: String,
@@ -176,7 +176,7 @@ public class FeatureFlags internal constructor(
      *
      * @param slug The unique slug identifier of the feature flag.
      * @param resourceId The resource ID in format "user_<id>" or "org_<id>".
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      */
     public suspend fun removeFlagTarget(
         slug: String,
@@ -203,7 +203,7 @@ public class FeatureFlags internal constructor(
      * @param after An object ID that defines your place in the list. When the ID is not present, you are at the end of the list.
      * @param limit Upper limit on the number of objects to return, between `1` and `100`.
      * @param order Order the results by the creation time.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `Page<Flag>` returned by the API.
      */
     public suspend fun listOrganizationFeatureFlags(
@@ -236,7 +236,7 @@ public class FeatureFlags internal constructor(
      * @param before An object ID that defines your place in the list. When the ID is not present, you are at the end of the list.
      * @param limit Upper limit on the number of objects to return, between `1` and `100`.
      * @param order Order the results by the creation time.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return A cold flow of `Flag` values.
      */
     public fun listOrganizationFeatureFlagsAutoPaging(
@@ -267,7 +267,7 @@ public class FeatureFlags internal constructor(
      * @param after An object ID that defines your place in the list. When the ID is not present, you are at the end of the list.
      * @param limit Upper limit on the number of objects to return, between `1` and `100`.
      * @param order Order the results by the creation time.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `Page<Flag>` returned by the API.
      */
     public suspend fun listUserFeatureFlags(
@@ -300,7 +300,7 @@ public class FeatureFlags internal constructor(
      * @param before An object ID that defines your place in the list. When the ID is not present, you are at the end of the list.
      * @param limit Upper limit on the number of objects to return, between `1` and `100`.
      * @param order Order the results by the creation time.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return A cold flow of `Flag` values.
      */
     public fun listUserFeatureFlagsAutoPaging(

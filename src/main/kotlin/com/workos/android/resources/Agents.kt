@@ -25,7 +25,7 @@ public class Agents internal constructor(
      * @param claimAttemptToken The token identifying the claim attempt.
      * @param user The user to attach to the claim attempt, identified by email and external ID.
      * @param organizationId The organization to place the agent in. Required when the user belongs to more than one organization.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `ClaimViewResponse` returned by the API.
      */
     public suspend fun updateAttempts(
@@ -58,7 +58,7 @@ public class Agents internal constructor(
      * @param type The kind of credential being validated — an agent API key or an agent access token.
      * @param credential The credential value to validate: the API key value for `api_key`, or the access token (JWT) for `access_token`.
      * @param audience When provided, the access token's `aud` claim is verified against this value. Tokens issued for a different resource are rejected.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `AgentCredentialValidation` returned by the API.
      */
     public suspend fun createValidate(
@@ -87,7 +87,7 @@ public class Agents internal constructor(
      * Retrieve the details of an agent registration by ID. The registration is scoped to the environment of the API key used to authenticate the request.
      *
      * @param id The unique ID of the agent registration.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `AgentRegistration` returned by the API.
      */
     public suspend fun getRegistration(

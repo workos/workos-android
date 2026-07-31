@@ -38,7 +38,7 @@ public class Pipes internal constructor(
      * @param after An object ID that defines your place in the list. When the ID is not present, you are at the end of the list. For example, if you make a list request and receive 100 objects, ending with `"obj_123"`, your subsequent call can include `after="obj_123"` to fetch a new batch of objects after `"obj_123"`.
      * @param limit Upper limit on the number of objects to return, between `1` and `100`.
      * @param order Order the results by the creation time. Supported values are `"asc"` (ascending), `"desc"` (descending), and `"normal"` (descending with reversed cursor semantics where `before` fetches older records and `after` fetches newer records).
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `Page<DataIntegration>` returned by the API.
      */
     public suspend fun listDataIntegrations(
@@ -69,7 +69,7 @@ public class Pipes internal constructor(
      * @param before An object ID that defines your place in the list. When the ID is not present, you are at the end of the list. For example, if you make a list request and receive 100 objects, ending with `"obj_123"`, your subsequent call can include `before="obj_123"` to fetch a new batch of objects before `"obj_123"`.
      * @param limit Upper limit on the number of objects to return, between `1` and `100`.
      * @param order Order the results by the creation time. Supported values are `"asc"` (ascending), `"desc"` (descending), and `"normal"` (descending with reversed cursor semantics where `before` fetches older records and `after` fetches newer records).
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return A cold flow of `DataIntegration` values.
      */
     public fun listDataIntegrationsAutoPaging(
@@ -102,7 +102,7 @@ public class Pipes internal constructor(
      * @param credentials The OAuth credentials to configure for the Data Integration. Required for OAuth integrations; omit when `auth_methods` is `["api_key"]`.
      * @param apiKey An optional API key to install for the first tenant on an `api_key` integration. Omit to declare a keyless integration; tenants can be added later via the per-installation API key path.
      * @param customProvider The OAuth definition for a custom provider. Supply this to define a custom provider; omit it to create an integration for a built-in provider.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `DataIntegration` returned by the API.
      */
     public suspend fun createDataIntegration(
@@ -143,7 +143,7 @@ public class Pipes internal constructor(
      * Retrieves a data integration by its slug.
      *
      * @param slug The slug identifier of the data integration.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `DataIntegration` returned by the API.
      */
     public suspend fun getDataIntegration(
@@ -172,7 +172,7 @@ public class Pipes internal constructor(
      * @param credentials New OAuth credentials for the Data Integration. When provided, rotates the stored client secret. Mutually exclusive with `api_key`.
      * @param apiKey An API key to install or rotate for a tenant on an `api_key` integration. Upserts the tenant installation identified by `user_id` (and optional `organization_id`).
      * @param customProvider Updates to a custom provider's OAuth definition. Only valid for custom-provider integrations.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `DataIntegration` returned by the API.
      */
     public suspend fun updateDataIntegration(
@@ -208,7 +208,7 @@ public class Pipes internal constructor(
      * Deletes a data integration and all of its connected installations. For a custom provider, also deletes the custom provider definition.
      *
      * @param slug The slug identifier of the data integration.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      */
     public suspend fun deleteDataIntegration(
         slug: String,
@@ -233,7 +233,7 @@ public class Pipes internal constructor(
      * @param userId A [User](https://workos.com/docs/reference/authkit/user) identifier.
      * @param secret The API key secret to store for this integration.
      * @param organizationId An [Organization](https://workos.com/docs/reference/organization) identifier. Optional parameter to scope the connection to a specific organization.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `ConnectedAccount` returned by the API.
      */
     public suspend fun updateDataIntegrationApiKey(
@@ -267,7 +267,7 @@ public class Pipes internal constructor(
      * @param organizationId An organization ID to scope the authorization to a specific organization.
      * @param returnTo The URL to redirect the user to after authorization.
      * @param config Connect-time config values for the provider-declared `installation`-scope fields (e.g. a Zendesk `subdomain`), keyed by the config field. Only fields the provider declares may be supplied, and required fields must be provided unless already pinned on the integration.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `DataIntegrationAuthorizeUrlResponse` returned by the API.
      */
     public suspend fun authorizeDataIntegration(
@@ -301,7 +301,7 @@ public class Pipes internal constructor(
      * @param slug The identifier of the integration.
      * @param userId A [User](https://workos.com/docs/reference/authkit/user) identifier.
      * @param organizationId An [Organization](https://workos.com/docs/reference/organization) identifier. Optional parameter to scope the connection to a specific organization.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `DataIntegrationCredentialsResponse` returned by the API.
      */
     public suspend fun createDataIntegrationCredential(
@@ -331,7 +331,7 @@ public class Pipes internal constructor(
      * @param provider The identifier of the integration.
      * @param userId A [User](https://workos.com/docs/reference/authkit/user) identifier.
      * @param organizationId An [Organization](https://workos.com/docs/reference/organization) identifier. Optional parameter to scope the connection to a specific organization.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `DataIntegrationAccessTokenResponse` returned by the API.
      */
     public suspend fun getAccessToken(
@@ -361,7 +361,7 @@ public class Pipes internal constructor(
      * @param userId A [User](https://workos.com/docs/reference/authkit/user) identifier.
      * @param slug The slug identifier of the provider (e.g., `github`, `slack`, `notion`).
      * @param organizationId An [Organization](https://workos.com/docs/reference/organization) identifier. Optional parameter if the connection is scoped to an organization.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `ConnectedAccount` returned by the API.
      */
     public suspend fun getUserConnectedAccount(
@@ -395,7 +395,7 @@ public class Pipes internal constructor(
      * @param scopes The OAuth scopes granted for this connection.
      * @param state Explicitly set the state of the connected account. When omitted, the state is derived from the token combination provided.
      * @param organizationId An [Organization](https://workos.com/docs/reference/organization) identifier. Optional parameter if the connection is scoped to an organization.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `ConnectedAccount` returned by the API.
      */
     public suspend fun createUserConnectedAccount(
@@ -440,7 +440,7 @@ public class Pipes internal constructor(
      * @param scopes The OAuth scopes granted for this connection.
      * @param state Explicitly set the state of the connected account. When omitted, the state is derived from the token combination provided.
      * @param organizationId An [Organization](https://workos.com/docs/reference/organization) identifier. Optional parameter if the connection is scoped to an organization.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `ConnectedAccount` returned by the API.
      */
     public suspend fun updateUserConnectedAccount(
@@ -480,7 +480,7 @@ public class Pipes internal constructor(
      * @param userId A [User](https://workos.com/docs/reference/authkit/user) identifier.
      * @param slug The slug identifier of the provider (e.g., `github`, `slack`, `notion`).
      * @param organizationId An [Organization](https://workos.com/docs/reference/organization) identifier. Optional parameter if the connection is scoped to an organization.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      */
     public suspend fun deleteUserConnectedAccount(
         userId: String,
@@ -507,7 +507,7 @@ public class Pipes internal constructor(
      *
      * @param userId A [User](https://workos.com/docs/reference/authkit/user) identifier to list providers and connected accounts for.
      * @param organizationId An [Organization](https://workos.com/docs/reference/organization) identifier. Optional parameter to filter connections for a specific organization.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `DataIntegrationsListResponse` returned by the API.
      */
     public suspend fun listUserDataProviders(

@@ -31,7 +31,7 @@ public class ApiKeys internal constructor(
      * @param after An object ID that defines your place in the list. When the ID is not present, you are at the end of the list.
      * @param limit Upper limit on the number of objects to return, between `1` and `100`.
      * @param order Order the results by the creation time.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `Page<OrganizationApiKey>` returned by the API.
      */
     public suspend fun listOrganizationApiKeys(
@@ -64,7 +64,7 @@ public class ApiKeys internal constructor(
      * @param before An object ID that defines your place in the list. When the ID is not present, you are at the end of the list.
      * @param limit Upper limit on the number of objects to return, between `1` and `100`.
      * @param order Order the results by the creation time.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return A cold flow of `OrganizationApiKey` values.
      */
     public fun listOrganizationApiKeysAutoPaging(
@@ -94,7 +94,7 @@ public class ApiKeys internal constructor(
      * @param name The name for the API key.
      * @param permissions The permission slugs to assign to the API key.
      * @param expiresAt The timestamp when the API key should expire. Must be a future timestamp. If omitted, the key does not expire.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `OrganizationApiKeyWithValue` returned by the API.
      */
     public suspend fun createOrganizationApiKey(
@@ -124,7 +124,7 @@ public class ApiKeys internal constructor(
      * Validate an API key value and return the API key object if valid.
      *
      * @param value The value for an API key.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `ApiKeyValidationResponse` returned by the API.
      */
     public suspend fun createValidation(
@@ -149,7 +149,7 @@ public class ApiKeys internal constructor(
      * Permanently deletes an API key. This action cannot be undone. Once deleted, any requests using this API key will fail authentication.
      *
      * @param id The unique ID of the API key.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      */
     public suspend fun delete(
         id: String,
@@ -172,7 +172,7 @@ public class ApiKeys internal constructor(
      *
      * @param id The unique ID of the API key.
      * @param expiresAt When the API key should expire. If omitted or in the past, the key expires immediately. Use null to clear a scheduled future expiration.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `ApiKey` returned by the API.
      */
     public suspend fun createExpire(

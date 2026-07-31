@@ -19,7 +19,7 @@ public class OrganizationDomains internal constructor(
      *
      * @param domain The domain to add to the organization.
      * @param organizationId The ID of the organization to add the domain to.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `OrganizationDomain` returned by the API.
      */
     public suspend fun create(
@@ -46,7 +46,7 @@ public class OrganizationDomains internal constructor(
      * Get the details of an existing organization domain.
      *
      * @param id Unique identifier of the organization domain.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `OrganizationDomain` returned by the API.
      */
     public suspend fun get(
@@ -69,7 +69,7 @@ public class OrganizationDomains internal constructor(
      * Permanently deletes an organization domain. It cannot be undone.
      *
      * @param id Unique identifier of the organization domain.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      */
     public suspend fun delete(
         id: String,
@@ -91,7 +91,7 @@ public class OrganizationDomains internal constructor(
      * Initiates verification process for an Organization Domain.
      *
      * @param id Unique identifier of the organization domain.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `OrganizationDomain` returned by the API.
      */
     public suspend fun verify(

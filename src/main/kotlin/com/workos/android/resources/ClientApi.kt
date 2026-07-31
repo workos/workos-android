@@ -18,7 +18,7 @@ public class ClientApi internal constructor(
      *
      * @param organizationId The ID of the organization to scope the Client API token to.
      * @param userId The ID of the user to issue the Client API token for.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `ClientApiTokenResponse` returned by the API.
      */
     public suspend fun createToken(

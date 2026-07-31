@@ -32,7 +32,7 @@ public class OrganizationMembershipResource internal constructor(
      * @param organizationId The ID of the [organization](https://workos.com/docs/reference/organization) which the user belongs to.
      * @param statuses Filter by the status of the organization membership. Array including any of `active`, `inactive`, or `pending`.
      * @param userId The ID of the [user](https://workos.com/docs/reference/authkit/user).
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `Page<UserOrganizationMembership>` returned by the API.
      */
     public suspend fun list(
@@ -76,7 +76,7 @@ public class OrganizationMembershipResource internal constructor(
      * @param organizationId The ID of the [organization](https://workos.com/docs/reference/organization) which the user belongs to.
      * @param statuses Filter by the status of the organization membership. Array including any of `active`, `inactive`, or `pending`.
      * @param userId The ID of the [user](https://workos.com/docs/reference/authkit/user).
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return A cold flow of `UserOrganizationMembership` values.
      */
     public fun listAutoPaging(
@@ -112,7 +112,7 @@ public class OrganizationMembershipResource internal constructor(
      * @param organizationId The ID of the [organization](https://workos.com/docs/reference/organization) which the user belongs to.
      * @param roleSlug A single role identifier. Defaults to `member` or the explicit default role. Mutually exclusive with `role_slugs`.
      * @param roleSlugs An array of role identifiers. Limited to one role when Multiple Roles is disabled. Mutually exclusive with `role_slug`.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `OrganizationMembership` returned by the API.
      */
     public suspend fun create(
@@ -143,7 +143,7 @@ public class OrganizationMembershipResource internal constructor(
      * Get the details of an existing organization membership.
      *
      * @param id The unique ID of the organization membership.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `UserOrganizationMembership` returned by the API.
      */
     public suspend fun get(
@@ -168,7 +168,7 @@ public class OrganizationMembershipResource internal constructor(
      * @param id The unique ID of the organization membership.
      * @param roleSlug A single role identifier. Defaults to `member` or the explicit default role. Mutually exclusive with `role_slugs`.
      * @param roleSlugs An array of role identifiers. Limited to one role when Multiple Roles is disabled. Mutually exclusive with `role_slug`.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `UserOrganizationMembership` returned by the API.
      */
     public suspend fun update(
@@ -196,7 +196,7 @@ public class OrganizationMembershipResource internal constructor(
      * Permanently deletes an existing organization membership. It cannot be undone.
      *
      * @param id The unique ID of the organization membership.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      */
     public suspend fun delete(
         id: String,
@@ -223,7 +223,7 @@ public class OrganizationMembershipResource internal constructor(
      * See the [membership management documentation](https://workos.com/docs/authkit/users-organizations/organizations/membership-management) for additional details.
      *
      * @param id The unique ID of the organization membership.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `OrganizationMembership` returned by the API.
      */
     public suspend fun deactivate(
@@ -251,7 +251,7 @@ public class OrganizationMembershipResource internal constructor(
      * See the [membership management documentation](https://workos.com/docs/authkit/users-organizations/organizations/membership-management) for additional details.
      *
      * @param id The unique ID of the organization membership.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `UserOrganizationMembership` returned by the API.
      */
     public suspend fun reactivate(
@@ -278,7 +278,7 @@ public class OrganizationMembershipResource internal constructor(
      * @param after An object ID that defines your place in the list. When the ID is not present, you are at the end of the list. For example, if you make a list request and receive 100 objects, ending with `"obj_123"`, your subsequent call can include `after="obj_123"` to fetch a new batch of objects after `"obj_123"`.
      * @param limit Upper limit on the number of objects to return, between `1` and `100`.
      * @param order Order the results by the creation time. Supported values are `"asc"` (ascending), `"desc"` (descending), and `"normal"` (descending with reversed cursor semantics where `before` fetches older records and `after` fetches newer records).
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `Page<Group>` returned by the API.
      */
     public suspend fun listGroups(
@@ -311,7 +311,7 @@ public class OrganizationMembershipResource internal constructor(
      * @param before An object ID that defines your place in the list. When the ID is not present, you are at the end of the list. For example, if you make a list request and receive 100 objects, ending with `"obj_123"`, your subsequent call can include `before="obj_123"` to fetch a new batch of objects before `"obj_123"`.
      * @param limit Upper limit on the number of objects to return, between `1` and `100`.
      * @param order Order the results by the creation time. Supported values are `"asc"` (ascending), `"desc"` (descending), and `"normal"` (descending with reversed cursor semantics where `before` fetches older records and `after` fetches newer records).
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return A cold flow of `Group` values.
      */
     public fun listGroupsAutoPaging(

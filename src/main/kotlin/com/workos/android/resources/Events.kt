@@ -28,7 +28,7 @@ public class Events internal constructor(
      * @param rangeStart ISO-8601 date string to filter events created after this date.
      * @param rangeEnd ISO-8601 date string to filter events created before this date.
      * @param organizationId Filter events by the [Organization](https://workos.com/docs/reference/organization) that the event is associated with.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `Page<EventSchema>` returned by the API.
      */
     public suspend fun list(
@@ -75,7 +75,7 @@ public class Events internal constructor(
      * @param rangeStart ISO-8601 date string to filter events created after this date.
      * @param rangeEnd ISO-8601 date string to filter events created before this date.
      * @param organizationId Filter events by the [Organization](https://workos.com/docs/reference/organization) that the event is associated with.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return A cold flow of `EventSchema` values.
      */
     public fun listAutoPaging(

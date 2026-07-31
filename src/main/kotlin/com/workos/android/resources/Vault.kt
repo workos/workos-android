@@ -30,7 +30,7 @@ public class Vault internal constructor(
      * Generate an isolated encryption key for local encryption operations.
      *
      * @param context Map of values used to determine the encryption key.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `CreateDataKeyResponse` returned by the API.
      */
     public suspend fun createDataKey(
@@ -55,7 +55,7 @@ public class Vault internal constructor(
      * Decrypt a previously encrypted data key from WorkOS Vault.
      *
      * @param keys Base64-encoded encrypted data key to decrypt.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `DecryptResponse` returned by the API.
      */
     public suspend fun createDecrypt(
@@ -81,7 +81,7 @@ public class Vault internal constructor(
      *
      * @param context Map of values used to determine the new encryption key.
      * @param encryptedKeys Base64-encoded encrypted data key blob to re-encrypt.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `CreateDataKeyResponse` returned by the API.
      */
     public suspend fun createRekey(
@@ -113,7 +113,7 @@ public class Vault internal constructor(
      * @param order Sort direction for results.
      * @param search Filter results by name or structured search JSON.
      * @param updatedAfter ISO 8601 timestamp to filter by last modified time.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `Page<ObjectSummary>` returned by the API.
      */
     public suspend fun listKv(
@@ -150,7 +150,7 @@ public class Vault internal constructor(
      * @param order Sort direction for results.
      * @param search Filter results by name or structured search JSON.
      * @param updatedAfter ISO 8601 timestamp to filter by last modified time.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return A cold flow of `ObjectSummary` values.
      */
     public fun listKvAutoPaging(
@@ -181,7 +181,7 @@ public class Vault internal constructor(
      * @param keyContext Map of values used to determine the encryption key.
      * @param name Unique name for the object.
      * @param value Plaintext data to encrypt and store.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `ObjectMetadata` returned by the API.
      */
     public suspend fun createKv(
@@ -210,7 +210,7 @@ public class Vault internal constructor(
      * Fetch and decrypt an object by its unique name.
      *
      * @param name Unique name of the object.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `VaultObject` returned by the API.
      */
     public suspend fun getName(
@@ -233,7 +233,7 @@ public class Vault internal constructor(
      * Fetch and decrypt an object by its unique identifier.
      *
      * @param id Unique identifier of the object.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `VaultObject` returned by the API.
      */
     public suspend fun getKv(
@@ -258,7 +258,7 @@ public class Vault internal constructor(
      * @param id Unique identifier of the object.
      * @param value New plaintext value.
      * @param versionCheck ID of the expected current version for optimistic locking.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `ObjectWithoutValue` returned by the API.
      */
     public suspend fun updateKv(
@@ -287,7 +287,7 @@ public class Vault internal constructor(
      *
      * @param id Unique identifier of the object.
      * @param versionCheck Expected current version for optimistic locking.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      */
     public suspend fun deleteKv(
         id: String,
@@ -312,7 +312,7 @@ public class Vault internal constructor(
      * Fetch metadata for an object without decrypting it.
      *
      * @param id Unique identifier of the object.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `ObjectWithoutValue` returned by the API.
      */
     public suspend fun listKvMetadata(
@@ -335,7 +335,7 @@ public class Vault internal constructor(
      * Retrieve all versions for a specific object.
      *
      * @param id Unique identifier of the object.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `VersionListResponse` returned by the API.
      */
     public suspend fun listKvVersions(

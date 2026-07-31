@@ -20,7 +20,7 @@ public class Widgets internal constructor(
      * @param organizationId The ID of the organization to scope the widget session to. Required when scopes are provided. Optional when issuing a token for user-only widgets (e.g. `UserProfile`, `UserSecurity`) that do not require organization context.
      * @param userId The ID of the user to issue the widget session token for.
      * @param scopes The scopes to grant the widget session.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `WidgetSessionTokenResponse` returned by the API.
      */
     public suspend fun createToken(

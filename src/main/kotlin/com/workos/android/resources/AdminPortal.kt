@@ -22,7 +22,7 @@ public class AdminPortal internal constructor(
      * @param successUrl The URL to redirect the admin to when they finish setup. If not specified, the success URL configured on the [Redirects](https://dashboard.workos.com/redirects) page will be used.
      * @param intent The intent of the Admin Portal.
      * @param itContactEmails The email addresses of the IT contacts to grant access to the Admin Portal for the given organization. Accepts up to 20 emails.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `PortalLinkResponse` returned by the API.
      */
     public suspend fun generateLink(

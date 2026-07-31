@@ -42,7 +42,7 @@ public class Connect internal constructor(
      * @param externalAuthId Identifier provided when AuthKit redirected to your login page.
      * @param user The user to create or update in AuthKit.
      * @param userConsentOptions Array of [User Consent Options](https://workos.com/docs/reference/workos-connect/standalone/user-consent-options) to store with the session.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `ExternalAuthCompleteResponse` returned by the API.
      */
     public suspend fun completeOAuth2(
@@ -76,7 +76,7 @@ public class Connect internal constructor(
      * @param order Order the results by the creation time. Supported values are `"asc"` (ascending), `"desc"` (descending), and `"normal"` (descending with reversed cursor semantics where `before` fetches older records and `after` fetches newer records).
      * @param registrationTypes Filter Connect Applications by registration type. Specify multiple as a comma-separated list (e.g. `registration_types=dynamic,authenticated`). Defaults to `authenticated` only when not specified.
      * @param organizationId Filter Connect Applications by organization ID.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `Page<ConnectApplication>` returned by the API.
      */
     public suspend fun listApplications(
@@ -117,7 +117,7 @@ public class Connect internal constructor(
      * @param order Order the results by the creation time. Supported values are `"asc"` (ascending), `"desc"` (descending), and `"normal"` (descending with reversed cursor semantics where `before` fetches older records and `after` fetches newer records).
      * @param registrationTypes Filter Connect Applications by registration type. Specify multiple as a comma-separated list (e.g. `registration_types=dynamic,authenticated`). Defaults to `authenticated` only when not specified.
      * @param organizationId Filter Connect Applications by organization ID.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return A cold flow of `ConnectApplication` values.
      */
     public fun listApplicationsAutoPaging(
@@ -152,7 +152,7 @@ public class Connect internal constructor(
      * @param redirectUris Redirect URIs for the application.
      * @param usesPkce Whether the application uses PKCE (Proof Key for Code Exchange).
      * @param organizationId The organization ID this application belongs to. Required when is_first_party is false.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `ConnectApplication` returned by the API.
      */
     public suspend fun createOAuthApplication(
@@ -193,7 +193,7 @@ public class Connect internal constructor(
      * @param organizationId The organization ID this application belongs to.
      * @param description A description for the application.
      * @param scopes The OAuth scopes granted to the application.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `ConnectApplication` returned by the API.
      */
     public suspend fun createM2MApplication(
@@ -225,7 +225,7 @@ public class Connect internal constructor(
      * Retrieve details for a specific Connect Application by ID or client ID.
      *
      * @param id The application ID or client ID of the Connect Application.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `ConnectApplication` returned by the API.
      */
     public suspend fun getApplication(
@@ -252,7 +252,7 @@ public class Connect internal constructor(
      * @param description A description for the application.
      * @param scopes The OAuth scopes granted to the application.
      * @param redirectUris Updated redirect URIs for the application. OAuth applications only.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `ConnectApplication` returned by the API.
      */
     public suspend fun updateApplication(
@@ -284,7 +284,7 @@ public class Connect internal constructor(
      * Delete an existing Connect Application.
      *
      * @param id The application ID or client ID of the Connect Application.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      */
     public suspend fun deleteApplication(
         id: String,
@@ -306,7 +306,7 @@ public class Connect internal constructor(
      * List all client secrets associated with a Connect Application.
      *
      * @param id The application ID or client ID of the Connect Application.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `List<ApplicationCredentialsListItem>` returned by the API.
      */
     public suspend fun listApplicationClientSecrets(
@@ -330,7 +330,7 @@ public class Connect internal constructor(
      *
      * @param id The application ID or client ID of the Connect Application.
      * @param body The body value.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `NewConnectApplicationSecret` returned by the API.
      */
     public suspend fun createApplicationClientSecret(
@@ -356,7 +356,7 @@ public class Connect internal constructor(
      * Delete (revoke) an existing client secret.
      *
      * @param id The unique ID of the client secret.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      */
     public suspend fun deleteClientSecret(
         id: String,

@@ -28,7 +28,7 @@ public class Groups internal constructor(
      * @param after An object ID that defines your place in the list. When the ID is not present, you are at the end of the list. For example, if you make a list request and receive 100 objects, ending with `"obj_123"`, your subsequent call can include `after="obj_123"` to fetch a new batch of objects after `"obj_123"`.
      * @param limit Upper limit on the number of objects to return, between `1` and `100`.
      * @param order Order the results by the creation time. Supported values are `"asc"` (ascending), `"desc"` (descending), and `"normal"` (descending with reversed cursor semantics where `before` fetches older records and `after` fetches newer records).
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `Page<Group>` returned by the API.
      */
     public suspend fun listOrganizationGroups(
@@ -61,7 +61,7 @@ public class Groups internal constructor(
      * @param before An object ID that defines your place in the list. When the ID is not present, you are at the end of the list. For example, if you make a list request and receive 100 objects, ending with `"obj_123"`, your subsequent call can include `before="obj_123"` to fetch a new batch of objects before `"obj_123"`.
      * @param limit Upper limit on the number of objects to return, between `1` and `100`.
      * @param order Order the results by the creation time. Supported values are `"asc"` (ascending), `"desc"` (descending), and `"normal"` (descending with reversed cursor semantics where `before` fetches older records and `after` fetches newer records).
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return A cold flow of `Group` values.
      */
     public fun listOrganizationGroupsAutoPaging(
@@ -90,7 +90,7 @@ public class Groups internal constructor(
      * @param organizationId The ID of the organization.
      * @param name The name of the Group.
      * @param description An optional description of the Group.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `Group` returned by the API.
      */
     public suspend fun createOrganizationGroup(
@@ -119,7 +119,7 @@ public class Groups internal constructor(
      *
      * @param organizationId The ID of the organization.
      * @param groupId The ID of the group.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `Group` returned by the API.
      */
     public suspend fun getOrganizationGroup(
@@ -146,7 +146,7 @@ public class Groups internal constructor(
      * @param groupId The ID of the group.
      * @param name The name of the Group.
      * @param description An optional description of the Group.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `Group` returned by the API.
      */
     public suspend fun updateOrganizationGroup(
@@ -176,7 +176,7 @@ public class Groups internal constructor(
      *
      * @param organizationId The ID of the organization.
      * @param groupId The ID of the group.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      */
     public suspend fun deleteOrganizationGroup(
         organizationId: String,
@@ -204,7 +204,7 @@ public class Groups internal constructor(
      * @param after An object ID that defines your place in the list. When the ID is not present, you are at the end of the list. For example, if you make a list request and receive 100 objects, ending with `"obj_123"`, your subsequent call can include `after="obj_123"` to fetch a new batch of objects after `"obj_123"`.
      * @param limit Upper limit on the number of objects to return, between `1` and `100`.
      * @param order Order the results by the creation time. Supported values are `"asc"` (ascending), `"desc"` (descending), and `"normal"` (descending with reversed cursor semantics where `before` fetches older records and `after` fetches newer records).
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `Page<UserOrganizationMembershipBaseListData>` returned by the API.
      */
     public suspend fun listOrganizationMemberships(
@@ -239,7 +239,7 @@ public class Groups internal constructor(
      * @param before An object ID that defines your place in the list. When the ID is not present, you are at the end of the list. For example, if you make a list request and receive 100 objects, ending with `"obj_123"`, your subsequent call can include `before="obj_123"` to fetch a new batch of objects before `"obj_123"`.
      * @param limit Upper limit on the number of objects to return, between `1` and `100`.
      * @param order Order the results by the creation time. Supported values are `"asc"` (ascending), `"desc"` (descending), and `"normal"` (descending with reversed cursor semantics where `before` fetches older records and `after` fetches newer records).
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return A cold flow of `UserOrganizationMembershipBaseListData` values.
      */
     public fun listOrganizationMembershipsAutoPaging(
@@ -270,7 +270,7 @@ public class Groups internal constructor(
      * @param organizationId Unique identifier of the Organization.
      * @param groupId Unique identifier of the Group.
      * @param organizationMembershipId The ID of the Organization Membership to add to the group.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `Group` returned by the API.
      */
     public suspend fun createOrganizationMembership(
@@ -299,7 +299,7 @@ public class Groups internal constructor(
      * @param organizationId Unique identifier of the Organization.
      * @param groupId Unique identifier of the Group.
      * @param omId Unique identifier of the Organization Membership.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      */
     public suspend fun deleteOrganizationMembership(
         organizationId: String,

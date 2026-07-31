@@ -19,7 +19,7 @@ public class PipesProvider internal constructor(
      * Returns a list of all providers available to the specified organization, along with any configured custom OAuth scopes, enabled state, and organization-managed credentials where applicable.
      *
      * @param organizationId An [Organization](https://workos.com/docs/reference/organization) identifier to list provider configurations for.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `DataIntegrationConfigurationListResponse` returned by the API.
      */
     public suspend fun listOrganizationDataIntegrationConfigurations(
@@ -48,7 +48,7 @@ public class PipesProvider internal constructor(
      * @param clientId The OAuth client ID of the organization's own application. Must be provided together with `client_secret`, and only for providers whose credentials are supplied by the organization.
      * @param clientSecret The OAuth client secret of the organization's own application. Must be provided together with `client_id`.
      * @param config Provider-specific config values to set for the organization, keyed by config field. Only fields the provider declares are accepted, and each value must match that field's pattern. Accepted only for providers whose credentials are organization-managed; for shared or custom credential providers, config belongs on the integration itself (via the data-integrations API) and supplying it here is rejected.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `DataIntegrationConfigurationResponse` returned by the API.
      */
     public suspend fun updateOrganizationDataIntegrationConfiguration(

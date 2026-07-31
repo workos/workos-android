@@ -30,7 +30,7 @@ public class DirectorySync internal constructor(
      * @param organizationId Filter Directories by their associated organization.
      * @param search Searchable text to match against Directory names.
      * @param domain Deprecated. Filter Directories by their associated domain.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `Page<Directory>` returned by the API.
      */
     public suspend fun list(
@@ -70,7 +70,7 @@ public class DirectorySync internal constructor(
      * @param organizationId Filter Directories by their associated organization.
      * @param search Searchable text to match against Directory names.
      * @param domain Deprecated. Filter Directories by their associated domain.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return A cold flow of `Directory` values.
      */
     public fun listAutoPaging(
@@ -101,7 +101,7 @@ public class DirectorySync internal constructor(
      * Get the details of an existing directory.
      *
      * @param id Unique identifier for the Directory.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `Directory` returned by the API.
      */
     public suspend fun get(
@@ -124,7 +124,7 @@ public class DirectorySync internal constructor(
      * Permanently deletes an existing directory. It cannot be undone.
      *
      * @param id Unique identifier for the Directory.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      */
     public suspend fun delete(
         id: String,
@@ -151,7 +151,7 @@ public class DirectorySync internal constructor(
      * @param order Order the results by the creation time. Supported values are `"asc"` (ascending), `"desc"` (descending), and `"normal"` (descending with reversed cursor semantics where `before` fetches older records and `after` fetches newer records).
      * @param directory Unique identifier of the WorkOS Directory. This value can be obtained from the WorkOS dashboard or from the WorkOS API.
      * @param user Unique identifier of the WorkOS Directory User. This value can be obtained from the WorkOS API.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `Page<DirectoryGroup>` returned by the API.
      */
     public suspend fun listGroups(
@@ -188,7 +188,7 @@ public class DirectorySync internal constructor(
      * @param order Order the results by the creation time. Supported values are `"asc"` (ascending), `"desc"` (descending), and `"normal"` (descending with reversed cursor semantics where `before` fetches older records and `after` fetches newer records).
      * @param directory Unique identifier of the WorkOS Directory. This value can be obtained from the WorkOS dashboard or from the WorkOS API.
      * @param user Unique identifier of the WorkOS Directory User. This value can be obtained from the WorkOS API.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return A cold flow of `DirectoryGroup` values.
      */
     public fun listGroupsAutoPaging(
@@ -217,7 +217,7 @@ public class DirectorySync internal constructor(
      * Get the details of an existing Directory Group.
      *
      * @param id Unique identifier for the Directory Group.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `DirectoryGroup` returned by the API.
      */
     public suspend fun getGroup(
@@ -247,7 +247,7 @@ public class DirectorySync internal constructor(
      * @param group Unique identifier of the WorkOS Directory Group. This value can be obtained from the WorkOS API.
      * @param idpId Filter Directory Users by the identity provider's unique identifier (`idp_id`). Requires the `directory` parameter to also be provided.
      * @param email Filter Directory Users by their primary email address. Requires the `directory` parameter to also be provided.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `Page<DirectoryUserWithGroups>` returned by the API.
      */
     public suspend fun listUsers(
@@ -290,7 +290,7 @@ public class DirectorySync internal constructor(
      * @param group Unique identifier of the WorkOS Directory Group. This value can be obtained from the WorkOS API.
      * @param idpId Filter Directory Users by the identity provider's unique identifier (`idp_id`). Requires the `directory` parameter to also be provided.
      * @param email Filter Directory Users by their primary email address. Requires the `directory` parameter to also be provided.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return A cold flow of `DirectoryUserWithGroups` values.
      */
     public fun listUsersAutoPaging(
@@ -323,7 +323,7 @@ public class DirectorySync internal constructor(
      * Get the details of an existing Directory User.
      *
      * @param id Unique identifier for the Directory User.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `DirectoryUserWithGroups` returned by the API.
      */
     public suspend fun getUser(

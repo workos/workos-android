@@ -55,7 +55,7 @@ public class UserManagement internal constructor(
      * Returns the JSON Web Key Set (JWKS) containing the public keys used for verifying access tokens.
      *
      * @param clientId Identifies the application making the request to the WorkOS server. You can obtain your client ID from the [API Keys](https://dashboard.workos.com/api-keys) page in the dashboard.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `JwksResponse` returned by the API.
      */
     public suspend fun getJwks(
@@ -85,7 +85,7 @@ public class UserManagement internal constructor(
      * @param userAgent The user agent string from the user's browser.
      * @param signalsId An optional Radar signals ID to correlate client-side signals with this authentication attempt.
      * @param radarAuthAttemptId The ID of an existing Radar authentication attempt to associate with this authentication.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `AuthenticateResponse` returned by the API.
      */
     public suspend fun authenticateWithPassword(
@@ -133,7 +133,7 @@ public class UserManagement internal constructor(
      * @param deviceId A unique identifier for the device.
      * @param userAgent The user agent string from the user's browser.
      * @param signalsId An optional Radar signals ID to correlate client-side signals with this authentication attempt.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `AuthenticateResponse` returned by the API.
      */
     public suspend fun authenticateWithCode(
@@ -177,7 +177,7 @@ public class UserManagement internal constructor(
      * @param ipAddress The IP address of the user's request.
      * @param deviceId A unique identifier for the device.
      * @param userAgent The user agent string from the user's browser.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `AuthenticateResponse` returned by the API.
      */
     public suspend fun authenticateWithRefreshToken(
@@ -219,7 +219,7 @@ public class UserManagement internal constructor(
      * @param deviceId A unique identifier for the device.
      * @param userAgent The user agent string from the user's browser.
      * @param radarAuthAttemptId The ID of an existing Radar authentication attempt to associate with this authentication.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `AuthenticateResponse` returned by the API.
      */
     public suspend fun authenticateWithMagicAuth(
@@ -263,7 +263,7 @@ public class UserManagement internal constructor(
      * @param ipAddress The IP address of the user's request.
      * @param deviceId A unique identifier for the device.
      * @param userAgent The user agent string from the user's browser.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `AuthenticateResponse` returned by the API.
      */
     public suspend fun authenticateWithEmailVerification(
@@ -304,7 +304,7 @@ public class UserManagement internal constructor(
      * @param ipAddress The ip address value.
      * @param deviceId The device id value.
      * @param userAgent The user agent value.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `AuthenticateResponse` returned by the API.
      */
     public suspend fun authenticateWithTotp(
@@ -346,7 +346,7 @@ public class UserManagement internal constructor(
      * @param ipAddress The IP address of the user's request.
      * @param deviceId A unique identifier for the device.
      * @param userAgent The user agent string from the user's browser.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `AuthenticateResponse` returned by the API.
      */
     public suspend fun authenticateWithOrganizationSelection(
@@ -385,7 +385,7 @@ public class UserManagement internal constructor(
      * @param ipAddress The IP address of the user's request.
      * @param deviceId A unique identifier for the device.
      * @param userAgent The user agent string from the user's browser.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `AuthenticateResponse` returned by the API.
      */
     public suspend fun authenticateWithDeviceCode(
@@ -423,7 +423,7 @@ public class UserManagement internal constructor(
      * @param ipAddress The IP address of the user's request.
      * @param deviceId A unique identifier for the device.
      * @param userAgent The user agent string from the user's browser.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `AuthenticateResponse` returned by the API.
      */
     public suspend fun authenticateWithRadarEmailChallenge(
@@ -467,7 +467,7 @@ public class UserManagement internal constructor(
      * @param ipAddress The IP address of the user's request.
      * @param deviceId A unique identifier for the device.
      * @param userAgent The user agent string from the user's browser.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `AuthenticateResponse` returned by the API.
      */
     public suspend fun authenticateWithRadarSmsChallenge(
@@ -572,7 +572,7 @@ public class UserManagement internal constructor(
      * Initiates the CLI Auth flow by requesting a device code and verification URLs. This endpoint implements the OAuth 2.0 Device Authorization Flow ([RFC 8628](https://datatracker.ietf.org/doc/html/rfc8628)) and is designed for command-line applications or other devices with limited input capabilities.
      *
      * @param clientId The WorkOS client ID for your application.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `DeviceAuthorizationResponse` returned by the API.
      */
     public suspend fun createDevice(
@@ -601,7 +601,7 @@ public class UserManagement internal constructor(
      * @param phoneNumber The phone number to send the SMS verification code to.
      * @param ipAddress The IP address of the user's request.
      * @param userAgent The user agent string from the user's request.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `SendRadarSmsChallengeResponse` returned by the API.
      */
     public suspend fun createRadarChallenge(
@@ -634,7 +634,7 @@ public class UserManagement internal constructor(
      * Get the details of an existing Radar Challenge, including the OTP code.
      *
      * @param id The unique ID of the Radar Challenge.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `RadarChallenge` returned by the API.
      */
     public suspend fun getRadarChallenge(
@@ -677,7 +677,7 @@ public class UserManagement internal constructor(
      * Revoke a [user session](https://workos.com/docs/reference/authkit/session).
      *
      * @param sessionId The ID of the session to revoke. This can be extracted from the `sid` claim of the access token.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      */
     public suspend fun revokeSession(
         sessionId: String,
@@ -704,7 +704,7 @@ public class UserManagement internal constructor(
      * @param after An object ID that defines your place in the list. When the ID is not present, you are at the end of the list. For example, if you make a list request and receive 100 objects, ending with `"obj_123"`, your subsequent call can include `after="obj_123"` to fetch a new batch of objects after `"obj_123"`.
      * @param limit Upper limit on the number of objects to return, between `1` and `100`.
      * @param order Order the results by the creation time. Supported values are `"asc"` (ascending), `"desc"` (descending), and `"normal"` (descending with reversed cursor semantics where `before` fetches older records and `after` fetches newer records).
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `Page<CorsOriginResponse>` returned by the API.
      */
     public suspend fun listCorsOrigins(
@@ -735,7 +735,7 @@ public class UserManagement internal constructor(
      * @param before An object ID that defines your place in the list. When the ID is not present, you are at the end of the list. For example, if you make a list request and receive 100 objects, ending with `"obj_123"`, your subsequent call can include `before="obj_123"` to fetch a new batch of objects before `"obj_123"`.
      * @param limit Upper limit on the number of objects to return, between `1` and `100`.
      * @param order Order the results by the creation time. Supported values are `"asc"` (ascending), `"desc"` (descending), and `"normal"` (descending with reversed cursor semantics where `before` fetches older records and `after` fetches newer records).
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return A cold flow of `CorsOriginResponse` values.
      */
     public fun listCorsOriginsAutoPaging(
@@ -760,7 +760,7 @@ public class UserManagement internal constructor(
      * Creates a new CORS origin for the API key's application. CORS origins allow browser-based applications to make requests to the WorkOS API.
      *
      * @param origin The origin URL to allow for CORS requests.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `CorsOriginResponse` returned by the API.
      */
     public suspend fun createCorsOrigin(
@@ -785,7 +785,7 @@ public class UserManagement internal constructor(
      * Get the details of an existing email verification code that can be used to send an email to a user for verification.
      *
      * @param id The ID of the email verification code.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `EmailVerification` returned by the API.
      */
     public suspend fun getEmailVerification(
@@ -808,7 +808,7 @@ public class UserManagement internal constructor(
      * Creates a one-time token that can be used to reset a user's password.
      *
      * @param email The email address of the user requesting a password reset.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `PasswordReset` returned by the API.
      */
     public suspend fun resetPassword(
@@ -834,7 +834,7 @@ public class UserManagement internal constructor(
      *
      * @param token The password reset token.
      * @param newPassword The new password to set for the user.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `ResetPasswordResponse` returned by the API.
      */
     public suspend fun confirmPasswordReset(
@@ -861,7 +861,7 @@ public class UserManagement internal constructor(
      * Get the details of an existing password reset token that can be used to reset a user's password.
      *
      * @param id The ID of the password reset token.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `PasswordReset` returned by the API.
      */
     public suspend fun getPasswordReset(
@@ -890,7 +890,7 @@ public class UserManagement internal constructor(
      * @param organization Deprecated. Filter users by the organization they are a member of. Deprecated in favor of `organization_id`.
      * @param organizationId Filter users by the organization they are a member of.
      * @param email Filter users by their email address.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `Page<User>` returned by the API.
      */
     public suspend fun list(
@@ -930,7 +930,7 @@ public class UserManagement internal constructor(
      * @param organization Deprecated. Filter users by the organization they are a member of. Deprecated in favor of `organization_id`.
      * @param organizationId Filter users by the organization they are a member of.
      * @param email Filter users by their email address.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return A cold flow of `User` values.
      */
     public fun listAutoPaging(
@@ -973,7 +973,7 @@ public class UserManagement internal constructor(
      * @param password The password to set for the user. Mutually exclusive with `password_hash` and `password_hash_type`.
      * @param passwordHash The hashed password to set for the user. Required with `password_hash_type`. Mutually exclusive with `password`.
      * @param passwordHashType The algorithm originally used to hash the password, used when providing a `password_hash`. Required with `password_hash`. Mutually exclusive with `password`.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `UserCreateResponse` returned by the API.
      */
     public suspend fun create(
@@ -1022,7 +1022,7 @@ public class UserManagement internal constructor(
      * Get the details of an existing user by an [external identifier](https://workos.com/docs/authkit/metadata/external-identifiers).
      *
      * @param externalId The external ID of the user.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `User` returned by the API.
      */
     public suspend fun getByExternalId(
@@ -1045,7 +1045,7 @@ public class UserManagement internal constructor(
      * Get the details of an existing user.
      *
      * @param id The unique ID of the user.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `User` returned by the API.
      */
     public suspend fun get(
@@ -1079,7 +1079,7 @@ public class UserManagement internal constructor(
      * @param password The password to set for the user. Mutually exclusive with `password_hash` and `password_hash_type`.
      * @param passwordHash The hashed password to set for the user. Required with `password_hash_type`. Mutually exclusive with `password`.
      * @param passwordHashType The algorithm originally used to hash the password, used when providing a `password_hash`. Required with `password_hash`. Mutually exclusive with `password`.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `User` returned by the API.
      */
     public suspend fun update(
@@ -1125,7 +1125,7 @@ public class UserManagement internal constructor(
      * Permanently deletes a user in the current environment. It cannot be undone.
      *
      * @param id The unique ID of the user.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      */
     public suspend fun delete(
         id: String,
@@ -1148,7 +1148,7 @@ public class UserManagement internal constructor(
      *
      * @param id The unique ID of the user.
      * @param code The one-time code used to confirm the email change.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `EmailChangeConfirmation` returned by the API.
      */
     public suspend fun confirmEmailChange(
@@ -1175,7 +1175,7 @@ public class UserManagement internal constructor(
      *
      * @param id The unique ID of the user.
      * @param newEmail The new email address to change to.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `EmailChange` returned by the API.
      */
     public suspend fun sendEmailChange(
@@ -1202,7 +1202,7 @@ public class UserManagement internal constructor(
      *
      * @param id The ID of the user.
      * @param code The one-time email verification code.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `VerifyEmailResponse` returned by the API.
      */
     public suspend fun verifyEmail(
@@ -1228,7 +1228,7 @@ public class UserManagement internal constructor(
      * Sends an email that contains a one-time code used to verify a user's email address.
      *
      * @param id The ID of the user.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `SendVerificationEmailResponse` returned by the API.
      */
     public suspend fun sendVerificationEmail(
@@ -1251,7 +1251,7 @@ public class UserManagement internal constructor(
      * Get a list of identities associated with the user. A user can have multiple associated identities after going through [identity linking](https://workos.com/docs/authkit/identity-linking). Currently only OAuth identities are supported. More provider types may be added in the future.
      *
      * @param id The unique ID of the user.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `List<UserIdentitiesGetItem>` returned by the API.
      */
     public suspend fun getIdentities(
@@ -1278,7 +1278,7 @@ public class UserManagement internal constructor(
      * @param after An object ID that defines your place in the list. When the ID is not present, you are at the end of the list. For example, if you make a list request and receive 100 objects, ending with `"obj_123"`, your subsequent call can include `after="obj_123"` to fetch a new batch of objects after `"obj_123"`.
      * @param limit Upper limit on the number of objects to return, between `1` and `100`.
      * @param order Order the results by the creation time. Supported values are `"asc"` (ascending), `"desc"` (descending), and `"normal"` (descending with reversed cursor semantics where `before` fetches older records and `after` fetches newer records).
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `Page<UserSessionsListItem>` returned by the API.
      */
     public suspend fun listSessions(
@@ -1311,7 +1311,7 @@ public class UserManagement internal constructor(
      * @param before An object ID that defines your place in the list. When the ID is not present, you are at the end of the list. For example, if you make a list request and receive 100 objects, ending with `"obj_123"`, your subsequent call can include `before="obj_123"` to fetch a new batch of objects before `"obj_123"`.
      * @param limit Upper limit on the number of objects to return, between `1` and `100`.
      * @param order Order the results by the creation time. Supported values are `"asc"` (ascending), `"desc"` (descending), and `"normal"` (descending with reversed cursor semantics where `before` fetches older records and `after` fetches newer records).
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return A cold flow of `UserSessionsListItem` values.
      */
     public fun listSessionsAutoPaging(
@@ -1343,7 +1343,7 @@ public class UserManagement internal constructor(
      * @param order Order the results by the creation time. Supported values are `"asc"` (ascending), `"desc"` (descending), and `"normal"` (descending with reversed cursor semantics where `before` fetches older records and `after` fetches newer records).
      * @param organizationId The ID of the [organization](https://workos.com/docs/reference/organization) that the recipient will join.
      * @param email The email address of the recipient.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `Page<UserInvite>` returned by the API.
      */
     public suspend fun listInvitations(
@@ -1380,7 +1380,7 @@ public class UserManagement internal constructor(
      * @param order Order the results by the creation time. Supported values are `"asc"` (ascending), `"desc"` (descending), and `"normal"` (descending with reversed cursor semantics where `before` fetches older records and `after` fetches newer records).
      * @param organizationId The ID of the [organization](https://workos.com/docs/reference/organization) that the recipient will join.
      * @param email The email address of the recipient.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return A cold flow of `UserInvite` values.
      */
     public fun listInvitationsAutoPaging(
@@ -1414,7 +1414,7 @@ public class UserManagement internal constructor(
      * @param expiresInDays How many days the invitations will be valid for. Must be between 1 and 30 days. Defaults to 7 days if not specified.
      * @param inviterUserId The ID of the [user](https://workos.com/docs/reference/authkit/user) who invites the recipient. The invitation email will mention the name of this user.
      * @param locale The locale to use when rendering the invitation email. See [supported locales](https://workos.com/docs/authkit/hosted-ui/localization).
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `UserInvite` returned by the API.
      */
     public suspend fun sendInvitation(
@@ -1449,7 +1449,7 @@ public class UserManagement internal constructor(
      * Retrieve an existing invitation using the token.
      *
      * @param token The token used to accept the invitation.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `UserInvite` returned by the API.
      */
     public suspend fun findInvitationByToken(
@@ -1472,7 +1472,7 @@ public class UserManagement internal constructor(
      * Get the details of an existing invitation.
      *
      * @param id The unique ID of the invitation.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `UserInvite` returned by the API.
      */
     public suspend fun getInvitation(
@@ -1495,7 +1495,7 @@ public class UserManagement internal constructor(
      * Accepts an invitation and, if linked to an organization, activates the user's membership in that organization.
      *
      * @param id The unique ID of the invitation.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `Invitation` returned by the API.
      */
     public suspend fun acceptInvitation(
@@ -1519,7 +1519,7 @@ public class UserManagement internal constructor(
      *
      * @param id The unique ID of the invitation.
      * @param locale The locale to use when rendering the invitation email. See [supported locales](https://workos.com/docs/authkit/hosted-ui/localization).
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `UserInvite` returned by the API.
      */
     public suspend fun resendInvitation(
@@ -1545,7 +1545,7 @@ public class UserManagement internal constructor(
      * Revokes an existing invitation.
      *
      * @param id The unique ID of the invitation.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `Invitation` returned by the API.
      */
     public suspend fun revokeInvitation(
@@ -1567,7 +1567,7 @@ public class UserManagement internal constructor(
      *
      * Get the JWT template for the current environment.
      *
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `JWTTemplateResponse` returned by the API.
      */
     public suspend fun listJWTTemplate(requestOptions: RequestOptions? = null): JWTTemplateResponse {
@@ -1587,7 +1587,7 @@ public class UserManagement internal constructor(
      * Update the JWT template for the current environment.
      *
      * @param content The JWT template content as a Liquid template string.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `JWTTemplateResponse` returned by the API.
      */
     public suspend fun updateJWTTemplate(
@@ -1617,7 +1617,7 @@ public class UserManagement internal constructor(
      * @param userAgent The user agent string from the user's request.
      * @param radarAuthAttemptId The ID of an existing Radar authentication attempt to associate with this request.
      * @param signalsId An optional Radar signals ID to correlate client-side signals with this request.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `MagicAuthSendMagicAuthCodeAndReturnResponse` returned by the API.
      */
     public suspend fun createMagicAuth(
@@ -1652,7 +1652,7 @@ public class UserManagement internal constructor(
      * Get the details of an existing [Magic Auth](https://workos.com/docs/reference/authkit/magic-auth) code that can be used to send an email to a user for authentication.
      *
      * @param id The unique ID of the Magic Auth code.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `MagicAuth` returned by the API.
      */
     public suspend fun getMagicAuth(
@@ -1678,7 +1678,7 @@ public class UserManagement internal constructor(
      * @param after An object ID that defines your place in the list. When the ID is not present, you are at the end of the list. For example, if you make a list request and receive 100 objects, ending with `"obj_123"`, your subsequent call can include `after="obj_123"` to fetch a new batch of objects after `"obj_123"`.
      * @param limit Upper limit on the number of objects to return, between `1` and `100`.
      * @param order Order the results by the creation time. Supported values are `"asc"` (ascending), `"desc"` (descending), and `"normal"` (descending with reversed cursor semantics where `before` fetches older records and `after` fetches newer records).
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `Page<RedirectUri>` returned by the API.
      */
     public suspend fun listRedirectUris(
@@ -1709,7 +1709,7 @@ public class UserManagement internal constructor(
      * @param before An object ID that defines your place in the list. When the ID is not present, you are at the end of the list. For example, if you make a list request and receive 100 objects, ending with `"obj_123"`, your subsequent call can include `before="obj_123"` to fetch a new batch of objects before `"obj_123"`.
      * @param limit Upper limit on the number of objects to return, between `1` and `100`.
      * @param order Order the results by the creation time. Supported values are `"asc"` (ascending), `"desc"` (descending), and `"normal"` (descending with reversed cursor semantics where `before` fetches older records and `after` fetches newer records).
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return A cold flow of `RedirectUri` values.
      */
     public fun listRedirectUrisAutoPaging(
@@ -1734,7 +1734,7 @@ public class UserManagement internal constructor(
      * Creates a new redirect URI for an application.
      *
      * @param uri The redirect URI to create.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `RedirectUri` returned by the API.
      */
     public suspend fun createRedirectUri(
@@ -1759,7 +1759,7 @@ public class UserManagement internal constructor(
      * Deletes a redirect URI from an application.
      *
      * @param id The ID of the redirect URI to delete.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      */
     public suspend fun deleteRedirectUris(
         id: String,
@@ -1785,7 +1785,7 @@ public class UserManagement internal constructor(
      * @param after An object ID that defines your place in the list. When the ID is not present, you are at the end of the list. For example, if you make a list request and receive 100 objects, ending with `"obj_123"`, your subsequent call can include `after="obj_123"` to fetch a new batch of objects after `"obj_123"`.
      * @param limit Upper limit on the number of objects to return, between `1` and `100`.
      * @param order Order the results by the creation time. Supported values are `"asc"` (ascending), `"desc"` (descending), and `"normal"` (descending with reversed cursor semantics where `before` fetches older records and `after` fetches newer records).
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `Page<AuthorizedConnectApplicationListData>` returned by the API.
      */
     public suspend fun listAuthorizedApplications(
@@ -1818,7 +1818,7 @@ public class UserManagement internal constructor(
      * @param before An object ID that defines your place in the list. When the ID is not present, you are at the end of the list. For example, if you make a list request and receive 100 objects, ending with `"obj_123"`, your subsequent call can include `before="obj_123"` to fetch a new batch of objects before `"obj_123"`.
      * @param limit Upper limit on the number of objects to return, between `1` and `100`.
      * @param order Order the results by the creation time. Supported values are `"asc"` (ascending), `"desc"` (descending), and `"normal"` (descending with reversed cursor semantics where `before` fetches older records and `after` fetches newer records).
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return A cold flow of `AuthorizedConnectApplicationListData` values.
      */
     public fun listAuthorizedApplicationsAutoPaging(
@@ -1846,7 +1846,7 @@ public class UserManagement internal constructor(
      *
      * @param userId The ID of the user.
      * @param applicationId The ID or client ID of the application.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      */
     public suspend fun deleteAuthorizedApplication(
         userId: String,
@@ -1874,7 +1874,7 @@ public class UserManagement internal constructor(
      * @param limit Upper limit on the number of objects to return, between `1` and `100`.
      * @param order Order the results by the creation time.
      * @param organizationId The ID of the organization to filter user API keys by. When provided, only API keys created against that organization membership are returned.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `Page<UserApiKey>` returned by the API.
      */
     public suspend fun listApiKeys(
@@ -1910,7 +1910,7 @@ public class UserManagement internal constructor(
      * @param limit Upper limit on the number of objects to return, between `1` and `100`.
      * @param order Order the results by the creation time.
      * @param organizationId The ID of the organization to filter user API keys by. When provided, only API keys created against that organization membership are returned.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return A cold flow of `UserApiKey` values.
      */
     public fun listApiKeysAutoPaging(
@@ -1943,7 +1943,7 @@ public class UserManagement internal constructor(
      * @param organizationId The ID of the organization the user API key is associated with. The user must have an active membership in this organization.
      * @param permissions The permission slugs to assign to the API key. Each permission must be enabled for user API keys.
      * @param expiresAt The timestamp when the API key should expire. Must be a future timestamp. If omitted, the key does not expire.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `UserApiKeyWithValue` returned by the API.
      */
     public suspend fun createApiKey(

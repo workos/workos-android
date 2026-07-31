@@ -32,7 +32,7 @@ public class AuditLogs internal constructor(
      * Get the configured event retention period for the given Organization.
      *
      * @param id Unique identifier of the Organization.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `AuditLogsRetention` returned by the API.
      */
     public suspend fun getOrganizationAuditLogsRetention(
@@ -56,7 +56,7 @@ public class AuditLogs internal constructor(
      *
      * @param id Unique identifier of the Organization.
      * @param retentionPeriodInDays The number of days Audit Log events will be retained. Valid values are `30` and `365`.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `AuditLogsRetention` returned by the API.
      */
     public suspend fun updateOrganizationAuditLogsRetention(
@@ -85,7 +85,7 @@ public class AuditLogs internal constructor(
      * @param after An object ID that defines your place in the list. When the ID is not present, you are at the end of the list.
      * @param limit Upper limit on the number of objects to return, between `1` and `100`.
      * @param order Order the results by the creation time.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `Page<AuditLogAction>` returned by the API.
      */
     public suspend fun listActions(
@@ -116,7 +116,7 @@ public class AuditLogs internal constructor(
      * @param before An object ID that defines your place in the list. When the ID is not present, you are at the end of the list.
      * @param limit Upper limit on the number of objects to return, between `1` and `100`.
      * @param order Order the results by the creation time.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return A cold flow of `AuditLogAction` values.
      */
     public fun listActionsAutoPaging(
@@ -145,7 +145,7 @@ public class AuditLogs internal constructor(
      * @param after An object ID that defines your place in the list. When the ID is not present, you are at the end of the list.
      * @param limit Upper limit on the number of objects to return, between `1` and `100`.
      * @param order Order the results by the creation time.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `Page<AuditLogSchema>` returned by the API.
      */
     public suspend fun listActionSchemas(
@@ -178,7 +178,7 @@ public class AuditLogs internal constructor(
      * @param before An object ID that defines your place in the list. When the ID is not present, you are at the end of the list.
      * @param limit Upper limit on the number of objects to return, between `1` and `100`.
      * @param order Order the results by the creation time.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return A cold flow of `AuditLogSchema` values.
      */
     public fun listActionSchemasAutoPaging(
@@ -208,7 +208,7 @@ public class AuditLogs internal constructor(
      * @param targets The list of targets for the schema.
      * @param actor The metadata schema for the actor.
      * @param metadata Optional JSON schema for event metadata.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `AuditLogSchema` returned by the API.
      */
     public suspend fun createSchema(
@@ -245,7 +245,7 @@ public class AuditLogs internal constructor(
      *
      * @param organizationId The unique ID of the Organization.
      * @param event The audit log event to create.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `AuditLogEventCreateResponse` returned by the API.
      */
     public suspend fun createEvent(
@@ -279,7 +279,7 @@ public class AuditLogs internal constructor(
      * @param actorNames List of actor names to filter against.
      * @param actorIds List of actor IDs to filter against.
      * @param targets List of target types to filter against.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `AuditLogExport` returned by the API.
      */
     public suspend fun createExport(
@@ -318,7 +318,7 @@ public class AuditLogs internal constructor(
      * Get an Audit Log Export. The URL will expire after 10 minutes. If the export is needed again at a later time, refetching the export will regenerate the URL.
      *
      * @param auditLogExportId The unique ID of the Audit Log Export.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `AuditLogExport` returned by the API.
      */
     public suspend fun getExport(

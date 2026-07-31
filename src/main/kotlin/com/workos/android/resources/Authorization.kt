@@ -38,7 +38,7 @@ public class Authorization internal constructor(
      * @param after An object ID that defines your place in the list. When the ID is not present, you are at the end of the list. For example, if you make a list request and receive 100 objects, ending with `"obj_123"`, your subsequent call can include `after="obj_123"` to fetch a new batch of objects after `"obj_123"`.
      * @param limit Upper limit on the number of objects to return, between `1` and `100`.
      * @param order Order the results by the creation time. Supported values are `"asc"` (ascending), `"desc"` (descending), and `"normal"` (descending with reversed cursor semantics where `before` fetches older records and `after` fetches newer records).
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `Page<GroupRoleAssignment>` returned by the API.
      */
     public suspend fun listGroupRoleAssignments(
@@ -71,7 +71,7 @@ public class Authorization internal constructor(
      * @param before An object ID that defines your place in the list. When the ID is not present, you are at the end of the list. For example, if you make a list request and receive 100 objects, ending with `"obj_123"`, your subsequent call can include `before="obj_123"` to fetch a new batch of objects before `"obj_123"`.
      * @param limit Upper limit on the number of objects to return, between `1` and `100`.
      * @param order Order the results by the creation time. Supported values are `"asc"` (ascending), `"desc"` (descending), and `"normal"` (descending with reversed cursor semantics where `before` fetches older records and `after` fetches newer records).
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return A cold flow of `GroupRoleAssignment` values.
      */
     public fun listGroupRoleAssignmentsAutoPaging(
@@ -102,7 +102,7 @@ public class Authorization internal constructor(
      * @param resourceId The ID of the resource. Omit along with the external-id fields to target the organization itself.
      * @param resourceExternalId The external ID of the resource.
      * @param resourceTypeSlug The resource type slug.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `GroupRoleAssignment` returned by the API.
      */
     public suspend fun createGroupRoleAssignment(
@@ -135,7 +135,7 @@ public class Authorization internal constructor(
      *
      * @param groupId The ID of the group.
      * @param roleAssignments The list of role assignments that should exist for the group. All existing assignments will be replaced.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `GroupRoleAssignmentList` returned by the API.
      */
     public suspend fun updateGroupRoleAssignments(
@@ -165,7 +165,7 @@ public class Authorization internal constructor(
      * @param resourceId The ID of the resource. Mutually exclusive with `resource_external_id` and `resource_type_slug`.
      * @param resourceExternalId The external ID of the resource.
      * @param resourceTypeSlug The resource type slug.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      */
     public suspend fun deleteGroupRoleAssignments(
         groupId: String,
@@ -197,7 +197,7 @@ public class Authorization internal constructor(
      *
      * @param groupId The ID of the group.
      * @param roleAssignmentId The ID of the group role assignment.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `GroupRoleAssignment` returned by the API.
      */
     public suspend fun getGroupRoleAssignment(
@@ -222,7 +222,7 @@ public class Authorization internal constructor(
      *
      * @param groupId The ID of the group.
      * @param roleAssignmentId The ID of the group role assignment to remove.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      */
     public suspend fun deleteGroupRoleAssignment(
         groupId: String,
@@ -249,7 +249,7 @@ public class Authorization internal constructor(
      * @param resourceId The ID of the resource. Mutually exclusive with `resource_external_id` and `resource_type_slug`.
      * @param resourceExternalId The external ID of the resource. Required with `resource_type_slug`. Mutually exclusive with `resource_id`.
      * @param resourceTypeSlug The slug of the resource type. Required with `resource_external_id`. Mutually exclusive with `resource_id`.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `AuthorizationCheck` returned by the API.
      */
     public suspend fun check(
@@ -291,7 +291,7 @@ public class Authorization internal constructor(
      * @param parentResourceId The WorkOS ID of the parent resource. Provide this or both `parent_resource_external_id` and `parent_resource_type_slug`, but not both. Mutually exclusive with `parent_resource_type_slug` and `parent_resource_external_id`.
      * @param parentResourceTypeSlug The slug of the parent resource type. Must be provided together with `parent_resource_external_id`. Required with `parent_resource_external_id`. Mutually exclusive with `parent_resource_id`.
      * @param parentResourceExternalId The application-specific external identifier of the parent resource. Must be provided together with `parent_resource_type_slug`. Required with `parent_resource_type_slug`. Mutually exclusive with `parent_resource_id`.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `Page<AuthorizationResource>` returned by the API.
      */
     public suspend fun listResourcesForMembership(
@@ -336,7 +336,7 @@ public class Authorization internal constructor(
      * @param parentResourceId The WorkOS ID of the parent resource. Provide this or both `parent_resource_external_id` and `parent_resource_type_slug`, but not both. Mutually exclusive with `parent_resource_type_slug` and `parent_resource_external_id`.
      * @param parentResourceTypeSlug The slug of the parent resource type. Must be provided together with `parent_resource_external_id`. Required with `parent_resource_external_id`. Mutually exclusive with `parent_resource_id`.
      * @param parentResourceExternalId The application-specific external identifier of the parent resource. Must be provided together with `parent_resource_type_slug`. Required with `parent_resource_type_slug`. Mutually exclusive with `parent_resource_id`.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return A cold flow of `AuthorizationResource` values.
      */
     public fun listResourcesForMembershipAutoPaging(
@@ -376,7 +376,7 @@ public class Authorization internal constructor(
      * @param after An object ID that defines your place in the list. When the ID is not present, you are at the end of the list. For example, if you make a list request and receive 100 objects, ending with `"obj_123"`, your subsequent call can include `after="obj_123"` to fetch a new batch of objects after `"obj_123"`.
      * @param limit Upper limit on the number of objects to return, between `1` and `100`.
      * @param order Order the results by the creation time. Supported values are `"asc"` (ascending), `"desc"` (descending), and `"normal"` (descending with reversed cursor semantics where `before` fetches older records and `after` fetches newer records).
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `Page<AuthorizationPermission>` returned by the API.
      */
     public suspend fun listEffectivePermissions(
@@ -413,7 +413,7 @@ public class Authorization internal constructor(
      * @param before An object ID that defines your place in the list. When the ID is not present, you are at the end of the list. For example, if you make a list request and receive 100 objects, ending with `"obj_123"`, your subsequent call can include `before="obj_123"` to fetch a new batch of objects before `"obj_123"`.
      * @param limit Upper limit on the number of objects to return, between `1` and `100`.
      * @param order Order the results by the creation time. Supported values are `"asc"` (ascending), `"desc"` (descending), and `"normal"` (descending with reversed cursor semantics where `before` fetches older records and `after` fetches newer records).
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return A cold flow of `AuthorizationPermission` values.
      */
     public fun listEffectivePermissionsAutoPaging(
@@ -448,7 +448,7 @@ public class Authorization internal constructor(
      * @param after An object ID that defines your place in the list. When the ID is not present, you are at the end of the list. For example, if you make a list request and receive 100 objects, ending with `"obj_123"`, your subsequent call can include `after="obj_123"` to fetch a new batch of objects after `"obj_123"`.
      * @param limit Upper limit on the number of objects to return, between `1` and `100`.
      * @param order Order the results by the creation time. Supported values are `"asc"` (ascending), `"desc"` (descending), and `"normal"` (descending with reversed cursor semantics where `before` fetches older records and `after` fetches newer records).
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `Page<AuthorizationPermission>` returned by the API.
      */
     public suspend fun listEffectivePermissionsByExternalId(
@@ -487,7 +487,7 @@ public class Authorization internal constructor(
      * @param before An object ID that defines your place in the list. When the ID is not present, you are at the end of the list. For example, if you make a list request and receive 100 objects, ending with `"obj_123"`, your subsequent call can include `before="obj_123"` to fetch a new batch of objects before `"obj_123"`.
      * @param limit Upper limit on the number of objects to return, between `1` and `100`.
      * @param order Order the results by the creation time. Supported values are `"asc"` (ascending), `"desc"` (descending), and `"normal"` (descending with reversed cursor semantics where `before` fetches older records and `after` fetches newer records).
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return A cold flow of `AuthorizationPermission` values.
      */
     public fun listEffectivePermissionsByExternalIdAutoPaging(
@@ -525,7 +525,7 @@ public class Authorization internal constructor(
      * @param resourceId Filter assignments by the ID of the resource.
      * @param resourceExternalId Filter assignments by the external ID of the resource.
      * @param resourceTypeSlug Filter assignments by the slug of the resource type.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `Page<UserRoleAssignment>` returned by the API.
      */
     public suspend fun listRoleAssignments(
@@ -567,7 +567,7 @@ public class Authorization internal constructor(
      * @param resourceId Filter assignments by the ID of the resource.
      * @param resourceExternalId Filter assignments by the external ID of the resource.
      * @param resourceTypeSlug Filter assignments by the slug of the resource type.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return A cold flow of `UserRoleAssignment` values.
      */
     public fun listRoleAssignmentsAutoPaging(
@@ -604,7 +604,7 @@ public class Authorization internal constructor(
      * @param resourceId The ID of the resource. Mutually exclusive with `resource_external_id` and `resource_type_slug`.
      * @param resourceExternalId The external ID of the resource. Required with `resource_type_slug`. Mutually exclusive with `resource_id`.
      * @param resourceTypeSlug The resource type slug. Required with `resource_external_id`. Mutually exclusive with `resource_id`.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `UserRoleAssignment` returned by the API.
      */
     public suspend fun assignRole(
@@ -640,7 +640,7 @@ public class Authorization internal constructor(
      * @param resourceId The ID of the resource. Mutually exclusive with `resource_external_id` and `resource_type_slug`.
      * @param resourceExternalId The external ID of the resource. Required with `resource_type_slug`. Mutually exclusive with `resource_id`.
      * @param resourceTypeSlug The resource type slug. Required with `resource_external_id`. Mutually exclusive with `resource_id`.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      */
     public suspend fun removeRole(
         organizationMembershipId: String,
@@ -672,7 +672,7 @@ public class Authorization internal constructor(
      *
      * @param organizationMembershipId The ID of the organization membership.
      * @param roleAssignmentId The ID of the role assignment to remove.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      */
     public suspend fun removeRoleAssignment(
         organizationMembershipId: String,
@@ -697,7 +697,7 @@ public class Authorization internal constructor(
      * Get a list of all roles that apply to an organization. This includes both environment roles and custom roles, returned in priority order.
      *
      * @param organizationId The ID of the organization.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `RoleList` returned by the API.
      */
     public suspend fun listOrganizationRoles(
@@ -724,7 +724,7 @@ public class Authorization internal constructor(
      * @param slug A unique identifier for the role within the organization. When provided, must begin with 'org-' and contain only lowercase letters, numbers, hyphens, and underscores. When omitted, a slug is auto-generated from the role name and a random suffix.
      * @param description An optional description of the role's purpose.
      * @param resourceTypeSlug The slug of the resource type the role is scoped to.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `Role` returned by the API.
      */
     public suspend fun createOrganizationRole(
@@ -757,7 +757,7 @@ public class Authorization internal constructor(
      *
      * @param organizationId The ID of the organization.
      * @param slug The slug of the role.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `Role` returned by the API.
      */
     public suspend fun getOrganizationRole(
@@ -784,7 +784,7 @@ public class Authorization internal constructor(
      * @param slug The slug of the role.
      * @param name A descriptive name for the role.
      * @param description An optional description of the role's purpose.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `Role` returned by the API.
      */
     public suspend fun updateOrganizationRole(
@@ -814,7 +814,7 @@ public class Authorization internal constructor(
      *
      * @param organizationId The ID of the organization.
      * @param slug The slug of the role.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      */
     public suspend fun deleteOrganizationRole(
         organizationId: String,
@@ -839,7 +839,7 @@ public class Authorization internal constructor(
      * @param organizationId The ID of the organization.
      * @param slug The slug of the role.
      * @param slug2 The slug of the permission to add to the role.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `Role` returned by the API.
      */
     public suspend fun addOrganizationRolePermission(
@@ -868,7 +868,7 @@ public class Authorization internal constructor(
      * @param organizationId The ID of the organization.
      * @param slug The slug of the role.
      * @param permissions The permission slugs to assign to the role.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `Role` returned by the API.
      */
     public suspend fun setOrganizationRolePermissions(
@@ -897,7 +897,7 @@ public class Authorization internal constructor(
      * @param organizationId The ID of the organization.
      * @param slug The slug of the role.
      * @param permissionSlug The slug of the permission to remove.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      */
     public suspend fun removeOrganizationRolePermission(
         organizationId: String,
@@ -925,7 +925,7 @@ public class Authorization internal constructor(
      * @param organizationId The ID of the organization that owns the resource.
      * @param resourceTypeSlug The slug of the resource type.
      * @param externalId An identifier you provide to reference the resource in your system.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `AuthorizationResource` returned by the API.
      */
     public suspend fun getResourceByExternalId(
@@ -959,7 +959,7 @@ public class Authorization internal constructor(
      * @param parentResourceId The ID of the parent resource. Mutually exclusive with `parent_resource_external_id` and `parent_resource_type_slug`.
      * @param parentResourceExternalId The external ID of the parent resource. Required with `parent_resource_type_slug`. Mutually exclusive with `parent_resource_id`.
      * @param parentResourceTypeSlug The resource type slug of the parent resource. Required with `parent_resource_external_id`. Mutually exclusive with `parent_resource_id`.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `AuthorizationResource` returned by the API.
      */
     public suspend fun updateResourceByExternalId(
@@ -1000,7 +1000,7 @@ public class Authorization internal constructor(
      * @param resourceTypeSlug The slug of the resource type.
      * @param externalId An identifier you provide to reference the resource in your system.
      * @param cascadeDelete If true, deletes all descendant resources and role assignments. If not set and the resource has children or assignments, the request will fail.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      */
     public suspend fun deleteResourceByExternalId(
         organizationId: String,
@@ -1037,7 +1037,7 @@ public class Authorization internal constructor(
      * @param limit Upper limit on the number of objects to return, between `1` and `100`.
      * @param order Order the results by the creation time. Supported values are `"asc"` (ascending), `"desc"` (descending), and `"normal"` (descending with reversed cursor semantics where `before` fetches older records and `after` fetches newer records).
      * @param assignment Filter by assignment type. Use "direct" for direct assignments only, or "indirect" to include inherited assignments.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `Page<UserOrganizationMembershipBaseListData>` returned by the API.
      */
     public suspend fun listMembershipsForResourceByExternalId(
@@ -1082,7 +1082,7 @@ public class Authorization internal constructor(
      * @param limit Upper limit on the number of objects to return, between `1` and `100`.
      * @param order Order the results by the creation time. Supported values are `"asc"` (ascending), `"desc"` (descending), and `"normal"` (descending with reversed cursor semantics where `before` fetches older records and `after` fetches newer records).
      * @param assignment Filter by assignment type. Use "direct" for direct assignments only, or "indirect" to include inherited assignments.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return A cold flow of `UserOrganizationMembershipBaseListData` values.
      */
     public fun listMembershipsForResourceByExternalIdAutoPaging(
@@ -1124,7 +1124,7 @@ public class Authorization internal constructor(
      * @param limit Upper limit on the number of objects to return, between `1` and `100`.
      * @param order Order the results by the creation time. Supported values are `"asc"` (ascending), `"desc"` (descending), and `"normal"` (descending with reversed cursor semantics where `before` fetches older records and `after` fetches newer records).
      * @param roleSlug Filter assignments by the slug of the role.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `Page<UserRoleAssignment>` returned by the API.
      */
     public suspend fun listRoleAssignmentsForResourceByExternalId(
@@ -1166,7 +1166,7 @@ public class Authorization internal constructor(
      * @param limit Upper limit on the number of objects to return, between `1` and `100`.
      * @param order Order the results by the creation time. Supported values are `"asc"` (ascending), `"desc"` (descending), and `"normal"` (descending with reversed cursor semantics where `before` fetches older records and `after` fetches newer records).
      * @param roleSlug Filter assignments by the slug of the role.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return A cold flow of `UserRoleAssignment` values.
      */
     public fun listRoleAssignmentsForResourceByExternalIdAutoPaging(
@@ -1208,7 +1208,7 @@ public class Authorization internal constructor(
      * @param parentResourceId Filter resources by parent resource ID. Mutually exclusive with `parent_resource_type_slug` and `parent_external_id`.
      * @param parentResourceTypeSlug Filter resources by parent resource type slug. Required with `parent_external_id`. Mutually exclusive with `parent_resource_id`.
      * @param parentExternalId Filter resources by parent external ID. Required with `parent_resource_type_slug`. Mutually exclusive with `parent_resource_id`.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `Page<AuthorizationResource>` returned by the API.
      */
     public suspend fun listResources(
@@ -1257,7 +1257,7 @@ public class Authorization internal constructor(
      * @param parentResourceId Filter resources by parent resource ID. Mutually exclusive with `parent_resource_type_slug` and `parent_external_id`.
      * @param parentResourceTypeSlug Filter resources by parent resource type slug. Required with `parent_external_id`. Mutually exclusive with `parent_resource_id`.
      * @param parentExternalId Filter resources by parent external ID. Required with `parent_resource_type_slug`. Mutually exclusive with `parent_resource_id`.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return A cold flow of `AuthorizationResource` values.
      */
     public fun listResourcesAutoPaging(
@@ -1301,7 +1301,7 @@ public class Authorization internal constructor(
      * @param parentResourceId The ID of the parent resource. Mutually exclusive with `parent_resource_external_id` and `parent_resource_type_slug`.
      * @param parentResourceExternalId The external ID of the parent resource. Required with `parent_resource_type_slug`. Mutually exclusive with `parent_resource_id`.
      * @param parentResourceTypeSlug The resource type slug of the parent resource. Required with `parent_resource_external_id`. Mutually exclusive with `parent_resource_id`.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `AuthorizationResource` returned by the API.
      */
     public suspend fun createResource(
@@ -1340,7 +1340,7 @@ public class Authorization internal constructor(
      * Retrieve the details of an authorization resource by its ID.
      *
      * @param resourceId The ID of the authorization resource.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `AuthorizationResource` returned by the API.
      */
     public suspend fun getResource(
@@ -1368,7 +1368,7 @@ public class Authorization internal constructor(
      * @param parentResourceId The ID of the parent resource. Mutually exclusive with `parent_resource_external_id` and `parent_resource_type_slug`.
      * @param parentResourceExternalId The external ID of the parent resource. Required with `parent_resource_type_slug`. Mutually exclusive with `parent_resource_id`.
      * @param parentResourceTypeSlug The resource type slug of the parent resource. Required with `parent_resource_external_id`. Mutually exclusive with `parent_resource_id`.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `AuthorizationResource` returned by the API.
      */
     public suspend fun updateResource(
@@ -1403,7 +1403,7 @@ public class Authorization internal constructor(
      *
      * @param resourceId The ID of the authorization resource.
      * @param cascadeDelete If true, deletes all descendant resources and role assignments. If not set and the resource has children or assignments, the request will fail.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      */
     public suspend fun deleteResource(
         resourceId: String,
@@ -1434,7 +1434,7 @@ public class Authorization internal constructor(
      * @param limit Upper limit on the number of objects to return, between `1` and `100`.
      * @param order Order the results by the creation time. Supported values are `"asc"` (ascending), `"desc"` (descending), and `"normal"` (descending with reversed cursor semantics where `before` fetches older records and `after` fetches newer records).
      * @param assignment Filter by assignment type. Use `direct` for direct assignments only, or `indirect` to include inherited assignments.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `Page<UserOrganizationMembershipBaseListData>` returned by the API.
      */
     public suspend fun listMembershipsForResource(
@@ -1473,7 +1473,7 @@ public class Authorization internal constructor(
      * @param limit Upper limit on the number of objects to return, between `1` and `100`.
      * @param order Order the results by the creation time. Supported values are `"asc"` (ascending), `"desc"` (descending), and `"normal"` (descending with reversed cursor semantics where `before` fetches older records and `after` fetches newer records).
      * @param assignment Filter by assignment type. Use `direct` for direct assignments only, or `indirect` to include inherited assignments.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return A cold flow of `UserOrganizationMembershipBaseListData` values.
      */
     public fun listMembershipsForResourceAutoPaging(
@@ -1509,7 +1509,7 @@ public class Authorization internal constructor(
      * @param limit Upper limit on the number of objects to return, between `1` and `100`.
      * @param order Order the results by the creation time. Supported values are `"asc"` (ascending), `"desc"` (descending), and `"normal"` (descending with reversed cursor semantics where `before` fetches older records and `after` fetches newer records).
      * @param roleSlug Filter assignments by the slug of the role.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `Page<UserRoleAssignment>` returned by the API.
      */
     public suspend fun listRoleAssignmentsForResource(
@@ -1545,7 +1545,7 @@ public class Authorization internal constructor(
      * @param limit Upper limit on the number of objects to return, between `1` and `100`.
      * @param order Order the results by the creation time. Supported values are `"asc"` (ascending), `"desc"` (descending), and `"normal"` (descending with reversed cursor semantics where `before` fetches older records and `after` fetches newer records).
      * @param roleSlug Filter assignments by the slug of the role.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return A cold flow of `UserRoleAssignment` values.
      */
     public fun listRoleAssignmentsForResourceAutoPaging(
@@ -1573,7 +1573,7 @@ public class Authorization internal constructor(
      *
      * List all environment roles in priority order.
      *
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `RoleList` returned by the API.
      */
     public suspend fun listEnvironmentRoles(requestOptions: RequestOptions? = null): RoleList {
@@ -1596,7 +1596,7 @@ public class Authorization internal constructor(
      * @param name A descriptive name for the role.
      * @param description An optional description of the role.
      * @param resourceTypeSlug The slug of the resource type the role is scoped to.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `Role` returned by the API.
      */
     public suspend fun createEnvironmentRole(
@@ -1627,7 +1627,7 @@ public class Authorization internal constructor(
      * Get an environment role by its slug.
      *
      * @param slug The slug of the environment role.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `Role` returned by the API.
      */
     public suspend fun getEnvironmentRole(
@@ -1652,7 +1652,7 @@ public class Authorization internal constructor(
      * @param slug The slug of the environment role.
      * @param name A descriptive name for the role.
      * @param description An optional description of the role.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `Role` returned by the API.
      */
     public suspend fun updateEnvironmentRole(
@@ -1681,7 +1681,7 @@ public class Authorization internal constructor(
      *
      * @param slug The slug of the environment role.
      * @param slug2 The slug of the permission to add to the role.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `Role` returned by the API.
      */
     public suspend fun addEnvironmentRolePermission(
@@ -1708,7 +1708,7 @@ public class Authorization internal constructor(
      *
      * @param slug The slug of the environment role.
      * @param permissions The permission slugs to assign to the role.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `Role` returned by the API.
      */
     public suspend fun setEnvironmentRolePermissions(
@@ -1737,7 +1737,7 @@ public class Authorization internal constructor(
      * @param after An object ID that defines your place in the list. When the ID is not present, you are at the end of the list. For example, if you make a list request and receive 100 objects, ending with `"obj_123"`, your subsequent call can include `after="obj_123"` to fetch a new batch of objects after `"obj_123"`.
      * @param limit Upper limit on the number of objects to return, between `1` and `100`.
      * @param order Order the results by the creation time. Supported values are `"asc"` (ascending), `"desc"` (descending), and `"normal"` (descending with reversed cursor semantics where `before` fetches older records and `after` fetches newer records).
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `Page<AuthorizationPermission>` returned by the API.
      */
     public suspend fun listPermissions(
@@ -1768,7 +1768,7 @@ public class Authorization internal constructor(
      * @param before An object ID that defines your place in the list. When the ID is not present, you are at the end of the list. For example, if you make a list request and receive 100 objects, ending with `"obj_123"`, your subsequent call can include `before="obj_123"` to fetch a new batch of objects before `"obj_123"`.
      * @param limit Upper limit on the number of objects to return, between `1` and `100`.
      * @param order Order the results by the creation time. Supported values are `"asc"` (ascending), `"desc"` (descending), and `"normal"` (descending with reversed cursor semantics where `before` fetches older records and `after` fetches newer records).
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return A cold flow of `AuthorizationPermission` values.
      */
     public fun listPermissionsAutoPaging(
@@ -1796,7 +1796,7 @@ public class Authorization internal constructor(
      * @param name A descriptive name for the Permission.
      * @param description An optional description of the Permission.
      * @param resourceTypeSlug The slug of the resource type this permission is scoped to.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `Permission` returned by the API.
      */
     public suspend fun createPermission(
@@ -1827,7 +1827,7 @@ public class Authorization internal constructor(
      * Retrieve a permission by its unique slug.
      *
      * @param slug A unique key to reference the permission. Must be lowercase and contain only letters, numbers, hyphens, underscores, colons, periods, and asterisks.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `AuthorizationPermission` returned by the API.
      */
     public suspend fun getPermission(
@@ -1852,7 +1852,7 @@ public class Authorization internal constructor(
      * @param slug A unique key to reference the permission. Must be lowercase and contain only letters, numbers, hyphens, underscores, colons, periods, and asterisks.
      * @param name A descriptive name for the Permission.
      * @param description An optional description of the Permission.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `AuthorizationPermission` returned by the API.
      */
     public suspend fun updatePermission(
@@ -1880,7 +1880,7 @@ public class Authorization internal constructor(
      * Delete an existing permission. System permissions cannot be deleted.
      *
      * @param slug A unique key to reference the permission. Must be lowercase and contain only letters, numbers, hyphens, underscores, colons, periods, and asterisks.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      */
     public suspend fun deletePermission(
         slug: String,

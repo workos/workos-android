@@ -31,7 +31,7 @@ public class Organizations internal constructor(
      * @param order Order the results by the creation time. Supported values are `"asc"` (ascending), `"desc"` (descending), and `"normal"` (descending with reversed cursor semantics where `before` fetches older records and `after` fetches newer records).
      * @param domains The domains of an Organization. Any Organization with a matching domain will be returned.
      * @param search Searchable text for an Organization. Matches against the organization name.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `Page<Organization>` returned by the API.
      */
     public suspend fun list(
@@ -72,7 +72,7 @@ public class Organizations internal constructor(
      * @param order Order the results by the creation time. Supported values are `"asc"` (ascending), `"desc"` (descending), and `"normal"` (descending with reversed cursor semantics where `before` fetches older records and `after` fetches newer records).
      * @param domains The domains of an Organization. Any Organization with a matching domain will be returned.
      * @param search Searchable text for an Organization. Matches against the organization name.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return A cold flow of `Organization` values.
      */
     public fun listAutoPaging(
@@ -106,7 +106,7 @@ public class Organizations internal constructor(
      * @param domainData The domains associated with the organization, including verification state.
      * @param metadata Object containing [metadata](https://workos.com/docs/authkit/metadata) key/value pairs associated with the Organization.
      * @param externalId An external identifier for the Organization.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `Organization` returned by the API.
      */
     public suspend fun create(
@@ -141,7 +141,7 @@ public class Organizations internal constructor(
      * Get the details of an existing organization by an [external identifier](https://workos.com/docs/authkit/metadata/external-identifiers).
      *
      * @param externalId The external ID of the Organization.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `Organization` returned by the API.
      */
     public suspend fun getByExternalId(
@@ -164,7 +164,7 @@ public class Organizations internal constructor(
      * Get the details of an existing organization.
      *
      * @param id Unique identifier of the Organization.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `Organization` returned by the API.
      */
     public suspend fun get(
@@ -194,7 +194,7 @@ public class Organizations internal constructor(
      * @param stripeCustomerId The Stripe customer ID associated with the organization.
      * @param metadata Object containing [metadata](https://workos.com/docs/authkit/metadata) key/value pairs associated with the Organization.
      * @param externalId An external identifier for the Organization.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `Organization` returned by the API.
      */
     public suspend fun update(
@@ -232,7 +232,7 @@ public class Organizations internal constructor(
      * Permanently deletes an organization in the current environment. It cannot be undone.
      *
      * @param id Unique identifier of the Organization.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      */
     public suspend fun delete(
         id: String,
@@ -254,7 +254,7 @@ public class Organizations internal constructor(
      * Get the unified view of audit log trail and stream configuration for an organization.
      *
      * @param id Unique identifier of the Organization.
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `AuditLogConfiguration` returned by the API.
      */
     public suspend fun getAuditLogConfiguration(
@@ -281,7 +281,7 @@ public class Organizations internal constructor(
      * @param after An object ID that defines your place in the list. When the ID is not present, you are at the end of the list. For example, if you make a list request and receive 100 objects, ending with `"obj_123"`, your subsequent call can include `after="obj_123"` to fetch a new batch of objects after `"obj_123"`.
      * @param limit Upper limit on the number of objects to return, between `1` and `100`.
      * @param order Order the results by the creation time. Supported values are `"asc"` (ascending), `"desc"` (descending), and `"normal"` (descending with reversed cursor semantics where `before` fetches older records and `after` fetches newer records).
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return The `Page<OrganizationAuthorizedConnectApplicationListData>` returned by the API.
      */
     public suspend fun listAuthorizedApplications(
@@ -314,7 +314,7 @@ public class Organizations internal constructor(
      * @param before An object ID that defines your place in the list. When the ID is not present, you are at the end of the list. For example, if you make a list request and receive 100 objects, ending with `"obj_123"`, your subsequent call can include `before="obj_123"` to fetch a new batch of objects before `"obj_123"`.
      * @param limit Upper limit on the number of objects to return, between `1` and `100`.
      * @param order Order the results by the creation time. Supported values are `"asc"` (ascending), `"desc"` (descending), and `"normal"` (descending with reversed cursor semantics where `before` fetches older records and `after` fetches newer records).
-     * @param requestOptions Per-request overrides (idempotency key, API key, headers, timeout).
+     * @param requestOptions Per-request overrides: extra headers, timeout, retries, base URL, idempotency key.
      * @return A cold flow of `OrganizationAuthorizedConnectApplicationListData` values.
      */
     public fun listAuthorizedApplicationsAutoPaging(
