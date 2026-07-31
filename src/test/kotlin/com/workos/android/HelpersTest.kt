@@ -8,10 +8,13 @@ import com.workos.android.helpers.getAuthorizationUrlWithPkce
 import com.workos.android.helpers.passwordless
 import com.workos.android.helpers.pkce
 import com.workos.android.support.bodyJson
+import com.workos.android.support.headerValue
 import com.workos.android.support.pathOnly
 import com.workos.android.support.testClient
 import kotlinx.coroutines.test.runTest
 import kotlinx.serialization.json.jsonPrimitive
+import okhttp3.mockwebserver.MockResponse
+import okhttp3.mockwebserver.MockWebServer
 import org.junit.jupiter.api.Test
 import java.net.URI
 import java.security.MessageDigest
@@ -131,6 +134,28 @@ class HelpersTest {
         assertTrue(result.url.contains("code_challenge="))
         assertTrue(result.url.contains("client_id=client_123"), result.url)
     }
+
+    @Test
+    fun `H19 an empty api key reaches the wire, so the server rejects rather than the client`() =
+        runTest {
+            // The README claims a stray call past the facade "fails at the server".
+            // That is only true if the empty key produces a well-formed request instead
+            // of throwing locally — otherwise the developer gets a confusing client error.
+            val server = MockWebServer()
+            server.start()
+            server.enqueue(MockResponse().setResponseCode(401).setBody("""{"message":"Unauthorized"}"""))
+            val public = PublicClient.create(clientId = "client_123", baseUrl = server.url("/").toString().trimEnd('/'))
+
+            val error = runCatching { public.authenticateWithCode(code = "c", codeVerifier = "v") }.exceptionOrNull()
+
+            // A server-side 401, not a client-side crash.
+            assertTrue(error is AuthenticationException, "expected AuthenticationException, got $error")
+            // OkHttp trims the trailing space, so the header is bare "Bearer" — present,
+            // well-formed, and carrying no credential. That is the invariant: a request
+            // went out with no secret in it, rather than a secret being fabricated.
+            val auth = server.takeRequest().headerValue("Authorization")
+            assertEquals("Bearer", auth)
+        }
 
     // --- Passwordless --------------------------------------------------------
 
