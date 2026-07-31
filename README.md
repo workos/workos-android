@@ -77,18 +77,54 @@ build-file change, not a source change.
 
 ## Helper coverage
 
-| ID        | Capability                              | Status  |
-| --------- | --------------------------------------- | ------- |
-| —         | Passwordless                            | TODO    |
-| H01–H02   | Webhook verification                    | TODO    |
-| H03       | AuthKit Actions                         | TODO    |
-| H04–H07   | Session sealing / cookies               | TODO    |
-| H08       | PKCE utilities                          | TODO    |
-| H09–H12   | AuthKit URL, PKCE exchange, device flow | TODO    |
-| H13       | JWKS                                    | TODO    |
-| H14–H17   | SSO URL, PKCE, logout                   | TODO    |
-| H18       | Vault client-side crypto                | TODO    |
-| H19       | Public-client factory                   | TODO    |
+Six capabilities that were once hand-maintained are now **in the OpenAPI spec** and
+therefore generated — verified against the live resolved operation table, not assumed:
+
+| ID  | Capability                       | Generated as                                       |
+| --- | -------------------------------- | -------------------------------------------------- |
+| H09 | `authkit_authorization_url`      | `userManagement.getAuthorizationUrl`               |
+| H11 | `authkit_pkce_code_exchange`     | `userManagement.authenticateWithCode(codeVerifier)` |
+| H12 | `authkit_device_flow`            | `createDevice` + `authenticateWithDeviceCode`       |
+| H13 | `jwks_helper`                    | `userManagement.getJwks`                            |
+| H14 | `sso_authorization_url`          | `sso.getAuthorizationUrl`                           |
+| H17 | `sso_logout_helper`              | `sso.getLogoutUrl` + `sso.authorizeLogout`          |
+
+Hand-maintained in `helpers/`:
+
+| ID  | Capability              | Status |
+| --- | ----------------------- | ------ |
+| —   | Passwordless            | ✅ `passwordless.createSession` / `sendSession` |
+| H08 | `pkce_utilities`        | ✅ `pkce.generate()` / `generateCodeVerifier` / `generateCodeChallenge` |
+| H10 | `authkit_pkce_authorization_url` | ✅ `userManagement.getAuthorizationUrlWithPkce` |
+| H19 | `public_client_factory` | ✅ `PublicClient.create(clientId)` |
+| H01 | `webhook_verify`        | ❌ TODO |
+| H02 | `webhook_signature_primitives` | ❌ TODO |
+| H03 | `actions_helper`        | ❌ TODO |
+| H04 | `session_cookie_object` | ❌ TODO |
+| H05 | `session_cookie_inline` | ❌ TODO |
+| H06 | `session_cookie_raw_seal` | ❌ TODO |
+| H07 | `auth_response_session_sealing` | ❌ TODO |
+| H15 | `sso_pkce_authorization_url` | ⛔ blocked — `/sso/authorize` accepts no `code_challenge` in the spec |
+| H16 | `sso_pkce_code_exchange` | ⛔ blocked — `sso.getProfileAndToken` takes no `codeVerifier` and sends `client_secret` |
+| H18 | `vault_local_crypto`    | ❌ TODO |
+
+H01-H07 and H18 are **wire-compatibility-critical**: sealing and signing schemes must
+interoperate with the Node/Python/Kotlin SDKs, so they should be ported from an
+existing implementation and verified against a cross-SDK fixture rather than written
+from the spec text.
+
+### Public-client usage (Android)
+
+An Android binary cannot hold a WorkOS API key — anything in the APK is
+extractable. Use `PublicClient`, which carries an empty key so the full service
+surface fails loudly rather than appearing to work in development:
+
+```kotlin
+val public = PublicClient.create(clientId = "client_123")
+val start = public.getAuthorizationUrlWithPkce(redirectUri = "app://callback")
+// persist start.codeVerifier across process death, then open start.url
+val auth = public.authenticateWithCode(code = code, codeVerifier = start.codeVerifier)
+```
 
 ## Development
 
