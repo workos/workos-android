@@ -97,8 +97,8 @@ Hand-maintained in `helpers/`:
 | H08 | `pkce_utilities`        | ✅ `pkce.generate()` / `generateCodeVerifier` / `generateCodeChallenge` |
 | H10 | `authkit_pkce_authorization_url` | ✅ `userManagement.getAuthorizationUrlWithPkce` |
 | H19 | `public_client_factory` | ✅ `PublicClient.create(clientId)` |
-| H01 | `webhook_verify`        | ❌ TODO |
-| H02 | `webhook_signature_primitives` | ❌ TODO |
+| H01 | `webhook_verify`        | ✅ `WebhookVerification().constructEvent(...)` |
+| H02 | `webhook_signature_primitives` | ✅ `verifyHeader` / `createSignature` |
 | H03 | `actions_helper`        | ❌ TODO |
 | H04 | `session_cookie_object` | ❌ TODO |
 | H05 | `session_cookie_inline` | ❌ TODO |
