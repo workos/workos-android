@@ -103,8 +103,8 @@ Hand-maintained in `helpers/`:
 | H05 | `session_cookie_inline` | ✅ `client.session.authenticateWithSessionCookie` / `refreshSession` |
 | H06 | `session_cookie_raw_seal` | ✅ `Iron.seal` / `Iron.unseal` (Fe26.2, workos-node interop verified) |
 | H07 | `auth_response_session_sealing` | ✅ `client.session.sealAuthResponse(response, password)` |
-| H15 | `sso_pkce_authorization_url` | ⛔ blocked — `/sso/authorize` accepts no `code_challenge` in the spec |
-| H16 | `sso_pkce_code_exchange` | ⛔ blocked — `sso.getProfileAndToken` takes no `codeVerifier` and sends `client_secret` |
+| H15 | `sso_pkce_authorization_url` | ✅ `sso.getAuthorizationUrlWithPkce(...)` |
+| H16 | `sso_pkce_code_exchange` | ⛔ blocked — `POST /sso/token` requires `client_secret`, which an app cannot hold (see [SSO PKCE](#sso-pkce)) |
 | H18 | `vault_local_crypto`    | ✅ `client.vaultCrypto.encrypt` / `.decrypt` |
 
 H01-H07 and H18 are **wire-compatibility-critical**: their sealing and signing
@@ -136,6 +136,31 @@ Cookies are **written** in the camelCase shape `workos-node` produces, at every
 level including inside `user`. They are **read** permissively, accepting either
 camelCase or snake_case keys, so cookies sealed by `workos-kotlin` (which emits
 snake_case inside `user`) also open here.
+
+### SSO PKCE
+
+`sso.getAuthorizationUrlWithPkce` adds `code_challenge` and `code_challenge_method`
+to the SSO authorization URL. Both are accepted and S256-enforced by the API but are
+`@ApiHideProperty()`, so they never reach the OpenAPI document and cannot be
+generated — hence a hand-maintained helper, as in every other WorkOS SDK.
+
+**The exchange leg does not exist, deliberately.** `POST /sso/token` requires
+`client_secret`, validated before any other check:
+
+```
+POST /sso/token  {grant_type, client_id, code}   ->  422
+  {"errors":[{"field":"client_secret","code":"client_secret must be a string"}]}
+```
+
+An Android app cannot hold a client secret, so there is no secret-less SSO code
+exchange to wrap. Until the API accepts `code_verifier` in place of
+`client_secret`, **use AuthKit for a complete PKCE flow**:
+
+```kotlin
+val start = client.userManagement.getAuthorizationUrlWithPkce(redirectUri = "app://callback")
+// persist start.codeVerifier across process death, open start.url, then:
+val auth = client.userManagement.authenticateWithCode(code = code, codeVerifier = start.codeVerifier)
+```
 
 ### Public-client usage (Android)
 
