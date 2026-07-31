@@ -9,6 +9,7 @@ import kotlinx.serialization.json.jsonObject
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
 import okhttp3.mockwebserver.RecordedRequest
+import java.util.concurrent.TimeUnit
 
 private val testJson = Json { ignoreUnknownKeys = true }
 
@@ -61,6 +62,18 @@ public fun testClientWithStatus(
     server.enqueue(response)
     return clientFor(server) to server
 }
+
+/**
+ * Take the next request, bounded.
+ *
+ * `takeRequest()` blocks forever when no request arrives, so a fault where the
+ * SDK never issues the call makes the test hang until the CI job times out
+ * instead of failing with a usable message. Bounding it turns that into a fast,
+ * legible failure.
+ */
+public fun MockWebServer.awaitRequest(): RecordedRequest =
+    takeRequest(5, TimeUnit.SECONDS)
+        ?: error("expected the SDK to issue a request, but none arrived within 5s")
 
 /** Request path with the query string stripped. */
 public fun RecordedRequest.pathOnly(): String = (path ?: "").substringBefore('?')

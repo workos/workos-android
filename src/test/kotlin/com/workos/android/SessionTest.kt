@@ -20,6 +20,7 @@ import com.workos.android.helpers.SessionCookieData
 import com.workos.android.helpers.decodeSessionCookie
 import com.workos.android.helpers.encodeSessionCookie
 import com.workos.android.helpers.session
+import com.workos.android.support.awaitRequest
 import com.workos.android.support.bodyJson
 import com.workos.android.support.pathOnly
 import com.workos.android.support.testClient
@@ -353,7 +354,7 @@ class SessionTest {
         runTest {
             jwksServer().use { server ->
                 JwksVerifier(server.url("/").toString().trimEnd('/'), "client_abc").isValid(signedJwt())
-                assertEquals("/sso/jwks/client_abc", server.takeRequest().pathOnly())
+                assertEquals("/sso/jwks/client_abc", server.awaitRequest().pathOnly())
             }
         }
 
@@ -423,7 +424,7 @@ class SessionTest {
                 val result = handle.refresh()
                 val success = assertIs<RefreshSessionResult.Success>(result)
 
-                val request = server.takeRequest()
+                val request = server.awaitRequest()
                 assertEquals("POST", request.method)
                 assertEquals("/user_management/authenticate", request.pathOnly())
                 // Read the body once — RecordedRequest.body is a stream.
