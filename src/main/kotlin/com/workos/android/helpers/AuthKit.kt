@@ -4,8 +4,6 @@ package com.workos.android.helpers
 import com.workos.android.WorkOSClient
 import com.workos.android.resources.UserManagement
 import com.workos.android.userManagement
-import java.security.SecureRandom
-import java.util.Base64
 
 /** An AuthKit authorization URL plus the PKCE state the caller must retain. */
 public data class PkceAuthorizationUrlResult(
@@ -22,14 +20,8 @@ public data class PkceAuthorizationUrlResult(
     public val state: String,
 )
 
-private val stateRandom = SecureRandom()
-
 /** A cryptographically random, URL-safe CSRF state value. */
-private fun randomState(): String {
-    val raw = ByteArray(24)
-    stateRandom.nextBytes(raw)
-    return Base64.getUrlEncoder().withoutPadding().encodeToString(raw)
-}
+private fun randomState(): String = UrlSafeRandom.token(24)
 
 /**
  * H10 — build an AuthKit authorization URL that generates its own PKCE parameters

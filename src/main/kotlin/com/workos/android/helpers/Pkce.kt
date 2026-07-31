@@ -6,6 +6,26 @@ import java.security.MessageDigest
 import java.security.SecureRandom
 import java.util.Base64
 
+/**
+ * URL-safe random token generation, shared by the PKCE verifier and the CSRF state
+ * in [getAuthorizationUrlWithPkce]. One owner, so a change to the alphabet or
+ * padding cannot silently apply to one and not the other.
+ */
+internal object UrlSafeRandom {
+    private val secureRandom = SecureRandom()
+    private val encoder: Base64.Encoder = Base64.getUrlEncoder().withoutPadding()
+
+    /** Base64url-encode [byteCount] cryptographically random bytes. */
+    fun token(byteCount: Int): String {
+        val raw = ByteArray(byteCount)
+        secureRandom.nextBytes(raw)
+        return encoder.encodeToString(raw)
+    }
+
+    /** Base64url-encode an already-computed digest. */
+    fun encode(bytes: ByteArray): String = encoder.encodeToString(bytes)
+}
+
 /** A PKCE (RFC 7636) code verifier and challenge pair. */
 public data class PkcePair(
     /** The plain-text code verifier (43-128 characters, RFC 7636 §4.1). */
@@ -25,9 +45,6 @@ public data class PkcePair(
  * derive challenges identically.
  */
 public class Pkce {
-    private val secureRandom = SecureRandom()
-    private val base64Url = Base64.getUrlEncoder().withoutPadding()
-
     /**
      * Generate a cryptographically random code verifier.
      *
@@ -38,15 +55,13 @@ public class Pkce {
             "Code verifier length must be between 43 and 128, got $length"
         }
         val numBytes = (length * 3 + 3) / 4
-        val raw = ByteArray(numBytes)
-        secureRandom.nextBytes(raw)
-        return base64Url.encodeToString(raw).substring(0, length)
+        return UrlSafeRandom.token(numBytes).substring(0, length)
     }
 
     /** Compute the S256 code challenge (base64url-encoded SHA-256) for a verifier. */
     public fun generateCodeChallenge(verifier: String): String {
         val digest = MessageDigest.getInstance("SHA-256").digest(verifier.toByteArray(Charsets.US_ASCII))
-        return base64Url.encodeToString(digest)
+        return UrlSafeRandom.encode(digest)
     }
 
     /** Generate a complete PKCE pair (verifier + S256 challenge). */
