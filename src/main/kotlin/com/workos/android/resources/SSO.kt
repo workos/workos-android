@@ -93,7 +93,7 @@ public class SSO internal constructor(
     ): Flow<Connection> =
         autoPagingFlow { cursor ->
             listConnections(
-                before = before,
+                before = if (cursor == null) before else null,
                 after = cursor,
                 limit = limit,
                 order = order,

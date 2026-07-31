@@ -80,7 +80,7 @@ public class Pipes internal constructor(
     ): Flow<DataIntegration> =
         autoPagingFlow { cursor ->
             listDataIntegrations(
-                before = before,
+                before = if (cursor == null) before else null,
                 after = cursor,
                 limit = limit,
                 order = order,

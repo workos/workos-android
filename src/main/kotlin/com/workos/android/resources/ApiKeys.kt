@@ -77,7 +77,7 @@ public class ApiKeys internal constructor(
         autoPagingFlow { cursor ->
             listOrganizationApiKeys(
                 organizationId = organizationId,
-                before = before,
+                before = if (cursor == null) before else null,
                 after = cursor,
                 limit = limit,
                 order = order,

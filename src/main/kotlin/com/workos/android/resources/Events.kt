@@ -90,7 +90,7 @@ public class Events internal constructor(
     ): Flow<EventSchema> =
         autoPagingFlow { cursor ->
             list(
-                before = before,
+                before = if (cursor == null) before else null,
                 after = cursor,
                 limit = limit,
                 order = order,

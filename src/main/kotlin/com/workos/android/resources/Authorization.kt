@@ -84,7 +84,7 @@ public class Authorization internal constructor(
         autoPagingFlow { cursor ->
             listGroupRoleAssignments(
                 groupId = groupId,
-                before = before,
+                before = if (cursor == null) before else null,
                 after = cursor,
                 limit = limit,
                 order = order,
@@ -354,7 +354,7 @@ public class Authorization internal constructor(
             listResourcesForMembership(
                 organizationMembershipId = organizationMembershipId,
                 permissionSlug = permissionSlug,
-                before = before,
+                before = if (cursor == null) before else null,
                 after = cursor,
                 limit = limit,
                 order = order,
@@ -428,7 +428,7 @@ public class Authorization internal constructor(
             listEffectivePermissions(
                 organizationMembershipId = organizationMembershipId,
                 resourceId = resourceId,
-                before = before,
+                before = if (cursor == null) before else null,
                 after = cursor,
                 limit = limit,
                 order = order,
@@ -504,7 +504,7 @@ public class Authorization internal constructor(
                 organizationMembershipId = organizationMembershipId,
                 resourceTypeSlug = resourceTypeSlug,
                 externalId = externalId,
-                before = before,
+                before = if (cursor == null) before else null,
                 after = cursor,
                 limit = limit,
                 order = order,
@@ -583,7 +583,7 @@ public class Authorization internal constructor(
         autoPagingFlow { cursor ->
             listRoleAssignments(
                 organizationMembershipId = organizationMembershipId,
-                before = before,
+                before = if (cursor == null) before else null,
                 after = cursor,
                 limit = limit,
                 order = order,
@@ -1102,7 +1102,7 @@ public class Authorization internal constructor(
                 resourceTypeSlug = resourceTypeSlug,
                 externalId = externalId,
                 permissionSlug = permissionSlug,
-                before = before,
+                before = if (cursor == null) before else null,
                 after = cursor,
                 limit = limit,
                 order = order,
@@ -1184,7 +1184,7 @@ public class Authorization internal constructor(
                 organizationId = organizationId,
                 resourceTypeSlug = resourceTypeSlug,
                 externalId = externalId,
-                before = before,
+                before = if (cursor == null) before else null,
                 after = cursor,
                 limit = limit,
                 order = order,
@@ -1274,7 +1274,7 @@ public class Authorization internal constructor(
     ): Flow<AuthorizationResource> =
         autoPagingFlow { cursor ->
             listResources(
-                before = before,
+                before = if (cursor == null) before else null,
                 after = cursor,
                 limit = limit,
                 order = order,
@@ -1489,7 +1489,7 @@ public class Authorization internal constructor(
             listMembershipsForResource(
                 resourceId = resourceId,
                 permissionSlug = permissionSlug,
-                before = before,
+                before = if (cursor == null) before else null,
                 after = cursor,
                 limit = limit,
                 order = order,
@@ -1559,7 +1559,7 @@ public class Authorization internal constructor(
         autoPagingFlow { cursor ->
             listRoleAssignmentsForResource(
                 resourceId = resourceId,
-                before = before,
+                before = if (cursor == null) before else null,
                 after = cursor,
                 limit = limit,
                 order = order,
@@ -1779,7 +1779,7 @@ public class Authorization internal constructor(
     ): Flow<AuthorizationPermission> =
         autoPagingFlow { cursor ->
             listPermissions(
-                before = before,
+                before = if (cursor == null) before else null,
                 after = cursor,
                 limit = limit,
                 order = order,
