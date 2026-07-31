@@ -1,0 +1,26 @@
+.DS_Store
+
+# Ignore Gradle project-specific cache directory
+.gradle
+
+# Ignore IntelliJ projects
+.idea
+.settings/org.eclipse.jdt.core.prefs
+
+# Ignore Eclipse projects
+.project
+
+# Ignore classpath
+.classpath
+
+# Ignore Gradle build output directory
+build
+bin
+
+# Credentials. NOTE: unlike workos-kotlin, gradle.properties is NOT ignored here —
+# it carries the required compiler heap settings and no secrets. Signing keys and
+# publishing credentials live in ~/.gradle/gradle.properties.
+signing.key
+
+# Generated API docs site
+docs/_site/

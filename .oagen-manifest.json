@@ -1,0 +1,1649 @@
+{
+  "version": 2,
+  "language": "android",
+  "files": [
+    ".oagen-android-smoke.json",
+    "src/main/kotlin/com/workos/android/WorkOSClientResources.kt",
+    "src/main/kotlin/com/workos/android/enums/AgentAdminValidateCredentialRequestType.kt",
+    "src/main/kotlin/com/workos/android/enums/AgentRegistrationCreatedDataKind.kt",
+    "src/main/kotlin/com/workos/android/enums/AgentRegistrationCreatedDataMethod.kt",
+    "src/main/kotlin/com/workos/android/enums/AgentRegistrationCreatedDataStatus.kt",
+    "src/main/kotlin/com/workos/android/enums/AgentRegistrationKind.kt",
+    "src/main/kotlin/com/workos/android/enums/AgentRegistrationStatus.kt",
+    "src/main/kotlin/com/workos/android/enums/ApplicationsRegistrationTypes.kt",
+    "src/main/kotlin/com/workos/android/enums/AuditLogConfigurationLogStreamState.kt",
+    "src/main/kotlin/com/workos/android/enums/AuditLogConfigurationLogStreamType.kt",
+    "src/main/kotlin/com/workos/android/enums/AuditLogConfigurationState.kt",
+    "src/main/kotlin/com/workos/android/enums/AuditLogExportState.kt",
+    "src/main/kotlin/com/workos/android/enums/AuthenticateResponseAuthenticationMethod.kt",
+    "src/main/kotlin/com/workos/android/enums/AuthenticationFactorEnrolledType.kt",
+    "src/main/kotlin/com/workos/android/enums/AuthenticationFactorType.kt",
+    "src/main/kotlin/com/workos/android/enums/AuthenticationFactorsCreateRequestType.kt",
+    "src/main/kotlin/com/workos/android/enums/AuthenticationRadarRiskDetectedDataAction.kt",
+    "src/main/kotlin/com/workos/android/enums/AuthorizationAssignment.kt",
+    "src/main/kotlin/com/workos/android/enums/ClaimViewResponseStatus.kt",
+    "src/main/kotlin/com/workos/android/enums/ConnectedAccountAuthMethod.kt",
+    "src/main/kotlin/com/workos/android/enums/ConnectedAccountInputState.kt",
+    "src/main/kotlin/com/workos/android/enums/ConnectedAccountState.kt",
+    "src/main/kotlin/com/workos/android/enums/ConnectionActivatedDataConnectionType.kt",
+    "src/main/kotlin/com/workos/android/enums/ConnectionActivatedDataState.kt",
+    "src/main/kotlin/com/workos/android/enums/ConnectionActivatedDataStatus.kt",
+    "src/main/kotlin/com/workos/android/enums/ConnectionDeactivatedDataConnectionType.kt",
+    "src/main/kotlin/com/workos/android/enums/ConnectionDeactivatedDataState.kt",
+    "src/main/kotlin/com/workos/android/enums/ConnectionDeactivatedDataStatus.kt",
+    "src/main/kotlin/com/workos/android/enums/ConnectionDeletedDataConnectionType.kt",
+    "src/main/kotlin/com/workos/android/enums/ConnectionDeletedDataState.kt",
+    "src/main/kotlin/com/workos/android/enums/ConnectionSAMLCertificateRenewalRequiredDataCertificateCertificateType.kt",
+    "src/main/kotlin/com/workos/android/enums/ConnectionSAMLCertificateRenewedDataCertificateCertificateType.kt",
+    "src/main/kotlin/com/workos/android/enums/ConnectionState.kt",
+    "src/main/kotlin/com/workos/android/enums/ConnectionStatus.kt",
+    "src/main/kotlin/com/workos/android/enums/ConnectionType.kt",
+    "src/main/kotlin/com/workos/android/enums/ConnectionsConnectionType.kt",
+    "src/main/kotlin/com/workos/android/enums/CreateDataIntegrationAuthMethods.kt",
+    "src/main/kotlin/com/workos/android/enums/CreateUserInviteOptionsLocale.kt",
+    "src/main/kotlin/com/workos/android/enums/CreateUserPasswordHashType.kt",
+    "src/main/kotlin/com/workos/android/enums/CreateWebhookEndpointEvents.kt",
+    "src/main/kotlin/com/workos/android/enums/CustomProviderDefinitionAuthenticateVia.kt",
+    "src/main/kotlin/com/workos/android/enums/DataIntegrationAccessTokenResponseError.kt",
+    "src/main/kotlin/com/workos/android/enums/DataIntegrationAuthMethods.kt",
+    "src/main/kotlin/com/workos/android/enums/DataIntegrationCredentialType.kt",
+    "src/main/kotlin/com/workos/android/enums/DataIntegrationCredentialsCredentialsType.kt",
+    "src/main/kotlin/com/workos/android/enums/DataIntegrationCredentialsInputType.kt",
+    "src/main/kotlin/com/workos/android/enums/DataIntegrationCredentialsResponseError.kt",
+    "src/main/kotlin/com/workos/android/enums/DataIntegrationCustomProviderAuthenticateVia.kt",
+    "src/main/kotlin/com/workos/android/enums/DataIntegrationState.kt",
+    "src/main/kotlin/com/workos/android/enums/DataIntegrationsListResponseDataAuthMethods.kt",
+    "src/main/kotlin/com/workos/android/enums/DataIntegrationsListResponseDataConnectedAccountAuthMethod.kt",
+    "src/main/kotlin/com/workos/android/enums/DataIntegrationsListResponseDataConnectedAccountState.kt",
+    "src/main/kotlin/com/workos/android/enums/DataIntegrationsListResponseDataOwnership.kt",
+    "src/main/kotlin/com/workos/android/enums/DirectoryState.kt",
+    "src/main/kotlin/com/workos/android/enums/DirectoryType.kt",
+    "src/main/kotlin/com/workos/android/enums/DirectoryUserState.kt",
+    "src/main/kotlin/com/workos/android/enums/DirectoryUserWithGroupsState.kt",
+    "src/main/kotlin/com/workos/android/enums/DsyncActivatedDataState.kt",
+    "src/main/kotlin/com/workos/android/enums/DsyncActivatedDataType.kt",
+    "src/main/kotlin/com/workos/android/enums/DsyncDeletedDataState.kt",
+    "src/main/kotlin/com/workos/android/enums/DsyncDeletedDataType.kt",
+    "src/main/kotlin/com/workos/android/enums/DsyncUserUpdatedDataState.kt",
+    "src/main/kotlin/com/workos/android/enums/EventContextActorSource.kt",
+    "src/main/kotlin/com/workos/android/enums/FlagCreatedContextActorSource.kt",
+    "src/main/kotlin/com/workos/android/enums/FlagDeletedContextActorSource.kt",
+    "src/main/kotlin/com/workos/android/enums/FlagRuleUpdatedContextAccessType.kt",
+    "src/main/kotlin/com/workos/android/enums/FlagRuleUpdatedContextActorSource.kt",
+    "src/main/kotlin/com/workos/android/enums/FlagRuleUpdatedContextPreviousAttributeContextAccessType.kt",
+    "src/main/kotlin/com/workos/android/enums/FlagUpdatedContextActorSource.kt",
+    "src/main/kotlin/com/workos/android/enums/GenerateLinkIntent.kt",
+    "src/main/kotlin/com/workos/android/enums/InvitationAcceptedDataState.kt",
+    "src/main/kotlin/com/workos/android/enums/InvitationCreatedDataState.kt",
+    "src/main/kotlin/com/workos/android/enums/InvitationResentDataState.kt",
+    "src/main/kotlin/com/workos/android/enums/InvitationRevokedDataState.kt",
+    "src/main/kotlin/com/workos/android/enums/InvitationState.kt",
+    "src/main/kotlin/com/workos/android/enums/OrganizationCreatedDataDomainState.kt",
+    "src/main/kotlin/com/workos/android/enums/OrganizationCreatedDataDomainVerificationStrategy.kt",
+    "src/main/kotlin/com/workos/android/enums/OrganizationDeletedDataDomainState.kt",
+    "src/main/kotlin/com/workos/android/enums/OrganizationDeletedDataDomainVerificationStrategy.kt",
+    "src/main/kotlin/com/workos/android/enums/OrganizationDomainCreatedDataState.kt",
+    "src/main/kotlin/com/workos/android/enums/OrganizationDomainCreatedDataVerificationStrategy.kt",
+    "src/main/kotlin/com/workos/android/enums/OrganizationDomainDataState.kt",
+    "src/main/kotlin/com/workos/android/enums/OrganizationDomainDeletedDataState.kt",
+    "src/main/kotlin/com/workos/android/enums/OrganizationDomainDeletedDataVerificationStrategy.kt",
+    "src/main/kotlin/com/workos/android/enums/OrganizationDomainState.kt",
+    "src/main/kotlin/com/workos/android/enums/OrganizationDomainUpdatedDataState.kt",
+    "src/main/kotlin/com/workos/android/enums/OrganizationDomainUpdatedDataVerificationStrategy.kt",
+    "src/main/kotlin/com/workos/android/enums/OrganizationDomainVerificationFailedDataOrganizationDomainState.kt",
+    "src/main/kotlin/com/workos/android/enums/OrganizationDomainVerificationFailedDataOrganizationDomainVerificationStrategy.kt",
+    "src/main/kotlin/com/workos/android/enums/OrganizationDomainVerificationFailedDataReason.kt",
+    "src/main/kotlin/com/workos/android/enums/OrganizationDomainVerificationStrategy.kt",
+    "src/main/kotlin/com/workos/android/enums/OrganizationDomainVerifiedDataState.kt",
+    "src/main/kotlin/com/workos/android/enums/OrganizationDomainVerifiedDataVerificationStrategy.kt",
+    "src/main/kotlin/com/workos/android/enums/OrganizationMembershipCreatedDataStatus.kt",
+    "src/main/kotlin/com/workos/android/enums/OrganizationMembershipDeletedDataStatus.kt",
+    "src/main/kotlin/com/workos/android/enums/OrganizationMembershipStatus.kt",
+    "src/main/kotlin/com/workos/android/enums/OrganizationMembershipUpdatedDataStatus.kt",
+    "src/main/kotlin/com/workos/android/enums/OrganizationUpdatedDataDomainState.kt",
+    "src/main/kotlin/com/workos/android/enums/OrganizationUpdatedDataDomainVerificationStrategy.kt",
+    "src/main/kotlin/com/workos/android/enums/PaginationOrder.kt",
+    "src/main/kotlin/com/workos/android/enums/PipeConnectedAccountState.kt",
+    "src/main/kotlin/com/workos/android/enums/ProfileConnectionType.kt",
+    "src/main/kotlin/com/workos/android/enums/RadarListAction.kt",
+    "src/main/kotlin/com/workos/android/enums/RadarListType.kt",
+    "src/main/kotlin/com/workos/android/enums/RadarStandaloneAssessRequestAction.kt",
+    "src/main/kotlin/com/workos/android/enums/RadarStandaloneAssessRequestAuthMethod.kt",
+    "src/main/kotlin/com/workos/android/enums/RadarStandaloneResponseBlocklistType.kt",
+    "src/main/kotlin/com/workos/android/enums/RadarStandaloneResponseControl.kt",
+    "src/main/kotlin/com/workos/android/enums/RadarStandaloneResponseVerdict.kt",
+    "src/main/kotlin/com/workos/android/enums/ResendUserInviteOptionsLocale.kt",
+    "src/main/kotlin/com/workos/android/enums/RoleType.kt",
+    "src/main/kotlin/com/workos/android/enums/SSOProvider.kt",
+    "src/main/kotlin/com/workos/android/enums/SessionCreatedDataAuthMethod.kt",
+    "src/main/kotlin/com/workos/android/enums/SessionCreatedDataStatus.kt",
+    "src/main/kotlin/com/workos/android/enums/SessionRevokedDataAuthMethod.kt",
+    "src/main/kotlin/com/workos/android/enums/SessionRevokedDataStatus.kt",
+    "src/main/kotlin/com/workos/android/enums/UpdateCustomProviderDefinitionAuthenticateVia.kt",
+    "src/main/kotlin/com/workos/android/enums/UpdateUserPasswordHashType.kt",
+    "src/main/kotlin/com/workos/android/enums/UpdateWebhookEndpointEvents.kt",
+    "src/main/kotlin/com/workos/android/enums/UpdateWebhookEndpointStatus.kt",
+    "src/main/kotlin/com/workos/android/enums/UserIdentitiesGetItemProvider.kt",
+    "src/main/kotlin/com/workos/android/enums/UserInviteState.kt",
+    "src/main/kotlin/com/workos/android/enums/UserManagementAuthenticationProvider.kt",
+    "src/main/kotlin/com/workos/android/enums/UserManagementAuthenticationScreenHint.kt",
+    "src/main/kotlin/com/workos/android/enums/UserManagementOrganizationMembershipStatuses.kt",
+    "src/main/kotlin/com/workos/android/enums/UserOrganizationMembershipBaseListDataStatus.kt",
+    "src/main/kotlin/com/workos/android/enums/UserOrganizationMembershipStatus.kt",
+    "src/main/kotlin/com/workos/android/enums/UserRoleAssignmentSourceType.kt",
+    "src/main/kotlin/com/workos/android/enums/UserSessionsAuthMethod.kt",
+    "src/main/kotlin/com/workos/android/enums/UserSessionsStatus.kt",
+    "src/main/kotlin/com/workos/android/enums/VaultByokKeyProvider.kt",
+    "src/main/kotlin/com/workos/android/enums/VaultDataCreatedDataActorSource.kt",
+    "src/main/kotlin/com/workos/android/enums/VaultDataDeletedDataActorSource.kt",
+    "src/main/kotlin/com/workos/android/enums/VaultDataReadDataActorSource.kt",
+    "src/main/kotlin/com/workos/android/enums/VaultDataUpdatedDataActorSource.kt",
+    "src/main/kotlin/com/workos/android/enums/VaultDekDecryptedDataActorSource.kt",
+    "src/main/kotlin/com/workos/android/enums/VaultDekReadDataActorSource.kt",
+    "src/main/kotlin/com/workos/android/enums/VaultKekCreatedDataActorSource.kt",
+    "src/main/kotlin/com/workos/android/enums/VaultKekDeletedDataActorSource.kt",
+    "src/main/kotlin/com/workos/android/enums/VaultMetadataReadDataActorSource.kt",
+    "src/main/kotlin/com/workos/android/enums/VaultNamesListedDataActorSource.kt",
+    "src/main/kotlin/com/workos/android/enums/VaultOrder.kt",
+    "src/main/kotlin/com/workos/android/enums/WaitlistUserState.kt",
+    "src/main/kotlin/com/workos/android/enums/WebhookEndpointStatus.kt",
+    "src/main/kotlin/com/workos/android/enums/WidgetSessionTokenScopes.kt",
+    "src/main/kotlin/com/workos/android/models/AccessTokenAgentRegistrationCredentialIssuedDataDetail.kt",
+    "src/main/kotlin/com/workos/android/models/ActionAuthenticationDenied.kt",
+    "src/main/kotlin/com/workos/android/models/ActionAuthenticationDeniedData.kt",
+    "src/main/kotlin/com/workos/android/models/ActionUserRegistrationDenied.kt",
+    "src/main/kotlin/com/workos/android/models/ActionUserRegistrationDeniedData.kt",
+    "src/main/kotlin/com/workos/android/models/Actor.kt",
+    "src/main/kotlin/com/workos/android/models/AddRolePermission.kt",
+    "src/main/kotlin/com/workos/android/models/AgentAdminLinkClaimAttemptToExternalUserRequest.kt",
+    "src/main/kotlin/com/workos/android/models/AgentAdminLinkClaimAttemptToExternalUserRequestUser.kt",
+    "src/main/kotlin/com/workos/android/models/AgentAdminValidateCredentialRequest.kt",
+    "src/main/kotlin/com/workos/android/models/AgentCredentialValidation.kt",
+    "src/main/kotlin/com/workos/android/models/AgentRegistration.kt",
+    "src/main/kotlin/com/workos/android/models/AgentRegistrationAgentIdentity.kt",
+    "src/main/kotlin/com/workos/android/models/AgentRegistrationClaim.kt",
+    "src/main/kotlin/com/workos/android/models/AgentRegistrationClaimAttemptCreated.kt",
+    "src/main/kotlin/com/workos/android/models/AgentRegistrationClaimAttemptCreatedData.kt",
+    "src/main/kotlin/com/workos/android/models/AgentRegistrationClaimClaimCompletion.kt",
+    "src/main/kotlin/com/workos/android/models/AgentRegistrationClaimCompleted.kt",
+    "src/main/kotlin/com/workos/android/models/AgentRegistrationClaimCompletedData.kt",
+    "src/main/kotlin/com/workos/android/models/AgentRegistrationClaimCompletedDataClaimedBy.kt",
+    "src/main/kotlin/com/workos/android/models/AgentRegistrationCreated.kt",
+    "src/main/kotlin/com/workos/android/models/AgentRegistrationCreatedData.kt",
+    "src/main/kotlin/com/workos/android/models/AgentRegistrationCreatedDataAgentIdentity.kt",
+    "src/main/kotlin/com/workos/android/models/AgentRegistrationCredentialIssued.kt",
+    "src/main/kotlin/com/workos/android/models/AgentRegistrationCredentialIssuedData.kt",
+    "src/main/kotlin/com/workos/android/models/AgentRegistrationCredentialIssuedDataDetail.kt",
+    "src/main/kotlin/com/workos/android/models/AgentRegistrationDeleted.kt",
+    "src/main/kotlin/com/workos/android/models/AgentRegistrationDeletedData.kt",
+    "src/main/kotlin/com/workos/android/models/AgentRegistrationExpired.kt",
+    "src/main/kotlin/com/workos/android/models/AgentRegistrationExpiredData.kt",
+    "src/main/kotlin/com/workos/android/models/AgentRegistrationOrganizationSwitched.kt",
+    "src/main/kotlin/com/workos/android/models/AgentRegistrationOrganizationSwitchedData.kt",
+    "src/main/kotlin/com/workos/android/models/AgentRegistrationRefreshed.kt",
+    "src/main/kotlin/com/workos/android/models/AgentRegistrationRefreshedData.kt",
+    "src/main/kotlin/com/workos/android/models/AgentRegistrationRevoked.kt",
+    "src/main/kotlin/com/workos/android/models/AgentRegistrationRevokedData.kt",
+    "src/main/kotlin/com/workos/android/models/ApiKey.kt",
+    "src/main/kotlin/com/workos/android/models/ApiKeyCreated.kt",
+    "src/main/kotlin/com/workos/android/models/ApiKeyCreatedData.kt",
+    "src/main/kotlin/com/workos/android/models/ApiKeyCreatedDataOwner.kt",
+    "src/main/kotlin/com/workos/android/models/ApiKeyInstallation.kt",
+    "src/main/kotlin/com/workos/android/models/ApiKeyOwner.kt",
+    "src/main/kotlin/com/workos/android/models/ApiKeyRevoked.kt",
+    "src/main/kotlin/com/workos/android/models/ApiKeyRevokedData.kt",
+    "src/main/kotlin/com/workos/android/models/ApiKeyRevokedDataOwner.kt",
+    "src/main/kotlin/com/workos/android/models/ApiKeyUpdated.kt",
+    "src/main/kotlin/com/workos/android/models/ApiKeyUpdatedData.kt",
+    "src/main/kotlin/com/workos/android/models/ApiKeyUpdatedDataOwner.kt",
+    "src/main/kotlin/com/workos/android/models/ApiKeyUpdatedDataPreviousAttribute.kt",
+    "src/main/kotlin/com/workos/android/models/ApiKeyValidationResponse.kt",
+    "src/main/kotlin/com/workos/android/models/ApplicationCredentialsListItem.kt",
+    "src/main/kotlin/com/workos/android/models/AssignRole.kt",
+    "src/main/kotlin/com/workos/android/models/AuditLogAction.kt",
+    "src/main/kotlin/com/workos/android/models/AuditLogConfiguration.kt",
+    "src/main/kotlin/com/workos/android/models/AuditLogConfigurationLogStream.kt",
+    "src/main/kotlin/com/workos/android/models/AuditLogEvent.kt",
+    "src/main/kotlin/com/workos/android/models/AuditLogEventActor.kt",
+    "src/main/kotlin/com/workos/android/models/AuditLogEventContext.kt",
+    "src/main/kotlin/com/workos/android/models/AuditLogEventCreateResponse.kt",
+    "src/main/kotlin/com/workos/android/models/AuditLogEventIngestion.kt",
+    "src/main/kotlin/com/workos/android/models/AuditLogEventTarget.kt",
+    "src/main/kotlin/com/workos/android/models/AuditLogExport.kt",
+    "src/main/kotlin/com/workos/android/models/AuditLogExportCreation.kt",
+    "src/main/kotlin/com/workos/android/models/AuditLogSchema.kt",
+    "src/main/kotlin/com/workos/android/models/AuditLogSchemaActor.kt",
+    "src/main/kotlin/com/workos/android/models/AuditLogSchemaActorInput.kt",
+    "src/main/kotlin/com/workos/android/models/AuditLogSchemaInput.kt",
+    "src/main/kotlin/com/workos/android/models/AuditLogSchemaTarget.kt",
+    "src/main/kotlin/com/workos/android/models/AuditLogSchemaTargetInput.kt",
+    "src/main/kotlin/com/workos/android/models/AuditLogsRetention.kt",
+    "src/main/kotlin/com/workos/android/models/AuthMethodMismatchError.kt",
+    "src/main/kotlin/com/workos/android/models/AuthenticateResponse.kt",
+    "src/main/kotlin/com/workos/android/models/AuthenticateResponseImpersonator.kt",
+    "src/main/kotlin/com/workos/android/models/AuthenticateResponseOAuthToken.kt",
+    "src/main/kotlin/com/workos/android/models/AuthenticationChallenge.kt",
+    "src/main/kotlin/com/workos/android/models/AuthenticationChallengeVerifyResponse.kt",
+    "src/main/kotlin/com/workos/android/models/AuthenticationChallengesVerifyRequest.kt",
+    "src/main/kotlin/com/workos/android/models/AuthenticationEmailVerificationFailed.kt",
+    "src/main/kotlin/com/workos/android/models/AuthenticationEmailVerificationFailedData.kt",
+    "src/main/kotlin/com/workos/android/models/AuthenticationEmailVerificationFailedDataError.kt",
+    "src/main/kotlin/com/workos/android/models/AuthenticationEmailVerificationSucceeded.kt",
+    "src/main/kotlin/com/workos/android/models/AuthenticationEmailVerificationSucceededData.kt",
+    "src/main/kotlin/com/workos/android/models/AuthenticationFactor.kt",
+    "src/main/kotlin/com/workos/android/models/AuthenticationFactorEnrolled.kt",
+    "src/main/kotlin/com/workos/android/models/AuthenticationFactorEnrolledSms.kt",
+    "src/main/kotlin/com/workos/android/models/AuthenticationFactorEnrolledTotp.kt",
+    "src/main/kotlin/com/workos/android/models/AuthenticationFactorSms.kt",
+    "src/main/kotlin/com/workos/android/models/AuthenticationFactorTotp.kt",
+    "src/main/kotlin/com/workos/android/models/AuthenticationFactorsCreateRequest.kt",
+    "src/main/kotlin/com/workos/android/models/AuthenticationMagicAuthFailed.kt",
+    "src/main/kotlin/com/workos/android/models/AuthenticationMagicAuthFailedData.kt",
+    "src/main/kotlin/com/workos/android/models/AuthenticationMagicAuthFailedDataError.kt",
+    "src/main/kotlin/com/workos/android/models/AuthenticationMagicAuthSucceeded.kt",
+    "src/main/kotlin/com/workos/android/models/AuthenticationMagicAuthSucceededData.kt",
+    "src/main/kotlin/com/workos/android/models/AuthenticationMfaFailed.kt",
+    "src/main/kotlin/com/workos/android/models/AuthenticationMfaFailedData.kt",
+    "src/main/kotlin/com/workos/android/models/AuthenticationMfaFailedDataError.kt",
+    "src/main/kotlin/com/workos/android/models/AuthenticationMfaSucceeded.kt",
+    "src/main/kotlin/com/workos/android/models/AuthenticationMfaSucceededData.kt",
+    "src/main/kotlin/com/workos/android/models/AuthenticationOAuthFailed.kt",
+    "src/main/kotlin/com/workos/android/models/AuthenticationOAuthFailedData.kt",
+    "src/main/kotlin/com/workos/android/models/AuthenticationOAuthFailedDataError.kt",
+    "src/main/kotlin/com/workos/android/models/AuthenticationOAuthSucceeded.kt",
+    "src/main/kotlin/com/workos/android/models/AuthenticationOAuthSucceededData.kt",
+    "src/main/kotlin/com/workos/android/models/AuthenticationPasskeyFailed.kt",
+    "src/main/kotlin/com/workos/android/models/AuthenticationPasskeyFailedData.kt",
+    "src/main/kotlin/com/workos/android/models/AuthenticationPasskeyFailedDataError.kt",
+    "src/main/kotlin/com/workos/android/models/AuthenticationPasskeySucceeded.kt",
+    "src/main/kotlin/com/workos/android/models/AuthenticationPasskeySucceededData.kt",
+    "src/main/kotlin/com/workos/android/models/AuthenticationPasswordFailed.kt",
+    "src/main/kotlin/com/workos/android/models/AuthenticationPasswordFailedData.kt",
+    "src/main/kotlin/com/workos/android/models/AuthenticationPasswordFailedDataError.kt",
+    "src/main/kotlin/com/workos/android/models/AuthenticationPasswordSucceeded.kt",
+    "src/main/kotlin/com/workos/android/models/AuthenticationPasswordSucceededData.kt",
+    "src/main/kotlin/com/workos/android/models/AuthenticationRadarRiskDetected.kt",
+    "src/main/kotlin/com/workos/android/models/AuthenticationRadarRiskDetectedData.kt",
+    "src/main/kotlin/com/workos/android/models/AuthenticationReauthenticationSucceeded.kt",
+    "src/main/kotlin/com/workos/android/models/AuthenticationReauthenticationSucceededData.kt",
+    "src/main/kotlin/com/workos/android/models/AuthenticationSSOFailed.kt",
+    "src/main/kotlin/com/workos/android/models/AuthenticationSSOFailedData.kt",
+    "src/main/kotlin/com/workos/android/models/AuthenticationSSOFailedDataError.kt",
+    "src/main/kotlin/com/workos/android/models/AuthenticationSSOFailedDataSSO.kt",
+    "src/main/kotlin/com/workos/android/models/AuthenticationSSOStarted.kt",
+    "src/main/kotlin/com/workos/android/models/AuthenticationSSOStartedData.kt",
+    "src/main/kotlin/com/workos/android/models/AuthenticationSSOStartedDataSSO.kt",
+    "src/main/kotlin/com/workos/android/models/AuthenticationSSOSucceeded.kt",
+    "src/main/kotlin/com/workos/android/models/AuthenticationSSOSucceededData.kt",
+    "src/main/kotlin/com/workos/android/models/AuthenticationSSOSucceededDataSSO.kt",
+    "src/main/kotlin/com/workos/android/models/AuthenticationSSOTimedOut.kt",
+    "src/main/kotlin/com/workos/android/models/AuthenticationSSOTimedOutData.kt",
+    "src/main/kotlin/com/workos/android/models/AuthenticationSSOTimedOutDataError.kt",
+    "src/main/kotlin/com/workos/android/models/AuthenticationSSOTimedOutDataSSO.kt",
+    "src/main/kotlin/com/workos/android/models/AuthorizationCheck.kt",
+    "src/main/kotlin/com/workos/android/models/AuthorizationCodeSessionAuthenticateRequest.kt",
+    "src/main/kotlin/com/workos/android/models/AuthorizationPermission.kt",
+    "src/main/kotlin/com/workos/android/models/AuthorizationPermissionList.kt",
+    "src/main/kotlin/com/workos/android/models/AuthorizationPermissionListListMetadata.kt",
+    "src/main/kotlin/com/workos/android/models/AuthorizationResource.kt",
+    "src/main/kotlin/com/workos/android/models/AuthorizationResourceList.kt",
+    "src/main/kotlin/com/workos/android/models/AuthorizationResourceListListMetadata.kt",
+    "src/main/kotlin/com/workos/android/models/AuthorizedConnectApplicationList.kt",
+    "src/main/kotlin/com/workos/android/models/AuthorizedConnectApplicationListData.kt",
+    "src/main/kotlin/com/workos/android/models/AuthorizedConnectApplicationListListMetadata.kt",
+    "src/main/kotlin/com/workos/android/models/ChallengeAuthenticationFactor.kt",
+    "src/main/kotlin/com/workos/android/models/CheckAuthorization.kt",
+    "src/main/kotlin/com/workos/android/models/ClaimViewResponse.kt",
+    "src/main/kotlin/com/workos/android/models/ClaimViewResponseOrganization.kt",
+    "src/main/kotlin/com/workos/android/models/ClientApiToken.kt",
+    "src/main/kotlin/com/workos/android/models/ClientApiTokenResponse.kt",
+    "src/main/kotlin/com/workos/android/models/ConfigureDataIntegrationBody.kt",
+    "src/main/kotlin/com/workos/android/models/ConfirmEmailChange.kt",
+    "src/main/kotlin/com/workos/android/models/ConnectApplication.kt",
+    "src/main/kotlin/com/workos/android/models/ConnectApplicationList.kt",
+    "src/main/kotlin/com/workos/android/models/ConnectApplicationListListMetadata.kt",
+    "src/main/kotlin/com/workos/android/models/ConnectApplicationM2M.kt",
+    "src/main/kotlin/com/workos/android/models/ConnectApplicationOAuth.kt",
+    "src/main/kotlin/com/workos/android/models/ConnectApplicationOAuthRedirectUris.kt",
+    "src/main/kotlin/com/workos/android/models/ConnectApplicationRedirectUri.kt",
+    "src/main/kotlin/com/workos/android/models/ConnectedAccount.kt",
+    "src/main/kotlin/com/workos/android/models/ConnectedAccountInput.kt",
+    "src/main/kotlin/com/workos/android/models/Connection.kt",
+    "src/main/kotlin/com/workos/android/models/ConnectionActivated.kt",
+    "src/main/kotlin/com/workos/android/models/ConnectionActivatedData.kt",
+    "src/main/kotlin/com/workos/android/models/ConnectionActivatedDataDomain.kt",
+    "src/main/kotlin/com/workos/android/models/ConnectionDeactivated.kt",
+    "src/main/kotlin/com/workos/android/models/ConnectionDeactivatedData.kt",
+    "src/main/kotlin/com/workos/android/models/ConnectionDeactivatedDataDomain.kt",
+    "src/main/kotlin/com/workos/android/models/ConnectionDeleted.kt",
+    "src/main/kotlin/com/workos/android/models/ConnectionDeletedData.kt",
+    "src/main/kotlin/com/workos/android/models/ConnectionDomain.kt",
+    "src/main/kotlin/com/workos/android/models/ConnectionList.kt",
+    "src/main/kotlin/com/workos/android/models/ConnectionListListMetadata.kt",
+    "src/main/kotlin/com/workos/android/models/ConnectionSAMLCertificateRenewalRequired.kt",
+    "src/main/kotlin/com/workos/android/models/ConnectionSAMLCertificateRenewalRequiredData.kt",
+    "src/main/kotlin/com/workos/android/models/ConnectionSAMLCertificateRenewalRequiredDataCertificate.kt",
+    "src/main/kotlin/com/workos/android/models/ConnectionSAMLCertificateRenewalRequiredDataConnection.kt",
+    "src/main/kotlin/com/workos/android/models/ConnectionSAMLCertificateRenewed.kt",
+    "src/main/kotlin/com/workos/android/models/ConnectionSAMLCertificateRenewedData.kt",
+    "src/main/kotlin/com/workos/android/models/ConnectionSAMLCertificateRenewedDataCertificate.kt",
+    "src/main/kotlin/com/workos/android/models/ConnectionSAMLCertificateRenewedDataConnection.kt",
+    "src/main/kotlin/com/workos/android/models/CorsOriginResponse.kt",
+    "src/main/kotlin/com/workos/android/models/CreateApplicationSecret.kt",
+    "src/main/kotlin/com/workos/android/models/CreateAuthorizationPermission.kt",
+    "src/main/kotlin/com/workos/android/models/CreateAuthorizationResource.kt",
+    "src/main/kotlin/com/workos/android/models/CreateCorsOrigin.kt",
+    "src/main/kotlin/com/workos/android/models/CreateDataIntegration.kt",
+    "src/main/kotlin/com/workos/android/models/CreateDataKeyRequest.kt",
+    "src/main/kotlin/com/workos/android/models/CreateDataKeyResponse.kt",
+    "src/main/kotlin/com/workos/android/models/CreateGroup.kt",
+    "src/main/kotlin/com/workos/android/models/CreateGroupMembership.kt",
+    "src/main/kotlin/com/workos/android/models/CreateGroupRoleAssignment.kt",
+    "src/main/kotlin/com/workos/android/models/CreateM2MApplication.kt",
+    "src/main/kotlin/com/workos/android/models/CreateMagicCodeAndReturn.kt",
+    "src/main/kotlin/com/workos/android/models/CreateOAuthApplication.kt",
+    "src/main/kotlin/com/workos/android/models/CreateObjectRequest.kt",
+    "src/main/kotlin/com/workos/android/models/CreateOrganizationApiKey.kt",
+    "src/main/kotlin/com/workos/android/models/CreateOrganizationDomain.kt",
+    "src/main/kotlin/com/workos/android/models/CreateOrganizationRole.kt",
+    "src/main/kotlin/com/workos/android/models/CreatePasswordReset.kt",
+    "src/main/kotlin/com/workos/android/models/CreatePasswordResetToken.kt",
+    "src/main/kotlin/com/workos/android/models/CreateRedirectUri.kt",
+    "src/main/kotlin/com/workos/android/models/CreateRole.kt",
+    "src/main/kotlin/com/workos/android/models/CreateUser.kt",
+    "src/main/kotlin/com/workos/android/models/CreateUserApiKey.kt",
+    "src/main/kotlin/com/workos/android/models/CreateUserInviteOptions.kt",
+    "src/main/kotlin/com/workos/android/models/CreateUserOrganizationMembership.kt",
+    "src/main/kotlin/com/workos/android/models/CreateWebhookEndpoint.kt",
+    "src/main/kotlin/com/workos/android/models/CustomProviderDefinition.kt",
+    "src/main/kotlin/com/workos/android/models/DataIntegration.kt",
+    "src/main/kotlin/com/workos/android/models/DataIntegrationAccessTokenResponse.kt",
+    "src/main/kotlin/com/workos/android/models/DataIntegrationAccessTokenResponseAccessToken.kt",
+    "src/main/kotlin/com/workos/android/models/DataIntegrationAuthorizeUrlResponse.kt",
+    "src/main/kotlin/com/workos/android/models/DataIntegrationConfigurationListResponse.kt",
+    "src/main/kotlin/com/workos/android/models/DataIntegrationConfigurationResponse.kt",
+    "src/main/kotlin/com/workos/android/models/DataIntegrationCredential.kt",
+    "src/main/kotlin/com/workos/android/models/DataIntegrationCredentials.kt",
+    "src/main/kotlin/com/workos/android/models/DataIntegrationCredentialsInput.kt",
+    "src/main/kotlin/com/workos/android/models/DataIntegrationCredentialsResponse.kt",
+    "src/main/kotlin/com/workos/android/models/DataIntegrationCredentialsResponseCredential.kt",
+    "src/main/kotlin/com/workos/android/models/DataIntegrationCustomProvider.kt",
+    "src/main/kotlin/com/workos/android/models/DataIntegrationInstallation.kt",
+    "src/main/kotlin/com/workos/android/models/DataIntegrationList.kt",
+    "src/main/kotlin/com/workos/android/models/DataIntegrationListListMetadata.kt",
+    "src/main/kotlin/com/workos/android/models/DataIntegrationsGetDataIntegrationAuthorizeUrlRequest.kt",
+    "src/main/kotlin/com/workos/android/models/DataIntegrationsGetUserTokenRequest.kt",
+    "src/main/kotlin/com/workos/android/models/DataIntegrationsListResponse.kt",
+    "src/main/kotlin/com/workos/android/models/DataIntegrationsListResponseData.kt",
+    "src/main/kotlin/com/workos/android/models/DataIntegrationsListResponseDataConnectedAccount.kt",
+    "src/main/kotlin/com/workos/android/models/DataIntegrationsUpsertApiKeyRequest.kt",
+    "src/main/kotlin/com/workos/android/models/DataIntegrationsVendCredentialsRequest.kt",
+    "src/main/kotlin/com/workos/android/models/DecryptRequest.kt",
+    "src/main/kotlin/com/workos/android/models/DecryptResponse.kt",
+    "src/main/kotlin/com/workos/android/models/DeleteGroupRoleAssignmentsByCriteria.kt",
+    "src/main/kotlin/com/workos/android/models/DeleteObjectResponse.kt",
+    "src/main/kotlin/com/workos/android/models/DeviceAuthorizationResponse.kt",
+    "src/main/kotlin/com/workos/android/models/DeviceCodeSessionAuthenticateRequest.kt",
+    "src/main/kotlin/com/workos/android/models/Directory.kt",
+    "src/main/kotlin/com/workos/android/models/DirectoryGroup.kt",
+    "src/main/kotlin/com/workos/android/models/DirectoryGroupList.kt",
+    "src/main/kotlin/com/workos/android/models/DirectoryGroupListListMetadata.kt",
+    "src/main/kotlin/com/workos/android/models/DirectoryList.kt",
+    "src/main/kotlin/com/workos/android/models/DirectoryListListMetadata.kt",
+    "src/main/kotlin/com/workos/android/models/DirectoryMetadata.kt",
+    "src/main/kotlin/com/workos/android/models/DirectoryMetadataUser.kt",
+    "src/main/kotlin/com/workos/android/models/DirectoryUser.kt",
+    "src/main/kotlin/com/workos/android/models/DirectoryUserEmail.kt",
+    "src/main/kotlin/com/workos/android/models/DirectoryUserList.kt",
+    "src/main/kotlin/com/workos/android/models/DirectoryUserListListMetadata.kt",
+    "src/main/kotlin/com/workos/android/models/DirectoryUserWithGroups.kt",
+    "src/main/kotlin/com/workos/android/models/DirectoryUserWithGroupsEmail.kt",
+    "src/main/kotlin/com/workos/android/models/DsyncActivated.kt",
+    "src/main/kotlin/com/workos/android/models/DsyncActivatedData.kt",
+    "src/main/kotlin/com/workos/android/models/DsyncActivatedDataDomain.kt",
+    "src/main/kotlin/com/workos/android/models/DsyncDeleted.kt",
+    "src/main/kotlin/com/workos/android/models/DsyncDeletedData.kt",
+    "src/main/kotlin/com/workos/android/models/DsyncGroupCreated.kt",
+    "src/main/kotlin/com/workos/android/models/DsyncGroupDeleted.kt",
+    "src/main/kotlin/com/workos/android/models/DsyncGroupUpdated.kt",
+    "src/main/kotlin/com/workos/android/models/DsyncGroupUpdatedData.kt",
+    "src/main/kotlin/com/workos/android/models/DsyncGroupUserAdded.kt",
+    "src/main/kotlin/com/workos/android/models/DsyncGroupUserAddedData.kt",
+    "src/main/kotlin/com/workos/android/models/DsyncGroupUserRemoved.kt",
+    "src/main/kotlin/com/workos/android/models/DsyncGroupUserRemovedData.kt",
+    "src/main/kotlin/com/workos/android/models/DsyncTokenCreated.kt",
+    "src/main/kotlin/com/workos/android/models/DsyncTokenCreatedData.kt",
+    "src/main/kotlin/com/workos/android/models/DsyncTokenRevoked.kt",
+    "src/main/kotlin/com/workos/android/models/DsyncTokenRevokedData.kt",
+    "src/main/kotlin/com/workos/android/models/DsyncUserCreated.kt",
+    "src/main/kotlin/com/workos/android/models/DsyncUserDeleted.kt",
+    "src/main/kotlin/com/workos/android/models/DsyncUserUpdated.kt",
+    "src/main/kotlin/com/workos/android/models/DsyncUserUpdatedData.kt",
+    "src/main/kotlin/com/workos/android/models/DsyncUserUpdatedDataEmail.kt",
+    "src/main/kotlin/com/workos/android/models/EmailChange.kt",
+    "src/main/kotlin/com/workos/android/models/EmailChangeConfirmation.kt",
+    "src/main/kotlin/com/workos/android/models/EmailChangeConfirmationUser.kt",
+    "src/main/kotlin/com/workos/android/models/EmailVerification.kt",
+    "src/main/kotlin/com/workos/android/models/EmailVerificationCodeSessionAuthenticateRequest.kt",
+    "src/main/kotlin/com/workos/android/models/EmailVerificationCreated.kt",
+    "src/main/kotlin/com/workos/android/models/EmailVerificationCreatedData.kt",
+    "src/main/kotlin/com/workos/android/models/EnrollUserAuthenticationFactor.kt",
+    "src/main/kotlin/com/workos/android/models/ErrorResponse.kt",
+    "src/main/kotlin/com/workos/android/models/EventContext.kt",
+    "src/main/kotlin/com/workos/android/models/EventContextActor.kt",
+    "src/main/kotlin/com/workos/android/models/EventContextGoogleAnalyticsSession.kt",
+    "src/main/kotlin/com/workos/android/models/EventList.kt",
+    "src/main/kotlin/com/workos/android/models/EventListListMetadata.kt",
+    "src/main/kotlin/com/workos/android/models/EventSchema.kt",
+    "src/main/kotlin/com/workos/android/models/ExpireApiKey.kt",
+    "src/main/kotlin/com/workos/android/models/ExternalAuthCompleteResponse.kt",
+    "src/main/kotlin/com/workos/android/models/FeatureFlag.kt",
+    "src/main/kotlin/com/workos/android/models/FeatureFlagOwner.kt",
+    "src/main/kotlin/com/workos/android/models/Flag.kt",
+    "src/main/kotlin/com/workos/android/models/FlagCreated.kt",
+    "src/main/kotlin/com/workos/android/models/FlagCreatedContext.kt",
+    "src/main/kotlin/com/workos/android/models/FlagCreatedContextActor.kt",
+    "src/main/kotlin/com/workos/android/models/FlagCreatedData.kt",
+    "src/main/kotlin/com/workos/android/models/FlagCreatedDataOwner.kt",
+    "src/main/kotlin/com/workos/android/models/FlagDeleted.kt",
+    "src/main/kotlin/com/workos/android/models/FlagDeletedContext.kt",
+    "src/main/kotlin/com/workos/android/models/FlagDeletedContextActor.kt",
+    "src/main/kotlin/com/workos/android/models/FlagDeletedData.kt",
+    "src/main/kotlin/com/workos/android/models/FlagDeletedDataOwner.kt",
+    "src/main/kotlin/com/workos/android/models/FlagList.kt",
+    "src/main/kotlin/com/workos/android/models/FlagListListMetadata.kt",
+    "src/main/kotlin/com/workos/android/models/FlagOwner.kt",
+    "src/main/kotlin/com/workos/android/models/FlagRuleUpdated.kt",
+    "src/main/kotlin/com/workos/android/models/FlagRuleUpdatedContext.kt",
+    "src/main/kotlin/com/workos/android/models/FlagRuleUpdatedContextActor.kt",
+    "src/main/kotlin/com/workos/android/models/FlagRuleUpdatedContextConfiguredTarget.kt",
+    "src/main/kotlin/com/workos/android/models/FlagRuleUpdatedContextConfiguredTargetOrganization.kt",
+    "src/main/kotlin/com/workos/android/models/FlagRuleUpdatedContextConfiguredTargetUser.kt",
+    "src/main/kotlin/com/workos/android/models/FlagRuleUpdatedContextPreviousAttribute.kt",
+    "src/main/kotlin/com/workos/android/models/FlagRuleUpdatedContextPreviousAttributeContext.kt",
+    "src/main/kotlin/com/workos/android/models/FlagRuleUpdatedContextPreviousAttributeContextConfiguredTarget.kt",
+    "src/main/kotlin/com/workos/android/models/FlagRuleUpdatedContextPreviousAttributeContextConfiguredTargetOrganization.kt",
+    "src/main/kotlin/com/workos/android/models/FlagRuleUpdatedContextPreviousAttributeContextConfiguredTargetUser.kt",
+    "src/main/kotlin/com/workos/android/models/FlagRuleUpdatedContextPreviousAttributeData.kt",
+    "src/main/kotlin/com/workos/android/models/FlagRuleUpdatedData.kt",
+    "src/main/kotlin/com/workos/android/models/FlagRuleUpdatedDataOwner.kt",
+    "src/main/kotlin/com/workos/android/models/FlagUpdated.kt",
+    "src/main/kotlin/com/workos/android/models/FlagUpdatedContext.kt",
+    "src/main/kotlin/com/workos/android/models/FlagUpdatedContextActor.kt",
+    "src/main/kotlin/com/workos/android/models/FlagUpdatedContextPreviousAttribute.kt",
+    "src/main/kotlin/com/workos/android/models/FlagUpdatedContextPreviousAttributeData.kt",
+    "src/main/kotlin/com/workos/android/models/FlagUpdatedData.kt",
+    "src/main/kotlin/com/workos/android/models/FlagUpdatedDataOwner.kt",
+    "src/main/kotlin/com/workos/android/models/GenerateLink.kt",
+    "src/main/kotlin/com/workos/android/models/Group.kt",
+    "src/main/kotlin/com/workos/android/models/GroupCreated.kt",
+    "src/main/kotlin/com/workos/android/models/GroupDeleted.kt",
+    "src/main/kotlin/com/workos/android/models/GroupList.kt",
+    "src/main/kotlin/com/workos/android/models/GroupListListMetadata.kt",
+    "src/main/kotlin/com/workos/android/models/GroupMemberAdded.kt",
+    "src/main/kotlin/com/workos/android/models/GroupMemberAddedData.kt",
+    "src/main/kotlin/com/workos/android/models/GroupMemberRemoved.kt",
+    "src/main/kotlin/com/workos/android/models/GroupMemberRemovedData.kt",
+    "src/main/kotlin/com/workos/android/models/GroupRoleAssignment.kt",
+    "src/main/kotlin/com/workos/android/models/GroupRoleAssignmentList.kt",
+    "src/main/kotlin/com/workos/android/models/GroupRoleAssignmentResource.kt",
+    "src/main/kotlin/com/workos/android/models/GroupUpdated.kt",
+    "src/main/kotlin/com/workos/android/models/Invitation.kt",
+    "src/main/kotlin/com/workos/android/models/InvitationAccepted.kt",
+    "src/main/kotlin/com/workos/android/models/InvitationAcceptedData.kt",
+    "src/main/kotlin/com/workos/android/models/InvitationCreated.kt",
+    "src/main/kotlin/com/workos/android/models/InvitationCreatedData.kt",
+    "src/main/kotlin/com/workos/android/models/InvitationResent.kt",
+    "src/main/kotlin/com/workos/android/models/InvitationResentData.kt",
+    "src/main/kotlin/com/workos/android/models/InvitationRevoked.kt",
+    "src/main/kotlin/com/workos/android/models/InvitationRevokedData.kt",
+    "src/main/kotlin/com/workos/android/models/JWTTemplateResponse.kt",
+    "src/main/kotlin/com/workos/android/models/JwksResponse.kt",
+    "src/main/kotlin/com/workos/android/models/JwksResponseKeys.kt",
+    "src/main/kotlin/com/workos/android/models/ListMetadata.kt",
+    "src/main/kotlin/com/workos/android/models/MagicAuth.kt",
+    "src/main/kotlin/com/workos/android/models/MagicAuthCodeSessionAuthenticateRequest.kt",
+    "src/main/kotlin/com/workos/android/models/MagicAuthCreated.kt",
+    "src/main/kotlin/com/workos/android/models/MagicAuthCreatedData.kt",
+    "src/main/kotlin/com/workos/android/models/MagicAuthSendMagicAuthCodeAndReturnResponse.kt",
+    "src/main/kotlin/com/workos/android/models/MfaTotpSessionAuthenticateRequest.kt",
+    "src/main/kotlin/com/workos/android/models/NewConnectApplicationSecret.kt",
+    "src/main/kotlin/com/workos/android/models/ObjectListResponse.kt",
+    "src/main/kotlin/com/workos/android/models/ObjectMetadata.kt",
+    "src/main/kotlin/com/workos/android/models/ObjectSummary.kt",
+    "src/main/kotlin/com/workos/android/models/ObjectVersion.kt",
+    "src/main/kotlin/com/workos/android/models/ObjectWithoutValue.kt",
+    "src/main/kotlin/com/workos/android/models/Organization.kt",
+    "src/main/kotlin/com/workos/android/models/OrganizationApiKey.kt",
+    "src/main/kotlin/com/workos/android/models/OrganizationApiKeyList.kt",
+    "src/main/kotlin/com/workos/android/models/OrganizationApiKeyListListMetadata.kt",
+    "src/main/kotlin/com/workos/android/models/OrganizationApiKeyOwner.kt",
+    "src/main/kotlin/com/workos/android/models/OrganizationApiKeyWithValue.kt",
+    "src/main/kotlin/com/workos/android/models/OrganizationApiKeyWithValueOwner.kt",
+    "src/main/kotlin/com/workos/android/models/OrganizationAuthorizedConnectApplicationList.kt",
+    "src/main/kotlin/com/workos/android/models/OrganizationAuthorizedConnectApplicationListData.kt",
+    "src/main/kotlin/com/workos/android/models/OrganizationAuthorizedConnectApplicationListListMetadata.kt",
+    "src/main/kotlin/com/workos/android/models/OrganizationCreated.kt",
+    "src/main/kotlin/com/workos/android/models/OrganizationCreatedData.kt",
+    "src/main/kotlin/com/workos/android/models/OrganizationCreatedDataDomain.kt",
+    "src/main/kotlin/com/workos/android/models/OrganizationDeleted.kt",
+    "src/main/kotlin/com/workos/android/models/OrganizationDeletedData.kt",
+    "src/main/kotlin/com/workos/android/models/OrganizationDeletedDataDomain.kt",
+    "src/main/kotlin/com/workos/android/models/OrganizationDomain.kt",
+    "src/main/kotlin/com/workos/android/models/OrganizationDomainCreated.kt",
+    "src/main/kotlin/com/workos/android/models/OrganizationDomainCreatedData.kt",
+    "src/main/kotlin/com/workos/android/models/OrganizationDomainData.kt",
+    "src/main/kotlin/com/workos/android/models/OrganizationDomainDeleted.kt",
+    "src/main/kotlin/com/workos/android/models/OrganizationDomainDeletedData.kt",
+    "src/main/kotlin/com/workos/android/models/OrganizationDomainUpdated.kt",
+    "src/main/kotlin/com/workos/android/models/OrganizationDomainUpdatedData.kt",
+    "src/main/kotlin/com/workos/android/models/OrganizationDomainVerificationFailed.kt",
+    "src/main/kotlin/com/workos/android/models/OrganizationDomainVerificationFailedData.kt",
+    "src/main/kotlin/com/workos/android/models/OrganizationDomainVerificationFailedDataOrganizationDomain.kt",
+    "src/main/kotlin/com/workos/android/models/OrganizationDomainVerified.kt",
+    "src/main/kotlin/com/workos/android/models/OrganizationDomainVerifiedData.kt",
+    "src/main/kotlin/com/workos/android/models/OrganizationInput.kt",
+    "src/main/kotlin/com/workos/android/models/OrganizationList.kt",
+    "src/main/kotlin/com/workos/android/models/OrganizationListListMetadata.kt",
+    "src/main/kotlin/com/workos/android/models/OrganizationMembership.kt",
+    "src/main/kotlin/com/workos/android/models/OrganizationMembershipCreated.kt",
+    "src/main/kotlin/com/workos/android/models/OrganizationMembershipCreatedData.kt",
+    "src/main/kotlin/com/workos/android/models/OrganizationMembershipDeleted.kt",
+    "src/main/kotlin/com/workos/android/models/OrganizationMembershipDeletedData.kt",
+    "src/main/kotlin/com/workos/android/models/OrganizationMembershipUpdated.kt",
+    "src/main/kotlin/com/workos/android/models/OrganizationMembershipUpdatedData.kt",
+    "src/main/kotlin/com/workos/android/models/OrganizationRoleCreated.kt",
+    "src/main/kotlin/com/workos/android/models/OrganizationRoleCreatedData.kt",
+    "src/main/kotlin/com/workos/android/models/OrganizationRoleDeleted.kt",
+    "src/main/kotlin/com/workos/android/models/OrganizationRoleDeletedData.kt",
+    "src/main/kotlin/com/workos/android/models/OrganizationRoleUpdated.kt",
+    "src/main/kotlin/com/workos/android/models/OrganizationRoleUpdatedData.kt",
+    "src/main/kotlin/com/workos/android/models/OrganizationSelectionSessionAuthenticateRequest.kt",
+    "src/main/kotlin/com/workos/android/models/OrganizationUpdated.kt",
+    "src/main/kotlin/com/workos/android/models/OrganizationUpdatedData.kt",
+    "src/main/kotlin/com/workos/android/models/OrganizationUpdatedDataDomain.kt",
+    "src/main/kotlin/com/workos/android/models/PasswordReset.kt",
+    "src/main/kotlin/com/workos/android/models/PasswordResetCreated.kt",
+    "src/main/kotlin/com/workos/android/models/PasswordResetCreatedData.kt",
+    "src/main/kotlin/com/workos/android/models/PasswordResetSucceeded.kt",
+    "src/main/kotlin/com/workos/android/models/PasswordResetSucceededData.kt",
+    "src/main/kotlin/com/workos/android/models/PasswordSessionAuthenticateRequest.kt",
+    "src/main/kotlin/com/workos/android/models/Permission.kt",
+    "src/main/kotlin/com/workos/android/models/PermissionCreated.kt",
+    "src/main/kotlin/com/workos/android/models/PermissionCreatedData.kt",
+    "src/main/kotlin/com/workos/android/models/PermissionDeleted.kt",
+    "src/main/kotlin/com/workos/android/models/PermissionDeletedData.kt",
+    "src/main/kotlin/com/workos/android/models/PermissionUpdated.kt",
+    "src/main/kotlin/com/workos/android/models/PermissionUpdatedData.kt",
+    "src/main/kotlin/com/workos/android/models/PipeConnectedAccount.kt",
+    "src/main/kotlin/com/workos/android/models/PipesConnectedAccountConnected.kt",
+    "src/main/kotlin/com/workos/android/models/PipesConnectedAccountConnectionFailed.kt",
+    "src/main/kotlin/com/workos/android/models/PipesConnectedAccountConnectionFailedData.kt",
+    "src/main/kotlin/com/workos/android/models/PipesConnectedAccountDisconnected.kt",
+    "src/main/kotlin/com/workos/android/models/PipesConnectedAccountReauthorizationNeeded.kt",
+    "src/main/kotlin/com/workos/android/models/PortalLinkResponse.kt",
+    "src/main/kotlin/com/workos/android/models/Profile.kt",
+    "src/main/kotlin/com/workos/android/models/RadarChallenge.kt",
+    "src/main/kotlin/com/workos/android/models/RadarChallengeCreated.kt",
+    "src/main/kotlin/com/workos/android/models/RadarChallengeCreatedData.kt",
+    "src/main/kotlin/com/workos/android/models/RadarEmailChallengeCodeSessionAuthenticateRequest.kt",
+    "src/main/kotlin/com/workos/android/models/RadarListEntryAlreadyPresentResponse.kt",
+    "src/main/kotlin/com/workos/android/models/RadarSmsChallengeCodeSessionAuthenticateRequest.kt",
+    "src/main/kotlin/com/workos/android/models/RadarStandaloneAssessRequest.kt",
+    "src/main/kotlin/com/workos/android/models/RadarStandaloneDeleteRadarListEntryRequest.kt",
+    "src/main/kotlin/com/workos/android/models/RadarStandaloneResponse.kt",
+    "src/main/kotlin/com/workos/android/models/RadarStandaloneUpdateRadarAttemptRequest.kt",
+    "src/main/kotlin/com/workos/android/models/RadarStandaloneUpdateRadarListRequest.kt",
+    "src/main/kotlin/com/workos/android/models/RedirectUri.kt",
+    "src/main/kotlin/com/workos/android/models/RedirectUriInput.kt",
+    "src/main/kotlin/com/workos/android/models/RefreshTokenSessionAuthenticateRequest.kt",
+    "src/main/kotlin/com/workos/android/models/RekeyRequest.kt",
+    "src/main/kotlin/com/workos/android/models/RemoveRole.kt",
+    "src/main/kotlin/com/workos/android/models/ReplaceGroupRoleAssignmentEntry.kt",
+    "src/main/kotlin/com/workos/android/models/ReplaceGroupRoleAssignments.kt",
+    "src/main/kotlin/com/workos/android/models/ResendUserInviteOptions.kt",
+    "src/main/kotlin/com/workos/android/models/ResetPasswordResponse.kt",
+    "src/main/kotlin/com/workos/android/models/RevokeSession.kt",
+    "src/main/kotlin/com/workos/android/models/Role.kt",
+    "src/main/kotlin/com/workos/android/models/RoleCreated.kt",
+    "src/main/kotlin/com/workos/android/models/RoleCreatedData.kt",
+    "src/main/kotlin/com/workos/android/models/RoleDeleted.kt",
+    "src/main/kotlin/com/workos/android/models/RoleDeletedData.kt",
+    "src/main/kotlin/com/workos/android/models/RoleList.kt",
+    "src/main/kotlin/com/workos/android/models/RoleUpdated.kt",
+    "src/main/kotlin/com/workos/android/models/RoleUpdatedData.kt",
+    "src/main/kotlin/com/workos/android/models/SSOAuthorizeUrlResponse.kt",
+    "src/main/kotlin/com/workos/android/models/SSODeviceAuthorizationRequest.kt",
+    "src/main/kotlin/com/workos/android/models/SSOLogoutAuthorizeRequest.kt",
+    "src/main/kotlin/com/workos/android/models/SSOLogoutAuthorizeResponse.kt",
+    "src/main/kotlin/com/workos/android/models/SSOTokenResponse.kt",
+    "src/main/kotlin/com/workos/android/models/SSOTokenResponseOAuthToken.kt",
+    "src/main/kotlin/com/workos/android/models/SendEmailChange.kt",
+    "src/main/kotlin/com/workos/android/models/SendRadarSmsChallenge.kt",
+    "src/main/kotlin/com/workos/android/models/SendRadarSmsChallengeResponse.kt",
+    "src/main/kotlin/com/workos/android/models/SendVerificationEmailResponse.kt",
+    "src/main/kotlin/com/workos/android/models/SessionCreated.kt",
+    "src/main/kotlin/com/workos/android/models/SessionCreatedData.kt",
+    "src/main/kotlin/com/workos/android/models/SessionCreatedDataImpersonator.kt",
+    "src/main/kotlin/com/workos/android/models/SessionRevoked.kt",
+    "src/main/kotlin/com/workos/android/models/SessionRevokedData.kt",
+    "src/main/kotlin/com/workos/android/models/SessionRevokedDataImpersonator.kt",
+    "src/main/kotlin/com/workos/android/models/SetRolePermissions.kt",
+    "src/main/kotlin/com/workos/android/models/SlimRole.kt",
+    "src/main/kotlin/com/workos/android/models/TokenQuery.kt",
+    "src/main/kotlin/com/workos/android/models/UpdateAuditLogsRetention.kt",
+    "src/main/kotlin/com/workos/android/models/UpdateAuthorizationPermission.kt",
+    "src/main/kotlin/com/workos/android/models/UpdateAuthorizationResource.kt",
+    "src/main/kotlin/com/workos/android/models/UpdateCustomProviderDefinition.kt",
+    "src/main/kotlin/com/workos/android/models/UpdateDataIntegration.kt",
+    "src/main/kotlin/com/workos/android/models/UpdateGroup.kt",
+    "src/main/kotlin/com/workos/android/models/UpdateJWTTemplate.kt",
+    "src/main/kotlin/com/workos/android/models/UpdateOAuthApplication.kt",
+    "src/main/kotlin/com/workos/android/models/UpdateObjectRequest.kt",
+    "src/main/kotlin/com/workos/android/models/UpdateOrganization.kt",
+    "src/main/kotlin/com/workos/android/models/UpdateOrganizationRole.kt",
+    "src/main/kotlin/com/workos/android/models/UpdateRole.kt",
+    "src/main/kotlin/com/workos/android/models/UpdateUser.kt",
+    "src/main/kotlin/com/workos/android/models/UpdateUserOrganizationMembership.kt",
+    "src/main/kotlin/com/workos/android/models/UpdateWebhookEndpoint.kt",
+    "src/main/kotlin/com/workos/android/models/User.kt",
+    "src/main/kotlin/com/workos/android/models/UserApiKey.kt",
+    "src/main/kotlin/com/workos/android/models/UserApiKeyCreatedDataOwner.kt",
+    "src/main/kotlin/com/workos/android/models/UserApiKeyList.kt",
+    "src/main/kotlin/com/workos/android/models/UserApiKeyListListMetadata.kt",
+    "src/main/kotlin/com/workos/android/models/UserApiKeyOwner.kt",
+    "src/main/kotlin/com/workos/android/models/UserApiKeyRevokedDataOwner.kt",
+    "src/main/kotlin/com/workos/android/models/UserApiKeyUpdatedDataOwner.kt",
+    "src/main/kotlin/com/workos/android/models/UserApiKeyWithValue.kt",
+    "src/main/kotlin/com/workos/android/models/UserApiKeyWithValueOwner.kt",
+    "src/main/kotlin/com/workos/android/models/UserAuthenticationFactorEnrollResponse.kt",
+    "src/main/kotlin/com/workos/android/models/UserAuthenticationFactorList.kt",
+    "src/main/kotlin/com/workos/android/models/UserAuthenticationFactorListListMetadata.kt",
+    "src/main/kotlin/com/workos/android/models/UserConsentOption.kt",
+    "src/main/kotlin/com/workos/android/models/UserConsentOptionChoice.kt",
+    "src/main/kotlin/com/workos/android/models/UserCreateResponse.kt",
+    "src/main/kotlin/com/workos/android/models/UserCreated.kt",
+    "src/main/kotlin/com/workos/android/models/UserDeleted.kt",
+    "src/main/kotlin/com/workos/android/models/UserIdentitiesGetItem.kt",
+    "src/main/kotlin/com/workos/android/models/UserInvite.kt",
+    "src/main/kotlin/com/workos/android/models/UserInviteList.kt",
+    "src/main/kotlin/com/workos/android/models/UserInviteListListMetadata.kt",
+    "src/main/kotlin/com/workos/android/models/UserList.kt",
+    "src/main/kotlin/com/workos/android/models/UserListListMetadata.kt",
+    "src/main/kotlin/com/workos/android/models/UserManagementLoginRequest.kt",
+    "src/main/kotlin/com/workos/android/models/UserObject.kt",
+    "src/main/kotlin/com/workos/android/models/UserOrganizationMembership.kt",
+    "src/main/kotlin/com/workos/android/models/UserOrganizationMembershipBaseList.kt",
+    "src/main/kotlin/com/workos/android/models/UserOrganizationMembershipBaseListData.kt",
+    "src/main/kotlin/com/workos/android/models/UserOrganizationMembershipBaseListListMetadata.kt",
+    "src/main/kotlin/com/workos/android/models/UserOrganizationMembershipList.kt",
+    "src/main/kotlin/com/workos/android/models/UserOrganizationMembershipListListMetadata.kt",
+    "src/main/kotlin/com/workos/android/models/UserRoleAssignment.kt",
+    "src/main/kotlin/com/workos/android/models/UserRoleAssignmentList.kt",
+    "src/main/kotlin/com/workos/android/models/UserRoleAssignmentListListMetadata.kt",
+    "src/main/kotlin/com/workos/android/models/UserRoleAssignmentResource.kt",
+    "src/main/kotlin/com/workos/android/models/UserRoleAssignmentSource.kt",
+    "src/main/kotlin/com/workos/android/models/UserSessionsImpersonator.kt",
+    "src/main/kotlin/com/workos/android/models/UserSessionsListItem.kt",
+    "src/main/kotlin/com/workos/android/models/UserUpdated.kt",
+    "src/main/kotlin/com/workos/android/models/ValidateApiKey.kt",
+    "src/main/kotlin/com/workos/android/models/VaultByokKeyDeleted.kt",
+    "src/main/kotlin/com/workos/android/models/VaultByokKeyDeletedData.kt",
+    "src/main/kotlin/com/workos/android/models/VaultByokKeyVerificationCompleted.kt",
+    "src/main/kotlin/com/workos/android/models/VaultByokKeyVerificationCompletedData.kt",
+    "src/main/kotlin/com/workos/android/models/VaultDataCreated.kt",
+    "src/main/kotlin/com/workos/android/models/VaultDataCreatedData.kt",
+    "src/main/kotlin/com/workos/android/models/VaultDataDeleted.kt",
+    "src/main/kotlin/com/workos/android/models/VaultDataDeletedData.kt",
+    "src/main/kotlin/com/workos/android/models/VaultDataRead.kt",
+    "src/main/kotlin/com/workos/android/models/VaultDataReadData.kt",
+    "src/main/kotlin/com/workos/android/models/VaultDataUpdated.kt",
+    "src/main/kotlin/com/workos/android/models/VaultDataUpdatedData.kt",
+    "src/main/kotlin/com/workos/android/models/VaultDekDecrypted.kt",
+    "src/main/kotlin/com/workos/android/models/VaultDekDecryptedData.kt",
+    "src/main/kotlin/com/workos/android/models/VaultDekRead.kt",
+    "src/main/kotlin/com/workos/android/models/VaultDekReadData.kt",
+    "src/main/kotlin/com/workos/android/models/VaultKekCreated.kt",
+    "src/main/kotlin/com/workos/android/models/VaultKekCreatedData.kt",
+    "src/main/kotlin/com/workos/android/models/VaultKekDeleted.kt",
+    "src/main/kotlin/com/workos/android/models/VaultKekDeletedData.kt",
+    "src/main/kotlin/com/workos/android/models/VaultMetadataRead.kt",
+    "src/main/kotlin/com/workos/android/models/VaultMetadataReadData.kt",
+    "src/main/kotlin/com/workos/android/models/VaultNamesListed.kt",
+    "src/main/kotlin/com/workos/android/models/VaultNamesListedData.kt",
+    "src/main/kotlin/com/workos/android/models/VaultObject.kt",
+    "src/main/kotlin/com/workos/android/models/VerifyEmailAddress.kt",
+    "src/main/kotlin/com/workos/android/models/VerifyEmailResponse.kt",
+    "src/main/kotlin/com/workos/android/models/VersionListResponse.kt",
+    "src/main/kotlin/com/workos/android/models/WaitlistUser.kt",
+    "src/main/kotlin/com/workos/android/models/WaitlistUserApproved.kt",
+    "src/main/kotlin/com/workos/android/models/WaitlistUserCreated.kt",
+    "src/main/kotlin/com/workos/android/models/WaitlistUserDenied.kt",
+    "src/main/kotlin/com/workos/android/models/WebhookEndpoint.kt",
+    "src/main/kotlin/com/workos/android/models/WebhookEndpointList.kt",
+    "src/main/kotlin/com/workos/android/models/WebhookEndpointListListMetadata.kt",
+    "src/main/kotlin/com/workos/android/models/WidgetSessionToken.kt",
+    "src/main/kotlin/com/workos/android/models/WidgetSessionTokenResponse.kt",
+    "src/main/kotlin/com/workos/android/resources/AdminPortal.kt",
+    "src/main/kotlin/com/workos/android/resources/Agents.kt",
+    "src/main/kotlin/com/workos/android/resources/ApiKeys.kt",
+    "src/main/kotlin/com/workos/android/resources/AuditLogs.kt",
+    "src/main/kotlin/com/workos/android/resources/Authorization.kt",
+    "src/main/kotlin/com/workos/android/resources/ClientApi.kt",
+    "src/main/kotlin/com/workos/android/resources/Connect.kt",
+    "src/main/kotlin/com/workos/android/resources/DirectorySync.kt",
+    "src/main/kotlin/com/workos/android/resources/Events.kt",
+    "src/main/kotlin/com/workos/android/resources/FeatureFlags.kt",
+    "src/main/kotlin/com/workos/android/resources/Groups.kt",
+    "src/main/kotlin/com/workos/android/resources/MultiFactorAuth.kt",
+    "src/main/kotlin/com/workos/android/resources/OrganizationDomains.kt",
+    "src/main/kotlin/com/workos/android/resources/OrganizationMembershipResource.kt",
+    "src/main/kotlin/com/workos/android/resources/Organizations.kt",
+    "src/main/kotlin/com/workos/android/resources/Pipes.kt",
+    "src/main/kotlin/com/workos/android/resources/PipesProvider.kt",
+    "src/main/kotlin/com/workos/android/resources/Radar.kt",
+    "src/main/kotlin/com/workos/android/resources/SSO.kt",
+    "src/main/kotlin/com/workos/android/resources/UserManagement.kt",
+    "src/main/kotlin/com/workos/android/resources/Vault.kt",
+    "src/main/kotlin/com/workos/android/resources/Webhooks.kt",
+    "src/main/kotlin/com/workos/android/resources/Widgets.kt",
+    "src/test/kotlin/com/workos/android/AdminPortalTest.kt",
+    "src/test/kotlin/com/workos/android/AgentsTest.kt",
+    "src/test/kotlin/com/workos/android/ApiKeysTest.kt",
+    "src/test/kotlin/com/workos/android/AuditLogsTest.kt",
+    "src/test/kotlin/com/workos/android/AuthorizationTest.kt",
+    "src/test/kotlin/com/workos/android/ClientApiTest.kt",
+    "src/test/kotlin/com/workos/android/ConnectTest.kt",
+    "src/test/kotlin/com/workos/android/DirectorySyncTest.kt",
+    "src/test/kotlin/com/workos/android/EventsTest.kt",
+    "src/test/kotlin/com/workos/android/FeatureFlagsTest.kt",
+    "src/test/kotlin/com/workos/android/GroupsTest.kt",
+    "src/test/kotlin/com/workos/android/ModelRoundTripTest.kt",
+    "src/test/kotlin/com/workos/android/MultiFactorAuthTest.kt",
+    "src/test/kotlin/com/workos/android/OrganizationDomainsTest.kt",
+    "src/test/kotlin/com/workos/android/OrganizationMembershipTest.kt",
+    "src/test/kotlin/com/workos/android/OrganizationsTest.kt",
+    "src/test/kotlin/com/workos/android/PipesProviderTest.kt",
+    "src/test/kotlin/com/workos/android/PipesTest.kt",
+    "src/test/kotlin/com/workos/android/RadarTest.kt",
+    "src/test/kotlin/com/workos/android/SSOTest.kt",
+    "src/test/kotlin/com/workos/android/UserManagementTest.kt",
+    "src/test/kotlin/com/workos/android/VaultTest.kt",
+    "src/test/kotlin/com/workos/android/WebhooksTest.kt",
+    "src/test/kotlin/com/workos/android/WidgetsTest.kt"
+  ],
+  "operations": {
+    "PATCH /agents/claims/attempts": {
+      "sdkMethod": "updateAttempts",
+      "service": "agents"
+    },
+    "POST /agents/credentials/validate": {
+      "sdkMethod": "createValidate",
+      "service": "agents"
+    },
+    "GET /agents/registrations/{id}": {
+      "sdkMethod": "getRegistration",
+      "service": "agents"
+    },
+    "POST /auth/challenges/{id}/verify": {
+      "sdkMethod": "verifyChallenge",
+      "service": "multiFactorAuth"
+    },
+    "POST /auth/factors/enroll": {
+      "sdkMethod": "enrollFactor",
+      "service": "multiFactorAuth"
+    },
+    "GET /auth/factors/{id}": {
+      "sdkMethod": "getFactor",
+      "service": "multiFactorAuth"
+    },
+    "DELETE /auth/factors/{id}": {
+      "sdkMethod": "deleteFactor",
+      "service": "multiFactorAuth"
+    },
+    "POST /auth/factors/{id}/challenge": {
+      "sdkMethod": "challengeFactor",
+      "service": "multiFactorAuth"
+    },
+    "GET /user_management/users/{userlandUserId}/auth_factors": {
+      "sdkMethod": "listUserAuthFactors",
+      "service": "multiFactorAuth"
+    },
+    "POST /user_management/users/{userlandUserId}/auth_factors": {
+      "sdkMethod": "createUserAuthFactor",
+      "service": "multiFactorAuth"
+    },
+    "POST /authkit/oauth2/complete": {
+      "sdkMethod": "completeOAuth2",
+      "service": "connect"
+    },
+    "GET /connect/applications": {
+      "sdkMethod": "listApplications",
+      "service": "connect"
+    },
+    "POST /connect/applications": [
+      {
+        "sdkMethod": "createOAuthApplication",
+        "service": "connect"
+      },
+      {
+        "sdkMethod": "createM2MApplication",
+        "service": "connect"
+      }
+    ],
+    "GET /connect/applications/{id}": {
+      "sdkMethod": "getApplication",
+      "service": "connect"
+    },
+    "PUT /connect/applications/{id}": {
+      "sdkMethod": "updateApplication",
+      "service": "connect"
+    },
+    "DELETE /connect/applications/{id}": {
+      "sdkMethod": "deleteApplication",
+      "service": "connect"
+    },
+    "GET /connect/applications/{id}/client_secrets": {
+      "sdkMethod": "listApplicationClientSecrets",
+      "service": "connect"
+    },
+    "POST /connect/applications/{id}/client_secrets": {
+      "sdkMethod": "createApplicationClientSecret",
+      "service": "connect"
+    },
+    "DELETE /connect/client_secrets/{id}": {
+      "sdkMethod": "deleteClientSecret",
+      "service": "connect"
+    },
+    "GET /authorization/groups/{group_id}/role_assignments": {
+      "sdkMethod": "listGroupRoleAssignments",
+      "service": "authorization"
+    },
+    "POST /authorization/groups/{group_id}/role_assignments": {
+      "sdkMethod": "createGroupRoleAssignment",
+      "service": "authorization"
+    },
+    "PUT /authorization/groups/{group_id}/role_assignments": {
+      "sdkMethod": "updateGroupRoleAssignments",
+      "service": "authorization"
+    },
+    "DELETE /authorization/groups/{group_id}/role_assignments": {
+      "sdkMethod": "deleteGroupRoleAssignments",
+      "service": "authorization"
+    },
+    "GET /authorization/groups/{group_id}/role_assignments/{role_assignment_id}": {
+      "sdkMethod": "getGroupRoleAssignment",
+      "service": "authorization"
+    },
+    "DELETE /authorization/groups/{group_id}/role_assignments/{role_assignment_id}": {
+      "sdkMethod": "deleteGroupRoleAssignment",
+      "service": "authorization"
+    },
+    "POST /authorization/organization_memberships/{organization_membership_id}/check": {
+      "sdkMethod": "check",
+      "service": "authorization"
+    },
+    "GET /authorization/organization_memberships/{organization_membership_id}/resources": {
+      "sdkMethod": "listResourcesForMembership",
+      "service": "authorization"
+    },
+    "GET /authorization/organization_memberships/{organization_membership_id}/resources/{resource_id}/permissions": {
+      "sdkMethod": "listEffectivePermissions",
+      "service": "authorization"
+    },
+    "GET /authorization/organization_memberships/{organization_membership_id}/resources/{resource_type_slug}/{external_id}/permissions": {
+      "sdkMethod": "listEffectivePermissionsByExternalId",
+      "service": "authorization"
+    },
+    "GET /authorization/organization_memberships/{organization_membership_id}/role_assignments": {
+      "sdkMethod": "listRoleAssignments",
+      "service": "authorization"
+    },
+    "POST /authorization/organization_memberships/{organization_membership_id}/role_assignments": {
+      "sdkMethod": "assignRole",
+      "service": "authorization"
+    },
+    "DELETE /authorization/organization_memberships/{organization_membership_id}/role_assignments": {
+      "sdkMethod": "removeRole",
+      "service": "authorization"
+    },
+    "DELETE /authorization/organization_memberships/{organization_membership_id}/role_assignments/{role_assignment_id}": {
+      "sdkMethod": "removeRoleAssignment",
+      "service": "authorization"
+    },
+    "GET /authorization/organizations/{organizationId}/roles": {
+      "sdkMethod": "listOrganizationRoles",
+      "service": "authorization"
+    },
+    "POST /authorization/organizations/{organizationId}/roles": {
+      "sdkMethod": "createOrganizationRole",
+      "service": "authorization"
+    },
+    "GET /authorization/organizations/{organizationId}/roles/{slug}": {
+      "sdkMethod": "getOrganizationRole",
+      "service": "authorization"
+    },
+    "PATCH /authorization/organizations/{organizationId}/roles/{slug}": {
+      "sdkMethod": "updateOrganizationRole",
+      "service": "authorization"
+    },
+    "DELETE /authorization/organizations/{organizationId}/roles/{slug}": {
+      "sdkMethod": "deleteOrganizationRole",
+      "service": "authorization"
+    },
+    "POST /authorization/organizations/{organizationId}/roles/{slug}/permissions": {
+      "sdkMethod": "addOrganizationRolePermission",
+      "service": "authorization"
+    },
+    "PUT /authorization/organizations/{organizationId}/roles/{slug}/permissions": {
+      "sdkMethod": "setOrganizationRolePermissions",
+      "service": "authorization"
+    },
+    "DELETE /authorization/organizations/{organizationId}/roles/{slug}/permissions/{permissionSlug}": {
+      "sdkMethod": "removeOrganizationRolePermission",
+      "service": "authorization"
+    },
+    "GET /authorization/organizations/{organization_id}/resources/{resource_type_slug}/{external_id}": {
+      "sdkMethod": "getResourceByExternalId",
+      "service": "authorization"
+    },
+    "PATCH /authorization/organizations/{organization_id}/resources/{resource_type_slug}/{external_id}": {
+      "sdkMethod": "updateResourceByExternalId",
+      "service": "authorization"
+    },
+    "DELETE /authorization/organizations/{organization_id}/resources/{resource_type_slug}/{external_id}": {
+      "sdkMethod": "deleteResourceByExternalId",
+      "service": "authorization"
+    },
+    "GET /authorization/organizations/{organization_id}/resources/{resource_type_slug}/{external_id}/organization_memberships": {
+      "sdkMethod": "listMembershipsForResourceByExternalId",
+      "service": "authorization"
+    },
+    "GET /authorization/organizations/{organization_id}/resources/{resource_type_slug}/{external_id}/role_assignments": {
+      "sdkMethod": "listRoleAssignmentsForResourceByExternalId",
+      "service": "authorization"
+    },
+    "GET /authorization/resources": {
+      "sdkMethod": "listResources",
+      "service": "authorization"
+    },
+    "POST /authorization/resources": {
+      "sdkMethod": "createResource",
+      "service": "authorization"
+    },
+    "GET /authorization/resources/{resource_id}": {
+      "sdkMethod": "getResource",
+      "service": "authorization"
+    },
+    "PATCH /authorization/resources/{resource_id}": {
+      "sdkMethod": "updateResource",
+      "service": "authorization"
+    },
+    "DELETE /authorization/resources/{resource_id}": {
+      "sdkMethod": "deleteResource",
+      "service": "authorization"
+    },
+    "GET /authorization/resources/{resource_id}/organization_memberships": {
+      "sdkMethod": "listMembershipsForResource",
+      "service": "authorization"
+    },
+    "GET /authorization/resources/{resource_id}/role_assignments": {
+      "sdkMethod": "listRoleAssignmentsForResource",
+      "service": "authorization"
+    },
+    "GET /authorization/roles": {
+      "sdkMethod": "listEnvironmentRoles",
+      "service": "authorization"
+    },
+    "POST /authorization/roles": {
+      "sdkMethod": "createEnvironmentRole",
+      "service": "authorization"
+    },
+    "GET /authorization/roles/{slug}": {
+      "sdkMethod": "getEnvironmentRole",
+      "service": "authorization"
+    },
+    "PATCH /authorization/roles/{slug}": {
+      "sdkMethod": "updateEnvironmentRole",
+      "service": "authorization"
+    },
+    "POST /authorization/roles/{slug}/permissions": {
+      "sdkMethod": "addEnvironmentRolePermission",
+      "service": "authorization"
+    },
+    "PUT /authorization/roles/{slug}/permissions": {
+      "sdkMethod": "setEnvironmentRolePermissions",
+      "service": "authorization"
+    },
+    "GET /authorization/permissions": {
+      "sdkMethod": "listPermissions",
+      "service": "authorization"
+    },
+    "POST /authorization/permissions": {
+      "sdkMethod": "createPermission",
+      "service": "authorization"
+    },
+    "GET /authorization/permissions/{slug}": {
+      "sdkMethod": "getPermission",
+      "service": "authorization"
+    },
+    "PATCH /authorization/permissions/{slug}": {
+      "sdkMethod": "updatePermission",
+      "service": "authorization"
+    },
+    "DELETE /authorization/permissions/{slug}": {
+      "sdkMethod": "deletePermission",
+      "service": "authorization"
+    },
+    "POST /client/token": {
+      "sdkMethod": "createToken",
+      "service": "clientApi"
+    },
+    "GET /connections": {
+      "sdkMethod": "listConnections",
+      "service": "sso"
+    },
+    "GET /connections/{id}": {
+      "sdkMethod": "getConnection",
+      "service": "sso"
+    },
+    "DELETE /connections/{id}": {
+      "sdkMethod": "deleteConnection",
+      "service": "sso"
+    },
+    "POST /sso/logout/authorize": {
+      "sdkMethod": "authorizeLogout",
+      "service": "sso"
+    },
+    "GET /sso/profile": {
+      "sdkMethod": "getProfile",
+      "service": "sso"
+    },
+    "POST /sso/token": {
+      "sdkMethod": "getProfileAndToken",
+      "service": "sso"
+    },
+    "GET /data-integrations": {
+      "sdkMethod": "listDataIntegrations",
+      "service": "pipes"
+    },
+    "POST /data-integrations": {
+      "sdkMethod": "createDataIntegration",
+      "service": "pipes"
+    },
+    "GET /data-integrations/{slug}": {
+      "sdkMethod": "getDataIntegration",
+      "service": "pipes"
+    },
+    "PUT /data-integrations/{slug}": {
+      "sdkMethod": "updateDataIntegration",
+      "service": "pipes"
+    },
+    "DELETE /data-integrations/{slug}": {
+      "sdkMethod": "deleteDataIntegration",
+      "service": "pipes"
+    },
+    "PUT /data-integrations/{slug}/api-key": {
+      "sdkMethod": "updateDataIntegrationApiKey",
+      "service": "pipes"
+    },
+    "POST /data-integrations/{slug}/authorize": {
+      "sdkMethod": "authorizeDataIntegration",
+      "service": "pipes"
+    },
+    "POST /data-integrations/{slug}/credentials": {
+      "sdkMethod": "createDataIntegrationCredential",
+      "service": "pipes"
+    },
+    "POST /data-integrations/{provider}/token": {
+      "sdkMethod": "getAccessToken",
+      "service": "pipes"
+    },
+    "GET /user_management/users/{user_id}/connected_accounts/{slug}": {
+      "sdkMethod": "getUserConnectedAccount",
+      "service": "pipes"
+    },
+    "POST /user_management/users/{user_id}/connected_accounts/{slug}": {
+      "sdkMethod": "createUserConnectedAccount",
+      "service": "pipes"
+    },
+    "PUT /user_management/users/{user_id}/connected_accounts/{slug}": {
+      "sdkMethod": "updateUserConnectedAccount",
+      "service": "pipes"
+    },
+    "DELETE /user_management/users/{user_id}/connected_accounts/{slug}": {
+      "sdkMethod": "deleteUserConnectedAccount",
+      "service": "pipes"
+    },
+    "GET /user_management/users/{user_id}/data_providers": {
+      "sdkMethod": "listUserDataProviders",
+      "service": "pipes"
+    },
+    "GET /directories": {
+      "sdkMethod": "list",
+      "service": "directorySync"
+    },
+    "GET /directories/{id}": {
+      "sdkMethod": "get",
+      "service": "directorySync"
+    },
+    "DELETE /directories/{id}": {
+      "sdkMethod": "delete",
+      "service": "directorySync"
+    },
+    "GET /directory_groups": {
+      "sdkMethod": "listGroups",
+      "service": "directorySync"
+    },
+    "GET /directory_groups/{id}": {
+      "sdkMethod": "getGroup",
+      "service": "directorySync"
+    },
+    "GET /directory_users": {
+      "sdkMethod": "listUsers",
+      "service": "directorySync"
+    },
+    "GET /directory_users/{id}": {
+      "sdkMethod": "getUser",
+      "service": "directorySync"
+    },
+    "GET /events": {
+      "sdkMethod": "list",
+      "service": "events"
+    },
+    "GET /feature-flags": {
+      "sdkMethod": "list",
+      "service": "featureFlags"
+    },
+    "GET /feature-flags/{slug}": {
+      "sdkMethod": "get",
+      "service": "featureFlags"
+    },
+    "PUT /feature-flags/{slug}/disable": {
+      "sdkMethod": "disable",
+      "service": "featureFlags"
+    },
+    "PUT /feature-flags/{slug}/enable": {
+      "sdkMethod": "enable",
+      "service": "featureFlags"
+    },
+    "POST /feature-flags/{slug}/targets/{resourceId}": {
+      "sdkMethod": "addFlagTarget",
+      "service": "featureFlags"
+    },
+    "DELETE /feature-flags/{slug}/targets/{resourceId}": {
+      "sdkMethod": "removeFlagTarget",
+      "service": "featureFlags"
+    },
+    "GET /organizations/{organizationId}/feature-flags": {
+      "sdkMethod": "listOrganizationFeatureFlags",
+      "service": "featureFlags"
+    },
+    "GET /user_management/users/{userId}/feature-flags": {
+      "sdkMethod": "listUserFeatureFlags",
+      "service": "featureFlags"
+    },
+    "POST /organization_domains": {
+      "sdkMethod": "create",
+      "service": "organizationDomains"
+    },
+    "GET /organization_domains/{id}": {
+      "sdkMethod": "get",
+      "service": "organizationDomains"
+    },
+    "DELETE /organization_domains/{id}": {
+      "sdkMethod": "delete",
+      "service": "organizationDomains"
+    },
+    "POST /organization_domains/{id}/verify": {
+      "sdkMethod": "verify",
+      "service": "organizationDomains"
+    },
+    "GET /organizations": {
+      "sdkMethod": "list",
+      "service": "organizations"
+    },
+    "POST /organizations": {
+      "sdkMethod": "create",
+      "service": "organizations"
+    },
+    "GET /organizations/external_id/{external_id}": {
+      "sdkMethod": "getByExternalId",
+      "service": "organizations"
+    },
+    "GET /organizations/{id}": {
+      "sdkMethod": "get",
+      "service": "organizations"
+    },
+    "PUT /organizations/{id}": {
+      "sdkMethod": "update",
+      "service": "organizations"
+    },
+    "DELETE /organizations/{id}": {
+      "sdkMethod": "delete",
+      "service": "organizations"
+    },
+    "GET /organizations/{id}/audit_log_configuration": {
+      "sdkMethod": "getAuditLogConfiguration",
+      "service": "organizations"
+    },
+    "GET /organizations/{organization_id}/authorized_applications": {
+      "sdkMethod": "listAuthorizedApplications",
+      "service": "organizations"
+    },
+    "GET /organizations/{id}/audit_logs_retention": {
+      "sdkMethod": "getOrganizationAuditLogsRetention",
+      "service": "auditLogs"
+    },
+    "PUT /organizations/{id}/audit_logs_retention": {
+      "sdkMethod": "updateOrganizationAuditLogsRetention",
+      "service": "auditLogs"
+    },
+    "GET /audit_logs/actions": {
+      "sdkMethod": "listActions",
+      "service": "auditLogs"
+    },
+    "GET /audit_logs/actions/{actionName}/schemas": {
+      "sdkMethod": "listActionSchemas",
+      "service": "auditLogs"
+    },
+    "POST /audit_logs/actions/{actionName}/schemas": {
+      "sdkMethod": "createSchema",
+      "service": "auditLogs"
+    },
+    "POST /audit_logs/events": {
+      "sdkMethod": "createEvent",
+      "service": "auditLogs"
+    },
+    "POST /audit_logs/exports": {
+      "sdkMethod": "createExport",
+      "service": "auditLogs"
+    },
+    "GET /audit_logs/exports/{auditLogExportId}": {
+      "sdkMethod": "getExport",
+      "service": "auditLogs"
+    },
+    "GET /organizations/{organizationId}/api_keys": {
+      "sdkMethod": "listOrganizationApiKeys",
+      "service": "apiKeys"
+    },
+    "POST /organizations/{organizationId}/api_keys": {
+      "sdkMethod": "createOrganizationApiKey",
+      "service": "apiKeys"
+    },
+    "POST /api_keys/validations": {
+      "sdkMethod": "createValidation",
+      "service": "apiKeys"
+    },
+    "DELETE /api_keys/{id}": {
+      "sdkMethod": "delete",
+      "service": "apiKeys"
+    },
+    "POST /api_keys/{id}/expire": {
+      "sdkMethod": "createExpire",
+      "service": "apiKeys"
+    },
+    "GET /organizations/{organizationId}/data_integration_configurations": {
+      "sdkMethod": "listOrganizationDataIntegrationConfigurations",
+      "service": "pipesProvider"
+    },
+    "PUT /organizations/{organizationId}/data_integration_configurations/{slug}": {
+      "sdkMethod": "updateOrganizationDataIntegrationConfiguration",
+      "service": "pipesProvider"
+    },
+    "GET /organizations/{organizationId}/groups": {
+      "sdkMethod": "listOrganizationGroups",
+      "service": "groups"
+    },
+    "POST /organizations/{organizationId}/groups": {
+      "sdkMethod": "createOrganizationGroup",
+      "service": "groups"
+    },
+    "GET /organizations/{organizationId}/groups/{groupId}": {
+      "sdkMethod": "getOrganizationGroup",
+      "service": "groups"
+    },
+    "PATCH /organizations/{organizationId}/groups/{groupId}": {
+      "sdkMethod": "updateOrganizationGroup",
+      "service": "groups"
+    },
+    "DELETE /organizations/{organizationId}/groups/{groupId}": {
+      "sdkMethod": "deleteOrganizationGroup",
+      "service": "groups"
+    },
+    "GET /organizations/{organizationId}/groups/{groupId}/organization-memberships": {
+      "sdkMethod": "listOrganizationMemberships",
+      "service": "groups"
+    },
+    "POST /organizations/{organizationId}/groups/{groupId}/organization-memberships": {
+      "sdkMethod": "createOrganizationMembership",
+      "service": "groups"
+    },
+    "DELETE /organizations/{organizationId}/groups/{groupId}/organization-memberships/{omId}": {
+      "sdkMethod": "deleteOrganizationMembership",
+      "service": "groups"
+    },
+    "POST /portal/generate_link": {
+      "sdkMethod": "generateLink",
+      "service": "adminPortal"
+    },
+    "POST /radar/attempts": {
+      "sdkMethod": "createAttempt",
+      "service": "radar"
+    },
+    "PUT /radar/attempts/{id}": {
+      "sdkMethod": "updateAttempt",
+      "service": "radar"
+    },
+    "POST /radar/lists/{type}/{action}": {
+      "sdkMethod": "addListEntry",
+      "service": "radar"
+    },
+    "DELETE /radar/lists/{type}/{action}": {
+      "sdkMethod": "removeListEntry",
+      "service": "radar"
+    },
+    "GET /sso/jwks/{clientId}": {
+      "sdkMethod": "getJwks",
+      "service": "userManagement"
+    },
+    "POST /user_management/authenticate": [
+      {
+        "sdkMethod": "authenticateWithPassword",
+        "service": "userManagement"
+      },
+      {
+        "sdkMethod": "authenticateWithCode",
+        "service": "userManagement"
+      },
+      {
+        "sdkMethod": "authenticateWithRefreshToken",
+        "service": "userManagement"
+      },
+      {
+        "sdkMethod": "authenticateWithMagicAuth",
+        "service": "userManagement"
+      },
+      {
+        "sdkMethod": "authenticateWithEmailVerification",
+        "service": "userManagement"
+      },
+      {
+        "sdkMethod": "authenticateWithTotp",
+        "service": "userManagement"
+      },
+      {
+        "sdkMethod": "authenticateWithOrganizationSelection",
+        "service": "userManagement"
+      },
+      {
+        "sdkMethod": "authenticateWithDeviceCode",
+        "service": "userManagement"
+      },
+      {
+        "sdkMethod": "authenticateWithRadarEmailChallenge",
+        "service": "userManagement"
+      },
+      {
+        "sdkMethod": "authenticateWithRadarSmsChallenge",
+        "service": "userManagement"
+      }
+    ],
+    "POST /user_management/authorize/device": {
+      "sdkMethod": "createDevice",
+      "service": "userManagement"
+    },
+    "POST /user_management/radar_challenges": {
+      "sdkMethod": "createRadarChallenge",
+      "service": "userManagement"
+    },
+    "GET /user_management/radar_challenges/{id}": {
+      "sdkMethod": "getRadarChallenge",
+      "service": "userManagement"
+    },
+    "POST /user_management/sessions/revoke": {
+      "sdkMethod": "revokeSession",
+      "service": "userManagement"
+    },
+    "GET /user_management/cors_origins": {
+      "sdkMethod": "listCorsOrigins",
+      "service": "userManagement"
+    },
+    "POST /user_management/cors_origins": {
+      "sdkMethod": "createCorsOrigin",
+      "service": "userManagement"
+    },
+    "GET /user_management/email_verification/{id}": {
+      "sdkMethod": "getEmailVerification",
+      "service": "userManagement"
+    },
+    "POST /user_management/password_reset": {
+      "sdkMethod": "resetPassword",
+      "service": "userManagement"
+    },
+    "POST /user_management/password_reset/confirm": {
+      "sdkMethod": "confirmPasswordReset",
+      "service": "userManagement"
+    },
+    "GET /user_management/password_reset/{id}": {
+      "sdkMethod": "getPasswordReset",
+      "service": "userManagement"
+    },
+    "GET /user_management/users": {
+      "sdkMethod": "list",
+      "service": "userManagement"
+    },
+    "POST /user_management/users": {
+      "sdkMethod": "create",
+      "service": "userManagement"
+    },
+    "GET /user_management/users/external_id/{external_id}": {
+      "sdkMethod": "getByExternalId",
+      "service": "userManagement"
+    },
+    "GET /user_management/users/{id}": {
+      "sdkMethod": "get",
+      "service": "userManagement"
+    },
+    "PUT /user_management/users/{id}": {
+      "sdkMethod": "update",
+      "service": "userManagement"
+    },
+    "DELETE /user_management/users/{id}": {
+      "sdkMethod": "delete",
+      "service": "userManagement"
+    },
+    "POST /user_management/users/{id}/email_change/confirm": {
+      "sdkMethod": "confirmEmailChange",
+      "service": "userManagement"
+    },
+    "POST /user_management/users/{id}/email_change/send": {
+      "sdkMethod": "sendEmailChange",
+      "service": "userManagement"
+    },
+    "POST /user_management/users/{id}/email_verification/confirm": {
+      "sdkMethod": "verifyEmail",
+      "service": "userManagement"
+    },
+    "POST /user_management/users/{id}/email_verification/send": {
+      "sdkMethod": "sendVerificationEmail",
+      "service": "userManagement"
+    },
+    "GET /user_management/users/{id}/identities": {
+      "sdkMethod": "getIdentities",
+      "service": "userManagement"
+    },
+    "GET /user_management/users/{id}/sessions": {
+      "sdkMethod": "listSessions",
+      "service": "userManagement"
+    },
+    "GET /user_management/invitations": {
+      "sdkMethod": "listInvitations",
+      "service": "userManagement"
+    },
+    "POST /user_management/invitations": {
+      "sdkMethod": "sendInvitation",
+      "service": "userManagement"
+    },
+    "GET /user_management/invitations/by_token/{token}": {
+      "sdkMethod": "findInvitationByToken",
+      "service": "userManagement"
+    },
+    "GET /user_management/invitations/{id}": {
+      "sdkMethod": "getInvitation",
+      "service": "userManagement"
+    },
+    "POST /user_management/invitations/{id}/accept": {
+      "sdkMethod": "acceptInvitation",
+      "service": "userManagement"
+    },
+    "POST /user_management/invitations/{id}/resend": {
+      "sdkMethod": "resendInvitation",
+      "service": "userManagement"
+    },
+    "POST /user_management/invitations/{id}/revoke": {
+      "sdkMethod": "revokeInvitation",
+      "service": "userManagement"
+    },
+    "GET /user_management/jwt_template": {
+      "sdkMethod": "listJWTTemplate",
+      "service": "userManagement"
+    },
+    "PUT /user_management/jwt_template": {
+      "sdkMethod": "updateJWTTemplate",
+      "service": "userManagement"
+    },
+    "POST /user_management/magic_auth": {
+      "sdkMethod": "createMagicAuth",
+      "service": "userManagement"
+    },
+    "GET /user_management/magic_auth/{id}": {
+      "sdkMethod": "getMagicAuth",
+      "service": "userManagement"
+    },
+    "GET /user_management/redirect_uris": {
+      "sdkMethod": "listRedirectUris",
+      "service": "userManagement"
+    },
+    "POST /user_management/redirect_uris": {
+      "sdkMethod": "createRedirectUri",
+      "service": "userManagement"
+    },
+    "DELETE /user_management/redirect_uris/{id}": {
+      "sdkMethod": "deleteRedirectUris",
+      "service": "userManagement"
+    },
+    "GET /user_management/users/{user_id}/authorized_applications": {
+      "sdkMethod": "listAuthorizedApplications",
+      "service": "userManagement"
+    },
+    "DELETE /user_management/users/{user_id}/authorized_applications/{application_id}": {
+      "sdkMethod": "deleteAuthorizedApplication",
+      "service": "userManagement"
+    },
+    "GET /user_management/users/{userId}/api_keys": {
+      "sdkMethod": "listApiKeys",
+      "service": "userManagement"
+    },
+    "POST /user_management/users/{userId}/api_keys": {
+      "sdkMethod": "createApiKey",
+      "service": "userManagement"
+    },
+    "GET /user_management/organization_memberships": {
+      "sdkMethod": "list",
+      "service": "organizationMembership"
+    },
+    "POST /user_management/organization_memberships": {
+      "sdkMethod": "create",
+      "service": "organizationMembership"
+    },
+    "GET /user_management/organization_memberships/{id}": {
+      "sdkMethod": "get",
+      "service": "organizationMembership"
+    },
+    "PUT /user_management/organization_memberships/{id}": {
+      "sdkMethod": "update",
+      "service": "organizationMembership"
+    },
+    "DELETE /user_management/organization_memberships/{id}": {
+      "sdkMethod": "delete",
+      "service": "organizationMembership"
+    },
+    "PUT /user_management/organization_memberships/{id}/deactivate": {
+      "sdkMethod": "deactivate",
+      "service": "organizationMembership"
+    },
+    "PUT /user_management/organization_memberships/{id}/reactivate": {
+      "sdkMethod": "reactivate",
+      "service": "organizationMembership"
+    },
+    "GET /user_management/organization_memberships/{omId}/groups": {
+      "sdkMethod": "listGroups",
+      "service": "organizationMembership"
+    },
+    "POST /vault/v1/keys/data-key": {
+      "sdkMethod": "createDataKey",
+      "service": "vault"
+    },
+    "POST /vault/v1/keys/decrypt": {
+      "sdkMethod": "createDecrypt",
+      "service": "vault"
+    },
+    "POST /vault/v1/keys/rekey": {
+      "sdkMethod": "createRekey",
+      "service": "vault"
+    },
+    "GET /vault/v1/kv": {
+      "sdkMethod": "listKv",
+      "service": "vault"
+    },
+    "POST /vault/v1/kv": {
+      "sdkMethod": "createKv",
+      "service": "vault"
+    },
+    "GET /vault/v1/kv/name/{name}": {
+      "sdkMethod": "getName",
+      "service": "vault"
+    },
+    "GET /vault/v1/kv/{id}": {
+      "sdkMethod": "getKv",
+      "service": "vault"
+    },
+    "PUT /vault/v1/kv/{id}": {
+      "sdkMethod": "updateKv",
+      "service": "vault"
+    },
+    "DELETE /vault/v1/kv/{id}": {
+      "sdkMethod": "deleteKv",
+      "service": "vault"
+    },
+    "GET /vault/v1/kv/{id}/metadata": {
+      "sdkMethod": "listKvMetadata",
+      "service": "vault"
+    },
+    "GET /vault/v1/kv/{id}/versions": {
+      "sdkMethod": "listKvVersions",
+      "service": "vault"
+    },
+    "GET /webhook_endpoints": {
+      "sdkMethod": "listEndpoints",
+      "service": "webhooks"
+    },
+    "POST /webhook_endpoints": {
+      "sdkMethod": "createEndpoint",
+      "service": "webhooks"
+    },
+    "PATCH /webhook_endpoints/{id}": {
+      "sdkMethod": "updateEndpoint",
+      "service": "webhooks"
+    },
+    "DELETE /webhook_endpoints/{id}": {
+      "sdkMethod": "deleteEndpoint",
+      "service": "webhooks"
+    },
+    "POST /widgets/token": {
+      "sdkMethod": "createToken",
+      "service": "widgets"
+    }
+  }
+}

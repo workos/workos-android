@@ -1,0 +1,12 @@
+name: Release Please
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  release-please:
+    uses: workos/actions/.github/workflows/release-please.yml@main
+    secrets:
+      SDK_BOT_PRIVATE_KEY: ${{ secrets.SDK_BOT_PRIVATE_KEY }}
