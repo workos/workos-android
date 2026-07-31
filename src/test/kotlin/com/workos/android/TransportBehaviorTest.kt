@@ -223,4 +223,56 @@ class TransportBehaviorTest {
             // NetworkException rather than leaking OkHttp's InterruptedIOException.
             assertTrue(error is NetworkException, "expected NetworkException, got $error")
         }
+
+    /**
+     * `requestId` must come from the `x-request-id` response header.
+     *
+     * The API sends it only as a header — error bodies never carry `request_id`
+     * and no schema in the spec declares it — so reading it from the body left
+     * this field permanently null on every WorkOSException. It is the field
+     * support asks for first, so an always-null slot is worse than useless.
+     */
+    @Test
+    fun `requestId is captured from the x-request-id response header`() =
+        runTest {
+            val (client, server) =
+                testClientWithStatus(
+                    404,
+                    """{"message":"not found","code":"entity_not_found"}""",
+                    headers = mapOf("x-request-id" to "req_01ABCDEF"),
+                )
+            server.use {
+                val error =
+                    runCatching { client.organizations.get("org_missing") }.exceptionOrNull()
+
+                val workosError = error as? WorkOSException
+                assertNotNull(workosError, "expected a WorkOSException, got $error")
+                assertEquals("req_01ABCDEF", workosError.requestId)
+                assertEquals(404, workosError.statusCode)
+                assertEquals("entity_not_found", workosError.code)
+            }
+        }
+
+    /** With no header present, the body is still consulted as a forward-compatible fallback. */
+    @Test
+    fun `requestId falls back to a request_id field in the body`() =
+        runTest {
+            val (client, server) =
+                testClientWithStatus(404, """{"message":"not found","request_id":"req_from_body"}""")
+            server.use {
+                val error = runCatching { client.organizations.get("org_missing") }.exceptionOrNull()
+                assertEquals("req_from_body", (error as? WorkOSException)?.requestId)
+            }
+        }
+
+    /** Absent from both, it is null rather than a placeholder. */
+    @Test
+    fun `requestId is null when the API sends none`() =
+        runTest {
+            val (client, server) = testClientWithStatus(404, """{"message":"not found"}""")
+            server.use {
+                val error = runCatching { client.organizations.get("org_missing") }.exceptionOrNull()
+                assertNull((error as? WorkOSException)?.requestId)
+            }
+        }
 }

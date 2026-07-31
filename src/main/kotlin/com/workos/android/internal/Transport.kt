@@ -45,6 +45,14 @@ private class RawResponse(
     val code: Int,
     val body: String,
     val retryAfterSeconds: Long?,
+    /**
+     * The `x-request-id` response header. It is the single most useful field when
+     * escalating a failure to WorkOS support, and it arrives ONLY as a header —
+     * error bodies never contain `request_id`, and no schema in the spec declares
+     * it. Reading it from the body left [WorkOSException.requestId] permanently
+     * null.
+     */
+    val requestId: String?,
 )
 
 /**
@@ -114,8 +122,11 @@ public class Transport(
         val text = response.body?.string() ?: ""
         val code = response.code
         val retryAfter = response.header("Retry-After")?.toLongOrNull()
+        // OkHttp's header lookup is case-insensitive, so this covers the
+        // `X-Request-Id` / `x-request-id` spellings the API uses interchangeably.
+        val requestId = response.header("x-request-id")
         response.close()
-        return RawResponse(code, text, retryAfter)
+        return RawResponse(code, text, retryAfter, requestId)
     }
 
     /** Backoff for attempt N: initial * multiplier^N, capped, plus jitter. */
@@ -209,7 +220,9 @@ public class Transport(
         fun str(key: String): String? = (obj?.get(key) as? JsonPrimitive)?.content
         val message = str("message") ?: str("error_description") ?: str("error") ?: "request failed"
         val code = str("code") ?: str("error")
-        val requestId = str("request_id")
+        // Header first, since that is where the API actually sends it; the body
+        // read stays as a fallback so this keeps working if it is ever added there.
+        val requestId = raw.requestId ?: str("request_id")
         val param = str("param") ?: str("parameter")
         val s = raw.code
         return when (s) {
