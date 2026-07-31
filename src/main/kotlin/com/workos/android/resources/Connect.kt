@@ -143,6 +143,8 @@ public class Connect internal constructor(
     /**
      * Create oauth application
      *
+     * Create a new Connect Application. Supports both OAuth and Machine-to-Machine (M2M) application types.
+     *
      * @param name The name of the application.
      * @param isFirstParty Whether this is a first-party application. Third-party applications require an organization_id.
      * @param description A description for the application.
@@ -184,6 +186,8 @@ public class Connect internal constructor(
 
     /**
      * Create m2m application
+     *
+     * Create a new Connect Application. Supports both OAuth and Machine-to-Machine (M2M) application types.
      *
      * @param name The name of the application.
      * @param organizationId The organization ID this application belongs to.

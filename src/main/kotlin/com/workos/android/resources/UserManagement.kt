@@ -75,6 +75,8 @@ public class UserManagement internal constructor(
     /**
      * Authenticate with password
      *
+     * Authenticate a user with a specified [authentication method](https://workos.com/docs/reference/authkit/authentication).
+     *
      * @param email The user's email address.
      * @param password The user's password.
      * @param invitationToken An invitation token to accept during authentication.
@@ -122,6 +124,8 @@ public class UserManagement internal constructor(
     /**
      * Authenticate with code
      *
+     * Authenticate a user with a specified [authentication method](https://workos.com/docs/reference/authkit/authentication).
+     *
      * @param code The authorization code received from the redirect.
      * @param codeVerifier The PKCE code verifier used to derive the code challenge passed to the authorization URL.
      * @param invitationToken An invitation token to accept during authentication.
@@ -166,6 +170,8 @@ public class UserManagement internal constructor(
     /**
      * Authenticate with refresh token
      *
+     * Authenticate a user with a specified [authentication method](https://workos.com/docs/reference/authkit/authentication).
+     *
      * @param refreshToken The refresh token to exchange for new tokens.
      * @param organizationId The ID of the organization to scope the session to.
      * @param ipAddress The IP address of the user's request.
@@ -203,6 +209,8 @@ public class UserManagement internal constructor(
 
     /**
      * Authenticate with magic auth
+     *
+     * Authenticate a user with a specified [authentication method](https://workos.com/docs/reference/authkit/authentication).
      *
      * @param code The one-time code for Magic Auth authentication.
      * @param email The user's email address.
@@ -248,6 +256,8 @@ public class UserManagement internal constructor(
     /**
      * Authenticate with email verification
      *
+     * Authenticate a user with a specified [authentication method](https://workos.com/docs/reference/authkit/authentication).
+     *
      * @param code The email verification code.
      * @param pendingAuthenticationToken The pending authentication token from a previous authentication attempt.
      * @param ipAddress The IP address of the user's request.
@@ -285,6 +295,8 @@ public class UserManagement internal constructor(
 
     /**
      * Authenticate with totp
+     *
+     * Authenticate a user with a specified [authentication method](https://workos.com/docs/reference/authkit/authentication).
      *
      * @param code The code value.
      * @param pendingAuthenticationToken The pending authentication token value.
@@ -327,6 +339,8 @@ public class UserManagement internal constructor(
     /**
      * Authenticate with organization selection
      *
+     * Authenticate a user with a specified [authentication method](https://workos.com/docs/reference/authkit/authentication).
+     *
      * @param pendingAuthenticationToken The pending authentication token from a previous authentication attempt.
      * @param organizationId The ID of the organization the user selected.
      * @param ipAddress The IP address of the user's request.
@@ -365,6 +379,8 @@ public class UserManagement internal constructor(
     /**
      * Authenticate with device code
      *
+     * Authenticate a user with a specified [authentication method](https://workos.com/docs/reference/authkit/authentication).
+     *
      * @param deviceCode The device verification code.
      * @param ipAddress The IP address of the user's request.
      * @param deviceId A unique identifier for the device.
@@ -398,6 +414,8 @@ public class UserManagement internal constructor(
 
     /**
      * Authenticate with radar email challenge
+     *
+     * Authenticate a user with a specified [authentication method](https://workos.com/docs/reference/authkit/authentication).
      *
      * @param code The one-time code from the Radar email challenge.
      * @param radarChallengeId The ID of the Radar email challenge being verified.
@@ -439,6 +457,8 @@ public class UserManagement internal constructor(
 
     /**
      * Authenticate with radar sms challenge
+     *
+     * Authenticate a user with a specified [authentication method](https://workos.com/docs/reference/authkit/authentication).
      *
      * @param code The one-time code from the Radar SMS challenge.
      * @param verificationId The ID of the Radar SMS verification being confirmed.
