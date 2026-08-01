@@ -2,6 +2,7 @@
 
 package com.workos.android
 
+import com.workos.android.support.awaitRequest
 import com.workos.android.support.headerValue
 import com.workos.android.support.pathOnly
 import com.workos.android.support.queryParam
@@ -25,7 +26,7 @@ class FeatureFlagsTest {
             val (client, server) = testClient(responding = "{\"data\":[{\"object\":\"feature_flag\",\"id\":\"flag_01EHZNVPK3SFK441A1RGBFSHRT\",\"slug\":\"advanced-analytics\",\"name\":\"Advanced Analytics\",\"description\":\"Enable advanced analytics dashboard feature\",\"owner\":{\"email\":\"jane@example.com\",\"first_name\":\"Jane\",\"last_name\":\"Doe\"},\"tags\":[\"reports\"],\"enabled\":true,\"default_value\":false,\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\"}],\"list_metadata\":{\"before\":null,\"after\":null}}")
             val result = client.featureFlags.list()
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("GET", request.method)
             assertEquals("/feature-flags", request.pathOnly())
             assertEquals(1, result.data.size)
@@ -38,7 +39,7 @@ class FeatureFlagsTest {
             val (client, server) = testClient(responding = "{\"object\":\"feature_flag\",\"id\":\"flag_01EHZNVPK3SFK441A1RGBFSHRT\",\"slug\":\"advanced-analytics\",\"name\":\"Advanced Analytics\",\"description\":\"Enable advanced analytics dashboard feature\",\"owner\":{\"email\":\"jane@example.com\",\"first_name\":\"Jane\",\"last_name\":\"Doe\"},\"tags\":[\"reports\"],\"enabled\":true,\"default_value\":false,\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\"}")
             val result = client.featureFlags.get(slug = "sample-slug")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("GET", request.method)
             assertEquals("/feature-flags/sample-slug", request.pathOnly())
             assertEquals("flag_01EHZNVPK3SFK441A1RGBFSHRT", result.id)
@@ -50,7 +51,7 @@ class FeatureFlagsTest {
             val (client, server) = testClient(responding = "{\"object\":\"feature_flag\",\"id\":\"flag_01EHZNVPK3SFK441A1RGBFSHRT\",\"slug\":\"advanced-analytics\",\"name\":\"Advanced Analytics\",\"description\":\"Enable advanced analytics dashboard feature\",\"owner\":{\"email\":\"jane@example.com\",\"first_name\":\"Jane\",\"last_name\":\"Doe\"},\"tags\":[\"reports\"],\"enabled\":false,\"default_value\":false,\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\"}")
             val result = client.featureFlags.disable(slug = "sample-slug")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("PUT", request.method)
             assertEquals("/feature-flags/sample-slug/disable", request.pathOnly())
             assertEquals("flag_01EHZNVPK3SFK441A1RGBFSHRT", result.id)
@@ -62,7 +63,7 @@ class FeatureFlagsTest {
             val (client, server) = testClient(responding = "{\"object\":\"feature_flag\",\"id\":\"flag_01EHZNVPK3SFK441A1RGBFSHRT\",\"slug\":\"advanced-analytics\",\"name\":\"Advanced Analytics\",\"description\":\"Enable advanced analytics dashboard feature\",\"owner\":{\"email\":\"jane@example.com\",\"first_name\":\"Jane\",\"last_name\":\"Doe\"},\"tags\":[\"reports\"],\"enabled\":false,\"default_value\":false,\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\"}")
             val result = client.featureFlags.enable(slug = "sample-slug")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("PUT", request.method)
             assertEquals("/feature-flags/sample-slug/enable", request.pathOnly())
             assertEquals("flag_01EHZNVPK3SFK441A1RGBFSHRT", result.id)
@@ -74,7 +75,7 @@ class FeatureFlagsTest {
             val (client, server) = testClient(responding = "{}")
             client.featureFlags.addFlagTarget(slug = "sample-slug", resourceId = "sample-resourceId")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("POST", request.method)
             assertEquals("/feature-flags/sample-slug/targets/sample-resourceId", request.pathOnly())
         }
@@ -85,7 +86,7 @@ class FeatureFlagsTest {
             val (client, server) = testClient(responding = "{}")
             client.featureFlags.removeFlagTarget(slug = "sample-slug", resourceId = "sample-resourceId")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("DELETE", request.method)
             assertEquals("/feature-flags/sample-slug/targets/sample-resourceId", request.pathOnly())
         }
@@ -96,7 +97,7 @@ class FeatureFlagsTest {
             val (client, server) = testClient(responding = "{\"data\":[{\"object\":\"feature_flag\",\"id\":\"flag_01EHZNVPK3SFK441A1RGBFSHRT\",\"slug\":\"advanced-analytics\",\"name\":\"Advanced Analytics\",\"description\":\"Enable advanced analytics dashboard feature\",\"owner\":{\"email\":\"jane@example.com\",\"first_name\":\"Jane\",\"last_name\":\"Doe\"},\"tags\":[\"reports\"],\"enabled\":true,\"default_value\":false,\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\"}],\"list_metadata\":{\"before\":null,\"after\":null}}")
             val result = client.featureFlags.listOrganizationFeatureFlags(organizationId = "sample-organizationId")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("GET", request.method)
             assertEquals("/organizations/sample-organizationId/feature-flags", request.pathOnly())
             assertEquals(1, result.data.size)
@@ -109,7 +110,7 @@ class FeatureFlagsTest {
             val (client, server) = testClient(responding = "{\"data\":[{\"object\":\"feature_flag\",\"id\":\"flag_01EHZNVPK3SFK441A1RGBFSHRT\",\"slug\":\"advanced-analytics\",\"name\":\"Advanced Analytics\",\"description\":\"Enable advanced analytics dashboard feature\",\"owner\":{\"email\":\"jane@example.com\",\"first_name\":\"Jane\",\"last_name\":\"Doe\"},\"tags\":[\"reports\"],\"enabled\":true,\"default_value\":false,\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\"}],\"list_metadata\":{\"before\":null,\"after\":null}}")
             val result = client.featureFlags.listUserFeatureFlags(userId = "sample-userId")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("GET", request.method)
             assertEquals("/user_management/users/sample-userId/feature-flags", request.pathOnly())
             assertEquals(1, result.data.size)
@@ -133,7 +134,7 @@ class FeatureFlagsTest {
 
             client.featureFlags.list(before = "a b/c&d=e")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("a b/c&d=e", request.queryParam("before"))
         }
 
@@ -144,7 +145,7 @@ class FeatureFlagsTest {
 
             client.featureFlags.list(requestOptions = RequestOptions(headers = mapOf("X-Custom" to "value")))
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("value", request.headerValue("X-Custom"))
         }
 

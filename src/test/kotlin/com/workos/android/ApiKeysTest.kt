@@ -2,6 +2,7 @@
 
 package com.workos.android
 
+import com.workos.android.support.awaitRequest
 import com.workos.android.support.bodyJson
 import com.workos.android.support.headerValue
 import com.workos.android.support.pathOnly
@@ -27,7 +28,7 @@ class ApiKeysTest {
             val (client, server) = testClient(responding = "{}")
             client.apiKeys.delete(id = "sample-id")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("DELETE", request.method)
             assertEquals("/api_keys/sample-id", request.pathOnly())
         }
@@ -38,7 +39,7 @@ class ApiKeysTest {
             val (client, server) = testClient(responding = "{\"object\":\"api_key\",\"id\":\"api_key_01EHZNVPK3SFK441A1RGBFSHRT\",\"owner\":{\"type\":\"organization\",\"id\":\"org_01EHZNVPK3SFK441A1RGBFSHRT\"},\"name\":\"Production API Key\",\"obfuscated_value\":\"sk_...3456\",\"last_used_at\":null,\"expires_at\":null,\"permissions\":[\"posts:read\",\"posts:write\"],\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\"}")
             val result = client.apiKeys.createExpire(id = "sample-id")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("POST", request.method)
             assertEquals("/api_keys/sample-id/expire", request.pathOnly())
             assertEquals("api_key_01EHZNVPK3SFK441A1RGBFSHRT", result.id)
@@ -50,7 +51,7 @@ class ApiKeysTest {
             val (client, server) = testClient(responding = "{\"api_key\":{\"object\":\"api_key\",\"id\":\"api_key_01EHZNVPK3SFK441A1RGBFSHRT\",\"owner\":{\"type\":\"organization\",\"id\":\"org_01EHZNVPK3SFK441A1RGBFSHRT\"},\"name\":\"Production API Key\",\"obfuscated_value\":\"sk_...3456\",\"last_used_at\":null,\"expires_at\":null,\"permissions\":[\"posts:read\",\"posts:write\"],\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\"},\"agent_registration_id\":\"agent_reg_01EHZNVPK3SFK441A1RGBFSHRT\"}")
             val result = client.apiKeys.createValidation(value = "test_value")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("POST", request.method)
             assertEquals("/api_keys/validations", request.pathOnly())
             assertTrue(request.bodyJson().containsKey("value"))
@@ -63,7 +64,7 @@ class ApiKeysTest {
             val (client, server) = testClient(responding = "{\"data\":[{\"object\":\"api_key\",\"id\":\"api_key_01EHZNVPK3SFK441A1RGBFSHRT\",\"owner\":{\"type\":\"organization\",\"id\":\"org_01EHZNVPK3SFK441A1RGBFSHRT\"},\"name\":\"Production API Key\",\"obfuscated_value\":\"sk_...3456\",\"last_used_at\":null,\"expires_at\":null,\"permissions\":[\"posts:read\",\"posts:write\"],\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\"}],\"list_metadata\":{\"before\":null,\"after\":null}}")
             val result = client.apiKeys.listOrganizationApiKeys(organizationId = "sample-organizationId")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("GET", request.method)
             assertEquals("/organizations/sample-organizationId/api_keys", request.pathOnly())
             assertEquals(1, result.data.size)
@@ -76,7 +77,7 @@ class ApiKeysTest {
             val (client, server) = testClient(responding = "{\"object\":\"api_key\",\"id\":\"api_key_01EHZNVPK3SFK441A1RGBFSHRT\",\"owner\":{\"type\":\"organization\",\"id\":\"org_01EHZNVPK3SFK441A1RGBFSHRT\"},\"name\":\"Production API Key\",\"obfuscated_value\":\"sk_...3456\",\"last_used_at\":null,\"expires_at\":\"2030-01-01T00:00:00.000Z\",\"permissions\":[\"posts:read\",\"posts:write\"],\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\",\"value\":\"sk_abcdefghijklmnop123456\"}")
             val result = client.apiKeys.createOrganizationApiKey(organizationId = "sample-organizationId", name = "test_name")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("POST", request.method)
             assertEquals("/organizations/sample-organizationId/api_keys", request.pathOnly())
             assertTrue(request.bodyJson().containsKey("name"))
@@ -100,7 +101,7 @@ class ApiKeysTest {
 
             client.apiKeys.listOrganizationApiKeys(organizationId = "sample-organizationId", before = "a b/c&d=e")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("a b/c&d=e", request.queryParam("before"))
         }
 
@@ -111,7 +112,7 @@ class ApiKeysTest {
 
             client.apiKeys.delete(id = "sample-id", requestOptions = RequestOptions(headers = mapOf("X-Custom" to "value")))
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("value", request.headerValue("X-Custom"))
         }
 

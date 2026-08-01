@@ -4,6 +4,7 @@ package com.workos.android
 
 import com.workos.android.enums.AgentAdminValidateCredentialRequestType
 import com.workos.android.models.AgentAdminLinkClaimAttemptToExternalUserRequestUser
+import com.workos.android.support.awaitRequest
 import com.workos.android.support.bodyJson
 import com.workos.android.support.headerValue
 import com.workos.android.support.pathOnly
@@ -28,7 +29,7 @@ class AgentsTest {
             val (client, server) = testClient(responding = "{\"id\":\"agent_reg_01EHWNCE74X7JSDV0X3SZ3KJNY\",\"status\":\"unverified\",\"user_code\":\"BCDF-GHJK\",\"organizations\":[{\"id\":\"org_01EHWNCE74X7JSDV0X3SZ3KJNY\",\"name\":\"Acme Corp\"}]}")
             val result = client.agents.updateAttempts(type = "link_external_user", claimAttemptToken = "test_claim_attempt_token", user = AgentAdminLinkClaimAttemptToExternalUserRequestUser(email = "test_email", externalId = "test_external_id"))
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("PATCH", request.method)
             assertEquals("/agents/claims/attempts", request.pathOnly())
             assertTrue(request.bodyJson().containsKey("type"))
@@ -41,7 +42,7 @@ class AgentsTest {
             val (client, server) = testClient(responding = "{\"valid\":true,\"registration_id\":\"agent_reg_01EHWNCE74X7JSDV0X3SZ3KJNY\",\"expires_at\":\"2026-01-15T12:00:00.000Z\"}")
             val result = client.agents.createValidate(type = AgentAdminValidateCredentialRequestType.fromRawValue("api_key"), credential = "test_credential")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("POST", request.method)
             assertEquals("/agents/credentials/validate", request.pathOnly())
             assertTrue(request.bodyJson().containsKey("type"))
@@ -54,7 +55,7 @@ class AgentsTest {
             val (client, server) = testClient(responding = "{\"id\":\"agent_reg_01EHWNCE74X7JSDV0X3SZ3KJNY\",\"agent_identity\":{\"id\":\"agent_identity_01EHWNCE74X7JSDV0X3SZ3KJNY\",\"userland_user_id\":\"user_01E4ZCR3C56J083X43JQXF3JK5\",\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\"},\"organization_id\":\"org_01EHQMYV6MBK39QC5PZXHY59C3\",\"status\":\"verified\",\"kind\":\"service_auth\",\"claim\":{\"id\":\"agent_reg_claim_01EHWNCE74X7JSDV0X3SZ3KJNY\",\"claim_completion\":{\"id\":\"agent_reg_claim_attempt_01EHWNCE74X7JSDV0X3SZ3KJNY\",\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\",\"expires_at\":\"2026-01-15T12:00:00.000Z\",\"claimed_at\":\"2026-01-15T12:00:00.000Z\"},\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\",\"expires_at\":\"2026-01-15T12:00:00.000Z\"},\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\"}")
             val result = client.agents.getRegistration(id = "sample-id")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("GET", request.method)
             assertEquals("/agents/registrations/sample-id", request.pathOnly())
             assertEquals("agent_reg_01EHWNCE74X7JSDV0X3SZ3KJNY", result.id)
@@ -67,7 +68,7 @@ class AgentsTest {
 
             client.agents.updateAttempts(type = "link_external_user", claimAttemptToken = "test_claim_attempt_token", user = AgentAdminLinkClaimAttemptToExternalUserRequestUser(email = "test_email", externalId = "test_external_id"), requestOptions = RequestOptions(headers = mapOf("X-Custom" to "value")))
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("value", request.headerValue("X-Custom"))
         }
 

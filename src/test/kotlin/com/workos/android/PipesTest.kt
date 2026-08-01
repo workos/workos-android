@@ -2,6 +2,7 @@
 
 package com.workos.android
 
+import com.workos.android.support.awaitRequest
 import com.workos.android.support.bodyJson
 import com.workos.android.support.headerValue
 import com.workos.android.support.pathOnly
@@ -27,7 +28,7 @@ class PipesTest {
             val (client, server) = testClient(responding = "{\"data\":[{\"object\":\"data_integration\",\"id\":\"data_integration_01EHZNVPK3SFK441A1RGBFSHRT\",\"slug\":\"github\",\"integration_type\":\"github\",\"description\":\"Production GitHub app\",\"enabled\":true,\"state\":\"valid\",\"scopes\":[\"repo\",\"read:org\"],\"redirect_uri\":\"https://api.workos.com/data-integrations/github/dik_01EHZNVPK3SFK441A1RGBFSHRT/callback\",\"auth_methods\":[\"oauth\"],\"credentials\":{\"type\":\"custom\",\"client_id\":\"Iv1.abc123\",\"redacted_client_secret\":\"6789\"},\"installation\":null,\"config\":{\"account_identifier\":\"acme-prod\"},\"custom_provider\":{\"name\":\"My OAuth App\",\"authorization_url\":\"https://provider.example.com/oauth/authorize\",\"token_url\":\"https://provider.example.com/oauth/token\",\"refresh_token_url\":\"https://provider.example.com/oauth/token\",\"pkce_enabled\":true,\"request_scope_separator\":\" \",\"scopes_required\":false,\"client_secret_required\":true,\"additional_authorization_parameters\":{\"prompt\":\"consent\"},\"token_body_content_type\":\"application/x-www-form-urlencoded\",\"authenticate_via\":\"request_body\"},\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\"}],\"list_metadata\":{\"before\":null,\"after\":null}}")
             val result = client.pipes.listDataIntegrations()
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("GET", request.method)
             assertEquals("/data-integrations", request.pathOnly())
             assertEquals(1, result.data.size)
@@ -40,7 +41,7 @@ class PipesTest {
             val (client, server) = testClient(responding = "{\"object\":\"data_integration\",\"id\":\"data_integration_01EHZNVPK3SFK441A1RGBFSHRT\",\"slug\":\"github\",\"integration_type\":\"github\",\"description\":\"Production GitHub app\",\"enabled\":true,\"state\":\"valid\",\"scopes\":[\"repo\",\"read:org\"],\"redirect_uri\":\"https://api.workos.com/data-integrations/github/dik_01EHZNVPK3SFK441A1RGBFSHRT/callback\",\"auth_methods\":[\"oauth\"],\"credentials\":{\"type\":\"custom\",\"client_id\":\"Iv1.abc123\",\"redacted_client_secret\":\"6789\"},\"installation\":null,\"config\":{\"account_identifier\":\"acme-prod\"},\"custom_provider\":{\"name\":\"My OAuth App\",\"authorization_url\":\"https://provider.example.com/oauth/authorize\",\"token_url\":\"https://provider.example.com/oauth/token\",\"refresh_token_url\":\"https://provider.example.com/oauth/token\",\"pkce_enabled\":true,\"request_scope_separator\":\" \",\"scopes_required\":false,\"client_secret_required\":true,\"additional_authorization_parameters\":{\"prompt\":\"consent\"},\"token_body_content_type\":\"application/x-www-form-urlencoded\",\"authenticate_via\":\"request_body\"},\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\"}")
             val result = client.pipes.createDataIntegration(provider = "test_provider")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("POST", request.method)
             assertEquals("/data-integrations", request.pathOnly())
             assertTrue(request.bodyJson().containsKey("provider"))
@@ -53,7 +54,7 @@ class PipesTest {
             val (client, server) = testClient(responding = "{\"active\":true,\"access_token\":{\"object\":\"access_token\",\"access_token\":\"gho_16C7e42F292c6912E7710c838347Ae178B4a\",\"expires_at\":\"2025-12-31T23:59:59.000Z\",\"scopes\":[\"repo\",\"user:email\"],\"missing_scopes\":[]},\"error\":\"not_installed\"}")
             val result = client.pipes.getAccessToken(provider = "sample-provider", userId = "test_user_id")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("POST", request.method)
             assertEquals("/data-integrations/sample-provider/token", request.pathOnly())
             assertTrue(request.bodyJson().containsKey("user_id"))
@@ -66,7 +67,7 @@ class PipesTest {
             val (client, server) = testClient(responding = "{\"object\":\"data_integration\",\"id\":\"data_integration_01EHZNVPK3SFK441A1RGBFSHRT\",\"slug\":\"github\",\"integration_type\":\"github\",\"description\":\"Production GitHub app\",\"enabled\":true,\"state\":\"valid\",\"scopes\":[\"repo\",\"read:org\"],\"redirect_uri\":\"https://api.workos.com/data-integrations/github/dik_01EHZNVPK3SFK441A1RGBFSHRT/callback\",\"auth_methods\":[\"oauth\"],\"credentials\":{\"type\":\"custom\",\"client_id\":\"Iv1.abc123\",\"redacted_client_secret\":\"6789\"},\"installation\":null,\"config\":{\"account_identifier\":\"acme-prod\"},\"custom_provider\":{\"name\":\"My OAuth App\",\"authorization_url\":\"https://provider.example.com/oauth/authorize\",\"token_url\":\"https://provider.example.com/oauth/token\",\"refresh_token_url\":\"https://provider.example.com/oauth/token\",\"pkce_enabled\":true,\"request_scope_separator\":\" \",\"scopes_required\":false,\"client_secret_required\":true,\"additional_authorization_parameters\":{\"prompt\":\"consent\"},\"token_body_content_type\":\"application/x-www-form-urlencoded\",\"authenticate_via\":\"request_body\"},\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\"}")
             val result = client.pipes.getDataIntegration(slug = "sample-slug")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("GET", request.method)
             assertEquals("/data-integrations/sample-slug", request.pathOnly())
             assertEquals("data_integration_01EHZNVPK3SFK441A1RGBFSHRT", result.id)
@@ -78,7 +79,7 @@ class PipesTest {
             val (client, server) = testClient(responding = "{\"object\":\"data_integration\",\"id\":\"data_integration_01EHZNVPK3SFK441A1RGBFSHRT\",\"slug\":\"github\",\"integration_type\":\"github\",\"description\":\"Production GitHub app\",\"enabled\":true,\"state\":\"valid\",\"scopes\":[\"repo\",\"read:org\"],\"redirect_uri\":\"https://api.workos.com/data-integrations/github/dik_01EHZNVPK3SFK441A1RGBFSHRT/callback\",\"auth_methods\":[\"oauth\"],\"credentials\":{\"type\":\"custom\",\"client_id\":\"Iv1.abc123\",\"redacted_client_secret\":\"6789\"},\"installation\":null,\"config\":{\"account_identifier\":\"acme-prod\"},\"custom_provider\":{\"name\":\"My OAuth App\",\"authorization_url\":\"https://provider.example.com/oauth/authorize\",\"token_url\":\"https://provider.example.com/oauth/token\",\"refresh_token_url\":\"https://provider.example.com/oauth/token\",\"pkce_enabled\":true,\"request_scope_separator\":\" \",\"scopes_required\":false,\"client_secret_required\":true,\"additional_authorization_parameters\":{\"prompt\":\"consent\"},\"token_body_content_type\":\"application/x-www-form-urlencoded\",\"authenticate_via\":\"request_body\"},\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\"}")
             val result = client.pipes.updateDataIntegration(slug = "sample-slug")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("PUT", request.method)
             assertEquals("/data-integrations/sample-slug", request.pathOnly())
             assertEquals("data_integration_01EHZNVPK3SFK441A1RGBFSHRT", result.id)
@@ -90,7 +91,7 @@ class PipesTest {
             val (client, server) = testClient(responding = "{}")
             client.pipes.deleteDataIntegration(slug = "sample-slug")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("DELETE", request.method)
             assertEquals("/data-integrations/sample-slug", request.pathOnly())
         }
@@ -101,7 +102,7 @@ class PipesTest {
             val (client, server) = testClient(responding = "{\"object\":\"connected_account\",\"id\":\"data_installation_01EHZNVPK3SFK441A1RGBFSHRT\",\"user_id\":\"user_01EHZNVPK3SFK441A1RGBFSHRT\",\"organization_id\":null,\"scopes\":[\"repo\",\"user:email\"],\"auth_method\":\"oauth\",\"api_key_last_4\":null,\"state\":\"connected\",\"created_at\":\"2024-01-16T14:20:00.000Z\",\"updated_at\":\"2024-01-16T14:20:00.000Z\"}")
             val result = client.pipes.updateDataIntegrationApiKey(slug = "sample-slug", userId = "test_user_id", secret = "test_secret")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("PUT", request.method)
             assertEquals("/data-integrations/sample-slug/api-key", request.pathOnly())
             assertTrue(request.bodyJson().containsKey("user_id"))
@@ -114,7 +115,7 @@ class PipesTest {
             val (client, server) = testClient(responding = "{\"url\":\"https://api.workos.com/data-integrations/q2czJKmVAraSBg8xFpT7M9uR/authorize-redirect\"}")
             val result = client.pipes.authorizeDataIntegration(slug = "sample-slug", userId = "test_user_id")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("POST", request.method)
             assertEquals("/data-integrations/sample-slug/authorize", request.pathOnly())
             assertTrue(request.bodyJson().containsKey("user_id"))
@@ -127,7 +128,7 @@ class PipesTest {
             val (client, server) = testClient(responding = "{\"active\":true,\"credential\":{\"object\":\"credential\",\"auth_method\":\"oauth\",\"value\":\"gho_16C7e42F292c6912E7710c838347Ae178B4a\",\"expires_at\":\"2025-12-31T23:59:59.000Z\",\"scopes\":[\"repo\",\"user:email\"],\"missing_scopes\":[]},\"error\":\"not_installed\"}")
             val result = client.pipes.createDataIntegrationCredential(slug = "sample-slug", userId = "test_user_id")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("POST", request.method)
             assertEquals("/data-integrations/sample-slug/credentials", request.pathOnly())
             assertTrue(request.bodyJson().containsKey("user_id"))
@@ -140,7 +141,7 @@ class PipesTest {
             val (client, server) = testClient(responding = "{\"object\":\"connected_account\",\"id\":\"data_installation_01EHZNVPK3SFK441A1RGBFSHRT\",\"user_id\":\"user_01EHZNVPK3SFK441A1RGBFSHRT\",\"organization_id\":null,\"scopes\":[\"repo\",\"user:email\"],\"auth_method\":\"oauth\",\"api_key_last_4\":null,\"state\":\"connected\",\"created_at\":\"2024-01-16T14:20:00.000Z\",\"updated_at\":\"2024-01-16T14:20:00.000Z\"}")
             val result = client.pipes.getUserConnectedAccount(userId = "sample-user-id", slug = "sample-slug")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("GET", request.method)
             assertEquals("/user_management/users/sample-user-id/connected_accounts/sample-slug", request.pathOnly())
             assertEquals("data_installation_01EHZNVPK3SFK441A1RGBFSHRT", result.id)
@@ -152,7 +153,7 @@ class PipesTest {
             val (client, server) = testClient(responding = "{\"object\":\"connected_account\",\"id\":\"data_installation_01EHZNVPK3SFK441A1RGBFSHRT\",\"user_id\":\"user_01EHZNVPK3SFK441A1RGBFSHRT\",\"organization_id\":null,\"scopes\":[\"repo\",\"user:email\"],\"auth_method\":\"oauth\",\"api_key_last_4\":null,\"state\":\"connected\",\"created_at\":\"2024-01-16T14:20:00.000Z\",\"updated_at\":\"2024-01-16T14:20:00.000Z\"}")
             val result = client.pipes.createUserConnectedAccount(userId = "sample-user-id", slug = "sample-slug")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("POST", request.method)
             assertEquals("/user_management/users/sample-user-id/connected_accounts/sample-slug", request.pathOnly())
             assertEquals("data_installation_01EHZNVPK3SFK441A1RGBFSHRT", result.id)
@@ -164,7 +165,7 @@ class PipesTest {
             val (client, server) = testClient(responding = "{\"object\":\"connected_account\",\"id\":\"data_installation_01EHZNVPK3SFK441A1RGBFSHRT\",\"user_id\":\"user_01EHZNVPK3SFK441A1RGBFSHRT\",\"organization_id\":null,\"scopes\":[\"repo\",\"user:email\"],\"auth_method\":\"oauth\",\"api_key_last_4\":null,\"state\":\"connected\",\"created_at\":\"2024-01-16T14:20:00.000Z\",\"updated_at\":\"2024-01-16T14:20:00.000Z\"}")
             val result = client.pipes.updateUserConnectedAccount(userId = "sample-user-id", slug = "sample-slug")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("PUT", request.method)
             assertEquals("/user_management/users/sample-user-id/connected_accounts/sample-slug", request.pathOnly())
             assertEquals("data_installation_01EHZNVPK3SFK441A1RGBFSHRT", result.id)
@@ -176,7 +177,7 @@ class PipesTest {
             val (client, server) = testClient(responding = "{}")
             client.pipes.deleteUserConnectedAccount(userId = "sample-user-id", slug = "sample-slug")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("DELETE", request.method)
             assertEquals("/user_management/users/sample-user-id/connected_accounts/sample-slug", request.pathOnly())
         }
@@ -187,7 +188,7 @@ class PipesTest {
             val (client, server) = testClient(responding = "{\"object\":\"list\",\"data\":[{\"object\":\"data_provider\",\"id\":\"data_integration_01EHZNVPK3SFK441A1RGBFSHRT\",\"name\":\"GitHub\",\"description\":\"Connect your GitHub account to access repositories.\",\"slug\":\"github\",\"integration_type\":\"github\",\"credentials_type\":\"oauth2\",\"scopes\":[\"repo\",\"user:email\"],\"auth_methods\":[\"oauth\"],\"ownership\":\"userland_user\",\"created_at\":\"2024-01-15T10:30:00.000Z\",\"updated_at\":\"2024-01-15T10:30:00.000Z\",\"connected_account\":{\"object\":\"connected_account\",\"id\":\"data_installation_01EHZNVPK3SFK441A1RGBFSHRT\",\"user_id\":\"user_01EHZNVPK3SFK441A1RGBFSHRT\",\"organization_id\":null,\"scopes\":[\"repo\",\"user:email\"],\"auth_method\":\"oauth\",\"api_key_last_4\":null,\"state\":\"connected\",\"created_at\":\"2024-01-16T14:20:00.000Z\",\"updated_at\":\"2024-01-16T14:20:00.000Z\",\"userlandUserId\":\"test_userlandUserId\"}}]}")
             val result = client.pipes.listUserDataProviders(userId = "sample-user-id")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("GET", request.method)
             assertEquals("/user_management/users/sample-user-id/data_providers", request.pathOnly())
             assertNotNull(result)
@@ -210,7 +211,7 @@ class PipesTest {
 
             client.pipes.listDataIntegrations(before = "a b/c&d=e")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("a b/c&d=e", request.queryParam("before"))
         }
 
@@ -221,7 +222,7 @@ class PipesTest {
 
             client.pipes.listDataIntegrations(requestOptions = RequestOptions(headers = mapOf("X-Custom" to "value")))
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("value", request.headerValue("X-Custom"))
         }
 

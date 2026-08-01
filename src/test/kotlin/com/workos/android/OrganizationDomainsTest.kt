@@ -2,6 +2,7 @@
 
 package com.workos.android
 
+import com.workos.android.support.awaitRequest
 import com.workos.android.support.bodyJson
 import com.workos.android.support.headerValue
 import com.workos.android.support.pathOnly
@@ -25,7 +26,7 @@ class OrganizationDomainsTest {
             val (client, server) = testClient(responding = "{\"object\":\"organization_domain\",\"id\":\"org_domain_01EHZNVPK2QXHMVWCEDQEKY69A\",\"organization_id\":\"org_01HE8GSH8FQPASKSY27THRKRBP\",\"domain\":\"foo-corp.com\",\"state\":\"pending\",\"verification_prefix\":\"superapp-domain-verification-z3kjny\",\"verification_token\":\"m5Oztg3jdK4NJLgs8uIlIprMw\",\"verification_strategy\":\"dns\",\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\"}")
             val result = client.organizationDomains.create(domain = "test_domain", organizationId = "test_organization_id")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("POST", request.method)
             assertEquals("/organization_domains", request.pathOnly())
             assertTrue(request.bodyJson().containsKey("domain"))
@@ -38,7 +39,7 @@ class OrganizationDomainsTest {
             val (client, server) = testClient(responding = "{\"object\":\"organization_domain\",\"id\":\"org_domain_01EHZNVPK2QXHMVWCEDQEKY69A\",\"organization_id\":\"org_01HE8GSH8FQPASKSY27THRKRBP\",\"domain\":\"foo-corp.com\",\"state\":\"pending\",\"verification_prefix\":\"superapp-domain-verification-z3kjny\",\"verification_token\":\"m5Oztg3jdK4NJLgs8uIlIprMw\",\"verification_strategy\":\"dns\",\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\"}")
             val result = client.organizationDomains.get(id = "sample-id")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("GET", request.method)
             assertEquals("/organization_domains/sample-id", request.pathOnly())
             assertEquals("org_domain_01EHZNVPK2QXHMVWCEDQEKY69A", result.id)
@@ -50,7 +51,7 @@ class OrganizationDomainsTest {
             val (client, server) = testClient(responding = "{}")
             client.organizationDomains.delete(id = "sample-id")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("DELETE", request.method)
             assertEquals("/organization_domains/sample-id", request.pathOnly())
         }
@@ -61,7 +62,7 @@ class OrganizationDomainsTest {
             val (client, server) = testClient(responding = "{\"object\":\"organization_domain\",\"id\":\"org_domain_01EHZNVPK2QXHMVWCEDQEKY69A\",\"organization_id\":\"org_01HE8GSH8FQPASKSY27THRKRBP\",\"domain\":\"foo-corp.com\",\"state\":\"pending\",\"verification_prefix\":\"superapp-domain-verification-z3kjny\",\"verification_token\":\"m5Oztg3jdK4NJLgs8uIlIprMw\",\"verification_strategy\":\"dns\",\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\"}")
             val result = client.organizationDomains.verify(id = "sample-id")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("POST", request.method)
             assertEquals("/organization_domains/sample-id/verify", request.pathOnly())
             assertEquals("org_domain_01EHZNVPK2QXHMVWCEDQEKY69A", result.id)
@@ -74,7 +75,7 @@ class OrganizationDomainsTest {
 
             client.organizationDomains.create(domain = "test_domain", organizationId = "test_organization_id", requestOptions = RequestOptions(headers = mapOf("X-Custom" to "value")))
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("value", request.headerValue("X-Custom"))
         }
 

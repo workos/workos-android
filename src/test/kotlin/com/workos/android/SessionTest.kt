@@ -510,7 +510,7 @@ class SessionTest {
                 assertEquals(
                     "org_EXPLICIT",
                     server
-                        .takeRequest()
+                        .awaitRequest()
                         .bodyJson()["organization_id"]
                         ?.jsonPrimitive
                         ?.content,

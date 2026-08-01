@@ -2,6 +2,7 @@
 
 package com.workos.android
 
+import com.workos.android.support.awaitRequest
 import com.workos.android.support.headerValue
 import com.workos.android.support.pathOnly
 import com.workos.android.support.queryParam
@@ -25,7 +26,7 @@ class EventsTest {
             val (client, server) = testClient(responding = "{\"data\":[{\"object\":\"event\",\"id\":\"event_01EHZNVPK3SFK441A1RGBFSHRT\",\"event\":\"action.authentication.denied\",\"data\":{\"id\":\"directory_user_01E1JG7J09H96KYP8HM9B0G5SJ\",\"directory_id\":\"directory_01ECAZ4NV9QMV47GW873HDCX74\",\"organization_id\":\"org_01EZTR6WYX1A0DSE2CYMGXQ24Y\",\"state\":\"active\",\"email\":\"veda@foo-corp.com\",\"emails\":[{\"primary\":true,\"type\":\"work\",\"value\":\"veda@foo-corp.com\"}],\"idp_id\":\"2836\",\"object\":\"directory_user\",\"username\":\"veda@foo-corp.com\",\"last_name\":\"Torp\",\"first_name\":\"Veda\",\"raw_attributes\":{},\"custom_attributes\":{},\"created_at\":\"2021-06-25T19:07:33.155Z\",\"updated_at\":\"2021-06-25T19:07:33.155Z\"},\"created_at\":\"2026-01-15T12:00:00.000Z\",\"context\":{\"key\":{}}}],\"list_metadata\":{\"before\":null,\"after\":null}}")
             val result = client.events.list()
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("GET", request.method)
             assertEquals("/events", request.pathOnly())
             assertEquals(1, result.data.size)
@@ -49,7 +50,7 @@ class EventsTest {
 
             client.events.list(before = "a b/c&d=e")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("a b/c&d=e", request.queryParam("before"))
         }
 
@@ -60,7 +61,7 @@ class EventsTest {
 
             client.events.list(requestOptions = RequestOptions(headers = mapOf("X-Custom" to "value")))
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("value", request.headerValue("X-Custom"))
         }
 

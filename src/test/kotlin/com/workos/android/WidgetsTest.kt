@@ -2,6 +2,7 @@
 
 package com.workos.android
 
+import com.workos.android.support.awaitRequest
 import com.workos.android.support.headerValue
 import com.workos.android.support.pathOnly
 import com.workos.android.support.testClient
@@ -24,7 +25,7 @@ class WidgetsTest {
             val (client, server) = testClient(responding = "{\"token\":\"eyJhbGciOiJSUzI1NiIsImtpZCI6InNlc3Npb24...\"}")
             val result = client.widgets.createToken()
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("POST", request.method)
             assertEquals("/widgets/token", request.pathOnly())
             assertNotNull(result)
@@ -37,7 +38,7 @@ class WidgetsTest {
 
             client.widgets.createToken(requestOptions = RequestOptions(headers = mapOf("X-Custom" to "value")))
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("value", request.headerValue("X-Custom"))
         }
 

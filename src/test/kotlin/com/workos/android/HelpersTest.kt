@@ -7,6 +7,7 @@ import com.workos.android.helpers.PublicClient
 import com.workos.android.helpers.getAuthorizationUrlWithPkce
 import com.workos.android.helpers.passwordless
 import com.workos.android.helpers.pkce
+import com.workos.android.support.awaitRequest
 import com.workos.android.support.bodyJson
 import com.workos.android.support.headerValue
 import com.workos.android.support.pathOnly
@@ -153,7 +154,7 @@ class HelpersTest {
             // OkHttp trims the trailing space, so the header is bare "Bearer" — present,
             // well-formed, and carrying no credential. That is the invariant: a request
             // went out with no secret in it, rather than a secret being fabricated.
-            val auth = server.takeRequest().headerValue("Authorization")
+            val auth = server.awaitRequest().headerValue("Authorization")
             assertEquals("Bearer", auth)
         }
 
@@ -178,7 +179,7 @@ class HelpersTest {
                     CreatePasswordlessSessionOptions(email = "a@b.com", redirectUri = "https://app/cb"),
                 )
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("POST", request.method)
             assertEquals("/passwordless/sessions", request.pathOnly())
             val body = request.bodyJson()
@@ -200,7 +201,7 @@ class HelpersTest {
 
             client.passwordless.createSession(CreatePasswordlessSessionOptions(email = "a@b.com"))
 
-            val body = server.takeRequest().bodyJson()
+            val body = server.awaitRequest().bodyJson()
             assertTrue(!body.containsKey("redirect_uri"), "absent optional must be omitted, not null")
             assertTrue(!body.containsKey("state"))
             assertTrue(!body.containsKey("expires_in"))
@@ -213,7 +214,7 @@ class HelpersTest {
 
             val response = client.passwordless.sendSession("pwl/../evil")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("POST", request.method)
             // The threat is dot-segment removal, which needs `/../` — encoding the
             // SLASHES is what defeats it. Bare dots inside a single segment are inert,

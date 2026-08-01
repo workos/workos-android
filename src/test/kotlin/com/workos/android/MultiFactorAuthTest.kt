@@ -3,6 +3,7 @@
 package com.workos.android
 
 import com.workos.android.enums.AuthenticationFactorsCreateRequestType
+import com.workos.android.support.awaitRequest
 import com.workos.android.support.bodyJson
 import com.workos.android.support.headerValue
 import com.workos.android.support.pathOnly
@@ -28,7 +29,7 @@ class MultiFactorAuthTest {
             val (client, server) = testClient(responding = "{\"challenge\":{\"object\":\"authentication_challenge\",\"id\":\"auth_challenge_01FVYZ5QM8N98T9ME5BCB2BBMJ\",\"expires_at\":\"2026-01-15T12:00:00.000Z\",\"code\":\"123456\",\"authentication_factor_id\":\"auth_factor_01FVYZ5QM8N98T9ME5BCB2BBMJ\",\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\"},\"valid\":true}")
             val result = client.multiFactorAuth.verifyChallenge(id = "sample-id", code = "test_code")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("POST", request.method)
             assertEquals("/auth/challenges/sample-id/verify", request.pathOnly())
             assertTrue(request.bodyJson().containsKey("code"))
@@ -41,7 +42,7 @@ class MultiFactorAuthTest {
             val (client, server) = testClient(responding = "{\"object\":\"authentication_factor\",\"id\":\"auth_factor_01FVYZ5QM8N98T9ME5BCB2BBMJ\",\"type\":\"totp\",\"user_id\":\"user_01E4ZCR3C56J083X43JQXF3JK5\",\"sms\":{\"phone_number\":\"+15005550006\"},\"totp\":{\"issuer\":\"WorkOS\",\"user\":\"user@example.com\"},\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\"}")
             val result = client.multiFactorAuth.getFactor(id = "sample-id")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("GET", request.method)
             assertEquals("/auth/factors/sample-id", request.pathOnly())
             assertEquals("auth_factor_01FVYZ5QM8N98T9ME5BCB2BBMJ", result.id)
@@ -53,7 +54,7 @@ class MultiFactorAuthTest {
             val (client, server) = testClient(responding = "{}")
             client.multiFactorAuth.deleteFactor(id = "sample-id")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("DELETE", request.method)
             assertEquals("/auth/factors/sample-id", request.pathOnly())
         }
@@ -64,7 +65,7 @@ class MultiFactorAuthTest {
             val (client, server) = testClient(responding = "{\"object\":\"authentication_challenge\",\"id\":\"auth_challenge_01FVYZ5QM8N98T9ME5BCB2BBMJ\",\"expires_at\":\"2026-01-15T12:00:00.000Z\",\"code\":\"123456\",\"authentication_factor_id\":\"auth_factor_01FVYZ5QM8N98T9ME5BCB2BBMJ\",\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\"}")
             val result = client.multiFactorAuth.challengeFactor(id = "sample-id")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("POST", request.method)
             assertEquals("/auth/factors/sample-id/challenge", request.pathOnly())
             assertEquals("auth_challenge_01FVYZ5QM8N98T9ME5BCB2BBMJ", result.id)
@@ -76,7 +77,7 @@ class MultiFactorAuthTest {
             val (client, server) = testClient(responding = "{\"object\":\"authentication_factor\",\"id\":\"auth_factor_01FVYZ5QM8N98T9ME5BCB2BBMJ\",\"type\":\"totp\",\"user_id\":\"user_01E4ZCR3C56J083X43JQXF3JK5\",\"sms\":{\"phone_number\":\"+15005550006\"},\"totp\":{\"issuer\":\"WorkOS\",\"user\":\"user@example.com\",\"secret\":\"JBSWY3DPEHPK3PXP\",\"qr_code\":\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUg...\",\"uri\":\"otpauth://totp/WorkOS:user@example.com?secret=JBSWY3DPEHPK3PXP&issuer=WorkOS\"},\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\"}")
             val result = client.multiFactorAuth.enrollFactor(type = AuthenticationFactorsCreateRequestType.fromRawValue("generic_otp"))
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("POST", request.method)
             assertEquals("/auth/factors/enroll", request.pathOnly())
             assertTrue(request.bodyJson().containsKey("type"))
@@ -89,7 +90,7 @@ class MultiFactorAuthTest {
             val (client, server) = testClient(responding = "{\"data\":[{\"object\":\"authentication_factor\",\"id\":\"auth_factor_01FVYZ5QM8N98T9ME5BCB2BBMJ\",\"type\":\"totp\",\"user_id\":\"user_01E4ZCR3C56J083X43JQXF3JK5\",\"sms\":{\"phone_number\":\"+15005550006\"},\"totp\":{\"issuer\":\"WorkOS\",\"user\":\"user@example.com\"},\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\"}],\"list_metadata\":{\"before\":null,\"after\":null}}")
             val result = client.multiFactorAuth.listUserAuthFactors(userlandUserId = "sample-userlandUserId")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("GET", request.method)
             assertEquals("/user_management/users/sample-userlandUserId/auth_factors", request.pathOnly())
             assertEquals(1, result.data.size)
@@ -102,7 +103,7 @@ class MultiFactorAuthTest {
             val (client, server) = testClient(responding = "{\"authentication_factor\":{\"object\":\"authentication_factor\",\"id\":\"auth_factor_01FVYZ5QM8N98T9ME5BCB2BBMJ\",\"type\":\"totp\",\"user_id\":\"user_01E4ZCR3C56J083X43JQXF3JK5\",\"sms\":{\"phone_number\":\"+15005550006\"},\"totp\":{\"issuer\":\"WorkOS\",\"user\":\"user@example.com\",\"secret\":\"JBSWY3DPEHPK3PXP\",\"qr_code\":\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUg...\",\"uri\":\"otpauth://totp/WorkOS:user@example.com?secret=JBSWY3DPEHPK3PXP&issuer=WorkOS\"},\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\"},\"authentication_challenge\":{\"object\":\"authentication_challenge\",\"id\":\"auth_challenge_01FVYZ5QM8N98T9ME5BCB2BBMJ\",\"expires_at\":\"2026-01-15T12:00:00.000Z\",\"code\":\"123456\",\"authentication_factor_id\":\"auth_factor_01FVYZ5QM8N98T9ME5BCB2BBMJ\",\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\"}}")
             val result = client.multiFactorAuth.createUserAuthFactor(userlandUserId = "sample-userlandUserId", type = "totp")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("POST", request.method)
             assertEquals("/user_management/users/sample-userlandUserId/auth_factors", request.pathOnly())
             assertTrue(request.bodyJson().containsKey("type"))
@@ -126,7 +127,7 @@ class MultiFactorAuthTest {
 
             client.multiFactorAuth.listUserAuthFactors(userlandUserId = "sample-userlandUserId", before = "a b/c&d=e")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("a b/c&d=e", request.queryParam("before"))
         }
 
@@ -137,7 +138,7 @@ class MultiFactorAuthTest {
 
             client.multiFactorAuth.verifyChallenge(id = "sample-id", code = "test_code", requestOptions = RequestOptions(headers = mapOf("X-Custom" to "value")))
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("value", request.headerValue("X-Custom"))
         }
 

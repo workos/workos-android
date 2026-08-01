@@ -2,6 +2,7 @@
 
 package com.workos.android
 
+import com.workos.android.support.awaitRequest
 import com.workos.android.support.bodyJson
 import com.workos.android.support.headerValue
 import com.workos.android.support.pathOnly
@@ -26,7 +27,7 @@ class AdminPortalTest {
             val (client, server) = testClient(responding = "{\"link\":\"https://setup.workos.com?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...\"}")
             val result = client.adminPortal.generateLink(organization = "test_organization")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("POST", request.method)
             assertEquals("/portal/generate_link", request.pathOnly())
             assertTrue(request.bodyJson().containsKey("organization"))
@@ -40,7 +41,7 @@ class AdminPortalTest {
 
             client.adminPortal.generateLink(organization = "test_organization", requestOptions = RequestOptions(headers = mapOf("X-Custom" to "value")))
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("value", request.headerValue("X-Custom"))
         }
 

@@ -7,6 +7,7 @@ import com.workos.android.models.AuditLogEventActor
 import com.workos.android.models.AuditLogEventContext
 import com.workos.android.models.AuditLogEventTarget
 import com.workos.android.models.AuditLogSchemaTargetInput
+import com.workos.android.support.awaitRequest
 import com.workos.android.support.bodyJson
 import com.workos.android.support.headerValue
 import com.workos.android.support.pathOnly
@@ -35,7 +36,7 @@ class AuditLogsTest {
             val (client, server) = testClient(responding = "{\"data\":[{\"object\":\"audit_log_action\",\"name\":\"user.viewed_invoice\",\"schema\":{\"object\":\"audit_log_schema\",\"version\":1,\"actor\":{\"metadata\":{\"type\":\"object\",\"properties\":{\"role\":{\"type\":\"string\"}}}},\"targets\":[{\"type\":\"invoice\",\"metadata\":{\"type\":\"object\",\"properties\":{\"cost\":{\"type\":\"number\"}}}}],\"metadata\":{\"type\":\"object\",\"properties\":{\"transactionId\":{\"type\":\"string\"}}},\"created_at\":\"2026-01-15T12:00:00.000Z\"},\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\"}],\"list_metadata\":{\"before\":null,\"after\":null}}")
             val result = client.auditLogs.listActions()
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("GET", request.method)
             assertEquals("/audit_logs/actions", request.pathOnly())
             assertEquals(1, result.data.size)
@@ -56,8 +57,8 @@ class AuditLogsTest {
             val items = client.auditLogs.listActionsAutoPaging().toList()
 
             assertEquals(2, items.size)
-            server.takeRequest()
-            val second = server.takeRequest()
+            server.awaitRequest()
+            val second = server.awaitRequest()
             assertEquals("cursor_2", second.queryParam("after"))
         }
 
@@ -67,7 +68,7 @@ class AuditLogsTest {
             val (client, server) = testClient(responding = "{\"data\":[{\"object\":\"audit_log_schema\",\"version\":1,\"actor\":{\"metadata\":{\"type\":\"object\",\"properties\":{\"role\":{\"type\":\"string\"}}}},\"targets\":[{\"type\":\"invoice\",\"metadata\":{\"type\":\"object\",\"properties\":{\"cost\":{\"type\":\"number\"}}}}],\"metadata\":{\"type\":\"object\",\"properties\":{\"transactionId\":{\"type\":\"string\"}}},\"created_at\":\"2026-01-15T12:00:00.000Z\"}],\"list_metadata\":{\"before\":null,\"after\":null}}")
             val result = client.auditLogs.listActionSchemas(actionName = "sample-actionName")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("GET", request.method)
             assertEquals("/audit_logs/actions/sample-actionName/schemas", request.pathOnly())
             assertEquals(1, result.data.size)
@@ -80,7 +81,7 @@ class AuditLogsTest {
             val (client, server) = testClient(responding = "{\"object\":\"audit_log_schema\",\"version\":1,\"actor\":{\"metadata\":{\"type\":\"object\",\"properties\":{\"role\":{\"type\":\"string\"}}}},\"targets\":[{\"type\":\"invoice\",\"metadata\":{\"type\":\"object\",\"properties\":{\"cost\":{\"type\":\"number\"}}}}],\"metadata\":{\"type\":\"object\",\"properties\":{\"transactionId\":{\"type\":\"string\"}}},\"created_at\":\"2026-01-15T12:00:00.000Z\"}")
             val result = client.auditLogs.createSchema(actionName = "sample-actionName", targets = listOf(AuditLogSchemaTargetInput(type = "test_type")))
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("POST", request.method)
             assertEquals("/audit_logs/actions/sample-actionName/schemas", request.pathOnly())
             assertTrue(request.bodyJson().containsKey("targets"))
@@ -93,7 +94,7 @@ class AuditLogsTest {
             val (client, server) = testClient(responding = "{\"success\":true}")
             val result = client.auditLogs.createEvent(organizationId = "test_organization_id", event = AuditLogEvent(action = "test_action", occurredAt = Instant.parse("2023-01-01T00:00:00Z"), actor = AuditLogEventActor(id = "test_id", type = "test_type"), targets = listOf(AuditLogEventTarget(id = "test_id", type = "test_type")), context = AuditLogEventContext(location = "test_location")))
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("POST", request.method)
             assertEquals("/audit_logs/events", request.pathOnly())
             assertTrue(request.bodyJson().containsKey("organization_id"))
@@ -106,7 +107,7 @@ class AuditLogsTest {
             val (client, server) = testClient(responding = "{\"object\":\"audit_log_export\",\"id\":\"audit_log_export_01GBZK5MP7TD1YCFQHFR22180V\",\"state\":\"ready\",\"url\":\"https://exports.audit-logs.com/audit-log-exports/export.csv\",\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\"}")
             val result = client.auditLogs.createExport(organizationId = "test_organization_id", rangeStart = Instant.parse("2023-01-01T00:00:00Z"), rangeEnd = Instant.parse("2023-01-01T00:00:00Z"))
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("POST", request.method)
             assertEquals("/audit_logs/exports", request.pathOnly())
             assertTrue(request.bodyJson().containsKey("organization_id"))
@@ -119,7 +120,7 @@ class AuditLogsTest {
             val (client, server) = testClient(responding = "{\"object\":\"audit_log_export\",\"id\":\"audit_log_export_01GBZK5MP7TD1YCFQHFR22180V\",\"state\":\"ready\",\"url\":\"https://exports.audit-logs.com/audit-log-exports/export.csv\",\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\"}")
             val result = client.auditLogs.getExport(auditLogExportId = "sample-auditLogExportId")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("GET", request.method)
             assertEquals("/audit_logs/exports/sample-auditLogExportId", request.pathOnly())
             assertEquals("audit_log_export_01GBZK5MP7TD1YCFQHFR22180V", result.id)
@@ -131,7 +132,7 @@ class AuditLogsTest {
             val (client, server) = testClient(responding = "{\"retention_period_in_days\":30}")
             val result = client.auditLogs.getOrganizationAuditLogsRetention(id = "sample-id")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("GET", request.method)
             assertEquals("/organizations/sample-id/audit_logs_retention", request.pathOnly())
             assertNotNull(result)
@@ -143,7 +144,7 @@ class AuditLogsTest {
             val (client, server) = testClient(responding = "{\"retention_period_in_days\":30}")
             val result = client.auditLogs.updateOrganizationAuditLogsRetention(id = "sample-id", retentionPeriodInDays = 1L)
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("PUT", request.method)
             assertEquals("/organizations/sample-id/audit_logs_retention", request.pathOnly())
             assertTrue(request.bodyJson().containsKey("retention_period_in_days"))
@@ -167,7 +168,7 @@ class AuditLogsTest {
 
             client.auditLogs.listActions(before = "a b/c&d=e")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("a b/c&d=e", request.queryParam("before"))
         }
 
@@ -178,7 +179,7 @@ class AuditLogsTest {
 
             client.auditLogs.listActions(requestOptions = RequestOptions(headers = mapOf("X-Custom" to "value")))
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("value", request.headerValue("X-Custom"))
         }
 

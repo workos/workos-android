@@ -2,6 +2,7 @@
 
 package com.workos.android
 
+import com.workos.android.support.awaitRequest
 import com.workos.android.support.bodyJson
 import com.workos.android.support.headerValue
 import com.workos.android.support.pathOnly
@@ -27,7 +28,7 @@ class SSOTest {
             val (client, server) = testClient(responding = "{\"data\":[{\"object\":\"connection\",\"id\":\"conn_01E4ZCR3C56J083X43JQXF3JK5\",\"organization_id\":\"org_01EHWNCE74X7JSDV0X3SZ3KJNY\",\"connection_type\":\"OktaSAML\",\"name\":\"Foo Corp\",\"state\":\"active\",\"status\":\"linked\",\"domains\":[{\"id\":\"org_domain_01EHZNVPK2QXHMVWCEDQEKY69A\",\"object\":\"connection_domain\",\"domain\":\"foo-corp.com\"}],\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\"}],\"list_metadata\":{\"before\":null,\"after\":null}}")
             val result = client.sso.listConnections()
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("GET", request.method)
             assertEquals("/connections", request.pathOnly())
             assertEquals(1, result.data.size)
@@ -40,7 +41,7 @@ class SSOTest {
             val (client, server) = testClient(responding = "{\"object\":\"connection\",\"id\":\"conn_01E4ZCR3C56J083X43JQXF3JK5\",\"organization_id\":\"org_01EHWNCE74X7JSDV0X3SZ3KJNY\",\"connection_type\":\"OktaSAML\",\"name\":\"Foo Corp\",\"state\":\"active\",\"status\":\"linked\",\"domains\":[{\"id\":\"org_domain_01EHZNVPK2QXHMVWCEDQEKY69A\",\"object\":\"connection_domain\",\"domain\":\"foo-corp.com\"}],\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\"}")
             val result = client.sso.getConnection(id = "sample-id")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("GET", request.method)
             assertEquals("/connections/sample-id", request.pathOnly())
             assertEquals("conn_01E4ZCR3C56J083X43JQXF3JK5", result.id)
@@ -52,7 +53,7 @@ class SSOTest {
             val (client, server) = testClient(responding = "{}")
             client.sso.deleteConnection(id = "sample-id")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("DELETE", request.method)
             assertEquals("/connections/sample-id", request.pathOnly())
         }
@@ -66,6 +67,10 @@ class SSOTest {
         assertTrue(url.substringBefore('?').endsWith("/sso/authorize"))
         assertTrue(url.contains("response_type=code"))
         assertTrue(url.contains("redirect_uri="))
+
+        val withMap = client.sso.getAuthorizationUrl(redirectUri = "test_redirect_uri", providerQueryParams = mapOf("k1" to "v1"))
+        assertTrue(withMap.contains("provider_query_params%5Bk1%5D=v1"))
+        assertTrue(!withMap.contains("provider_query_params="))
     }
 
     @Test
@@ -84,7 +89,7 @@ class SSOTest {
             val (client, server) = testClient(responding = "{\"logout_url\":\"https://auth.workos.com/sso/logout?token=eyJhbGciOiJSUzI1NiJ9\",\"logout_token\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwcm9maWxlX2lkIjoicHJvZl8wMUdXUTFHMEgyRk02QVNFRjBIUzEzSENXOS0zMDRrZzAzZyIsImV4cCI6IjE1MTYyMzkwMjIifQ.Wru9Qlnf5DpohtGCKhZU4cVOd3zpiu7QQ-XEX--5A_4\"}")
             val result = client.sso.authorizeLogout(profileId = "test_profile_id")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("POST", request.method)
             assertEquals("/sso/logout/authorize", request.pathOnly())
             assertTrue(request.bodyJson().containsKey("profile_id"))
@@ -97,7 +102,7 @@ class SSOTest {
             val (client, server) = testClient(responding = "{\"object\":\"profile\",\"id\":\"prof_01DMC79VCBZ0NY2099737PSVF1\",\"organization_id\":\"org_01EHQMYV6MBK39QC5PZXHY59C3\",\"connection_id\":\"conn_01E4ZCR3C56J083X43JQXF3JK5\",\"connection_type\":\"OktaSAML\",\"idp_id\":\"103456789012345678901\",\"email\":\"todd@example.com\",\"first_name\":\"Todd\",\"last_name\":\"Rundgren\",\"name\":\"Todd Rundgren\",\"role\":{\"slug\":\"admin\"},\"roles\":[{\"slug\":\"admin\"}],\"groups\":[\"Engineering\",\"Admins\"],\"custom_attributes\":{\"key\":{}},\"raw_attributes\":{\"key\":{}}}")
             val result = client.sso.getProfile()
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("GET", request.method)
             assertEquals("/sso/profile", request.pathOnly())
             assertEquals("prof_01DMC79VCBZ0NY2099737PSVF1", result.id)
@@ -109,7 +114,7 @@ class SSOTest {
             val (client, server) = testClient(responding = "{\"token_type\":\"Bearer\",\"access_token\":\"eyJhbGciOiJSUzI1NiIsImtpZCI6InNzby...\",\"expires_in\":600,\"profile\":{\"object\":\"profile\",\"id\":\"prof_01DMC79VCBZ0NY2099737PSVF1\",\"organization_id\":\"org_01EHQMYV6MBK39QC5PZXHY59C3\",\"connection_id\":\"conn_01E4ZCR3C56J083X43JQXF3JK5\",\"connection_type\":\"OktaSAML\",\"idp_id\":\"103456789012345678901\",\"email\":\"todd@example.com\",\"first_name\":\"Todd\",\"last_name\":\"Rundgren\",\"name\":\"Todd Rundgren\",\"role\":{\"slug\":\"admin\"},\"roles\":[{\"slug\":\"admin\"}],\"groups\":[\"Engineering\",\"Admins\"],\"custom_attributes\":{\"key\":{}},\"raw_attributes\":{\"key\":{}}},\"oauth_tokens\":{\"provider\":\"GoogleOAuth\",\"refresh_token\":\"1//04g...\",\"access_token\":\"ya29.a0ARrdaM...\",\"expires_at\":1735141800,\"scopes\":[\"profile\",\"email\",\"openid\"]}}")
             val result = client.sso.getProfileAndToken(code = "test_code", code2 = "test_code")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("POST", request.method)
             assertEquals("/sso/token", request.pathOnly())
             assertTrue(request.bodyJson().containsKey("code"))
@@ -134,7 +139,7 @@ class SSOTest {
 
             client.sso.listConnections(before = "a b/c&d=e")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("a b/c&d=e", request.queryParam("before"))
         }
 
@@ -145,7 +150,7 @@ class SSOTest {
 
             client.sso.listConnections(requestOptions = RequestOptions(headers = mapOf("X-Custom" to "value")))
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("value", request.headerValue("X-Custom"))
         }
 

@@ -1,6 +1,7 @@
 // @oagen-ignore-file
 package com.workos.android
 
+import com.workos.android.support.awaitRequest
 import com.workos.android.support.headerValue
 import com.workos.android.support.testClient
 import com.workos.android.support.testClientWithStatus
@@ -51,7 +52,7 @@ class TransportBehaviorTest {
 
             c.organizations.list()
 
-            assertEquals("Bearer sk_test_123", server.takeRequest().headerValue("Authorization"))
+            assertEquals("Bearer sk_test_123", server.awaitRequest().headerValue("Authorization"))
         }
 
     @Test
@@ -117,8 +118,8 @@ class TransportBehaviorTest {
 
             runCatching { client(server, maxRetries = 1).organizations.create(name = "Acme") }
 
-            val first = server.takeRequest().headerValue("Idempotency-Key")
-            val second = server.takeRequest().headerValue("Idempotency-Key")
+            val first = server.awaitRequest().headerValue("Idempotency-Key")
+            val second = server.awaitRequest().headerValue("Idempotency-Key")
             assertNotNull(first, "a retryable POST must carry an idempotency key")
             // The SAME key on every attempt, or the retry is not idempotent.
             assertEquals(first, second)
@@ -131,7 +132,7 @@ class TransportBehaviorTest {
 
             c.organizations.create(name = "Acme")
 
-            assertNull(server.takeRequest().headerValue("Idempotency-Key"))
+            assertNull(server.awaitRequest().headerValue("Idempotency-Key"))
         }
 
     @Test
@@ -141,7 +142,7 @@ class TransportBehaviorTest {
 
             c.organizations.create(name = "Acme", requestOptions = RequestOptions(idempotencyKey = "key_abc"))
 
-            assertEquals("key_abc", server.takeRequest().headerValue("Idempotency-Key"))
+            assertEquals("key_abc", server.awaitRequest().headerValue("Idempotency-Key"))
         }
 
     @Test

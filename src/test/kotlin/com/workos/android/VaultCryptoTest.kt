@@ -2,6 +2,7 @@
 package com.workos.android
 
 import com.workos.android.helpers.vaultCrypto
+import com.workos.android.support.awaitRequest
 import com.workos.android.support.testClientWithStubs
 import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.Test
@@ -142,10 +143,10 @@ class VaultCryptoTest {
             val sealed = client.vaultCrypto.encrypt("x", mapOf("tenant" to "t1"))
             client.vaultCrypto.decrypt(sealed)
 
-            val encryptRequest = server.takeRequest()
+            val encryptRequest = server.awaitRequest()
             assertEquals("/vault/v1/keys/data-key", encryptRequest.path?.substringBefore('?'))
             assertTrue(encryptRequest.body.readUtf8().contains("tenant"))
-            val decryptRequest = server.takeRequest()
+            val decryptRequest = server.awaitRequest()
             assertEquals("/vault/v1/keys/decrypt", decryptRequest.path?.substringBefore('?'))
             // The blob recovered from the envelope must be what goes back to the API.
             assertTrue(decryptRequest.body.readUtf8().contains(keyBlobB64.replace("=", "")), "key blob not echoed back")

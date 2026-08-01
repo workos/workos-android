@@ -2,6 +2,7 @@
 
 package com.workos.android
 
+import com.workos.android.support.awaitRequest
 import com.workos.android.support.headerValue
 import com.workos.android.support.pathOnly
 import com.workos.android.support.queryParam
@@ -25,7 +26,7 @@ class DirectorySyncTest {
             val (client, server) = testClient(responding = "{\"data\":[{\"object\":\"directory\",\"id\":\"directory_01ECAZ4NV9QMV47GW873HDCX74\",\"organization_id\":\"org_01EHZNVPK3SFK441A1RGBFSHRT\",\"external_key\":\"sPa12dwRQ\",\"type\":\"gsuite directory\",\"state\":\"linked\",\"name\":\"Foo Corp\",\"domain\":\"foo-corp.com\",\"metadata\":{\"users\":{\"active\":42,\"inactive\":3},\"groups\":5},\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\"}],\"list_metadata\":{\"before\":null,\"after\":null}}")
             val result = client.directorySync.list()
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("GET", request.method)
             assertEquals("/directories", request.pathOnly())
             assertEquals(1, result.data.size)
@@ -38,7 +39,7 @@ class DirectorySyncTest {
             val (client, server) = testClient(responding = "{\"object\":\"directory\",\"id\":\"directory_01ECAZ4NV9QMV47GW873HDCX74\",\"organization_id\":\"org_01EHZNVPK3SFK441A1RGBFSHRT\",\"external_key\":\"sPa12dwRQ\",\"type\":\"gsuite directory\",\"state\":\"linked\",\"name\":\"Foo Corp\",\"domain\":\"foo-corp.com\",\"metadata\":{\"users\":{\"active\":42,\"inactive\":3},\"groups\":5},\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\"}")
             val result = client.directorySync.get(id = "sample-id")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("GET", request.method)
             assertEquals("/directories/sample-id", request.pathOnly())
             assertEquals("directory_01ECAZ4NV9QMV47GW873HDCX74", result.id)
@@ -50,7 +51,7 @@ class DirectorySyncTest {
             val (client, server) = testClient(responding = "{}")
             client.directorySync.delete(id = "sample-id")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("DELETE", request.method)
             assertEquals("/directories/sample-id", request.pathOnly())
         }
@@ -61,7 +62,7 @@ class DirectorySyncTest {
             val (client, server) = testClient(responding = "{\"data\":[{\"object\":\"directory_group\",\"id\":\"directory_group_01E1JJS84MFPPQ3G655FHTKX6Z\",\"idp_id\":\"02grqrue4294w24\",\"directory_id\":\"directory_01ECAZ4NV9QMV47GW873HDCX74\",\"organization_id\":\"org_01EZTR6WYX1A0DSE2CYMGXQ24Y\",\"name\":\"Developers\",\"raw_attributes\":{\"key\":{}},\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\"}],\"list_metadata\":{\"before\":null,\"after\":null}}")
             val result = client.directorySync.listGroups()
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("GET", request.method)
             assertEquals("/directory_groups", request.pathOnly())
             assertEquals(1, result.data.size)
@@ -74,7 +75,7 @@ class DirectorySyncTest {
             val (client, server) = testClient(responding = "{\"object\":\"directory_group\",\"id\":\"directory_group_01E1JJS84MFPPQ3G655FHTKX6Z\",\"idp_id\":\"02grqrue4294w24\",\"directory_id\":\"directory_01ECAZ4NV9QMV47GW873HDCX74\",\"organization_id\":\"org_01EZTR6WYX1A0DSE2CYMGXQ24Y\",\"name\":\"Developers\",\"raw_attributes\":{\"key\":{}},\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\"}")
             val result = client.directorySync.getGroup(id = "sample-id")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("GET", request.method)
             assertEquals("/directory_groups/sample-id", request.pathOnly())
             assertEquals("directory_group_01E1JJS84MFPPQ3G655FHTKX6Z", result.id)
@@ -86,7 +87,7 @@ class DirectorySyncTest {
             val (client, server) = testClient(responding = "{\"data\":[{\"object\":\"directory_user\",\"id\":\"directory_user_01E1JG7J09H96KYP8HM9B0G5SJ\",\"directory_id\":\"directory_01ECAZ4NV9QMV47GW873HDCX74\",\"organization_id\":\"org_01EZTR6WYX1A0DSE2CYMGXQ24Y\",\"idp_id\":\"2836\",\"email\":\"marcelina.davis@example.com\",\"first_name\":\"Marcelina\",\"last_name\":\"Davis\",\"name\":\"Marcelina Davis\",\"emails\":[{\"primary\":true,\"type\":\"work\",\"value\":\"marcelina.davis@example.com\"}],\"job_title\":\"Software Engineer\",\"username\":\"mdavis\",\"state\":\"active\",\"raw_attributes\":{\"key\":{}},\"custom_attributes\":{\"department\":\"Engineering\",\"job_title\":\"Software Engineer\"},\"role\":{\"slug\":\"admin\"},\"roles\":[{\"slug\":\"admin\"}],\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\",\"groups\":[{\"object\":\"directory_group\",\"id\":\"directory_group_01E1JJS84MFPPQ3G655FHTKX6Z\",\"idp_id\":\"02grqrue4294w24\",\"directory_id\":\"directory_01ECAZ4NV9QMV47GW873HDCX74\",\"organization_id\":\"org_01EZTR6WYX1A0DSE2CYMGXQ24Y\",\"name\":\"Developers\",\"raw_attributes\":{\"key\":{}},\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\"}]}],\"list_metadata\":{\"before\":null,\"after\":null}}")
             val result = client.directorySync.listUsers()
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("GET", request.method)
             assertEquals("/directory_users", request.pathOnly())
             assertEquals(1, result.data.size)
@@ -99,7 +100,7 @@ class DirectorySyncTest {
             val (client, server) = testClient(responding = "{\"object\":\"directory_user\",\"id\":\"directory_user_01E1JG7J09H96KYP8HM9B0G5SJ\",\"directory_id\":\"directory_01ECAZ4NV9QMV47GW873HDCX74\",\"organization_id\":\"org_01EZTR6WYX1A0DSE2CYMGXQ24Y\",\"idp_id\":\"2836\",\"email\":\"marcelina.davis@example.com\",\"first_name\":\"Marcelina\",\"last_name\":\"Davis\",\"name\":\"Marcelina Davis\",\"emails\":[{\"primary\":true,\"type\":\"work\",\"value\":\"marcelina.davis@example.com\"}],\"job_title\":\"Software Engineer\",\"username\":\"mdavis\",\"state\":\"active\",\"raw_attributes\":{\"key\":{}},\"custom_attributes\":{\"department\":\"Engineering\",\"job_title\":\"Software Engineer\"},\"role\":{\"slug\":\"admin\"},\"roles\":[{\"slug\":\"admin\"}],\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\",\"groups\":[{\"object\":\"directory_group\",\"id\":\"directory_group_01E1JJS84MFPPQ3G655FHTKX6Z\",\"idp_id\":\"02grqrue4294w24\",\"directory_id\":\"directory_01ECAZ4NV9QMV47GW873HDCX74\",\"organization_id\":\"org_01EZTR6WYX1A0DSE2CYMGXQ24Y\",\"name\":\"Developers\",\"raw_attributes\":{\"key\":{}},\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\"}]}")
             val result = client.directorySync.getUser(id = "sample-id")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("GET", request.method)
             assertEquals("/directory_users/sample-id", request.pathOnly())
             assertEquals("directory_user_01E1JG7J09H96KYP8HM9B0G5SJ", result.id)
@@ -122,7 +123,7 @@ class DirectorySyncTest {
 
             client.directorySync.list(before = "a b/c&d=e")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("a b/c&d=e", request.queryParam("before"))
         }
 
@@ -133,7 +134,7 @@ class DirectorySyncTest {
 
             client.directorySync.list(requestOptions = RequestOptions(headers = mapOf("X-Custom" to "value")))
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("value", request.headerValue("X-Custom"))
         }
 

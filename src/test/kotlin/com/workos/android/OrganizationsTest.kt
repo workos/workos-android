@@ -2,6 +2,7 @@
 
 package com.workos.android
 
+import com.workos.android.support.awaitRequest
 import com.workos.android.support.bodyJson
 import com.workos.android.support.headerValue
 import com.workos.android.support.pathOnly
@@ -27,7 +28,7 @@ class OrganizationsTest {
             val (client, server) = testClient(responding = "{\"data\":[{\"object\":\"organization\",\"id\":\"org_01EHWNCE74X7JSDV0X3SZ3KJNY\",\"name\":\"Acme Inc.\",\"domains\":[{\"object\":\"organization_domain\",\"id\":\"org_domain_01EHZNVPK2QXHMVWCEDQEKY69A\",\"organization_id\":\"org_01HE8GSH8FQPASKSY27THRKRBP\",\"domain\":\"foo-corp.com\",\"state\":\"pending\",\"verification_prefix\":\"superapp-domain-verification-z3kjny\",\"verification_token\":\"m5Oztg3jdK4NJLgs8uIlIprMw\",\"verification_strategy\":\"dns\",\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\"}],\"metadata\":{\"tier\":\"diamond\"},\"external_id\":\"2fe01467-f7ea-4dd2-8b79-c2b4f56d0191\",\"stripe_customer_id\":\"cus_R9qWAGMQ6nGE7V\",\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\",\"allow_profiles_outside_organization\":false}],\"list_metadata\":{\"before\":null,\"after\":null}}")
             val result = client.organizations.list()
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("GET", request.method)
             assertEquals("/organizations", request.pathOnly())
             assertEquals(1, result.data.size)
@@ -40,7 +41,7 @@ class OrganizationsTest {
             val (client, server) = testClient(responding = "{\"object\":\"organization\",\"id\":\"org_01EHWNCE74X7JSDV0X3SZ3KJNY\",\"name\":\"Acme Inc.\",\"domains\":[{\"object\":\"organization_domain\",\"id\":\"org_domain_01EHZNVPK2QXHMVWCEDQEKY69A\",\"organization_id\":\"org_01HE8GSH8FQPASKSY27THRKRBP\",\"domain\":\"foo-corp.com\",\"state\":\"pending\",\"verification_prefix\":\"superapp-domain-verification-z3kjny\",\"verification_token\":\"m5Oztg3jdK4NJLgs8uIlIprMw\",\"verification_strategy\":\"dns\",\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\"}],\"metadata\":{\"tier\":\"diamond\"},\"external_id\":\"2fe01467-f7ea-4dd2-8b79-c2b4f56d0191\",\"stripe_customer_id\":\"cus_R9qWAGMQ6nGE7V\",\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\",\"allow_profiles_outside_organization\":false}")
             val result = client.organizations.create(name = "test_name")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("POST", request.method)
             assertEquals("/organizations", request.pathOnly())
             assertTrue(request.bodyJson().containsKey("name"))
@@ -53,7 +54,7 @@ class OrganizationsTest {
             val (client, server) = testClient(responding = "{\"object\":\"organization\",\"id\":\"org_01EHWNCE74X7JSDV0X3SZ3KJNY\",\"name\":\"Acme Inc.\",\"domains\":[{\"object\":\"organization_domain\",\"id\":\"org_domain_01EHZNVPK2QXHMVWCEDQEKY69A\",\"organization_id\":\"org_01HE8GSH8FQPASKSY27THRKRBP\",\"domain\":\"foo-corp.com\",\"state\":\"pending\",\"verification_prefix\":\"superapp-domain-verification-z3kjny\",\"verification_token\":\"m5Oztg3jdK4NJLgs8uIlIprMw\",\"verification_strategy\":\"dns\",\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\"}],\"metadata\":{\"tier\":\"diamond\"},\"external_id\":\"2fe01467-f7ea-4dd2-8b79-c2b4f56d0191\",\"stripe_customer_id\":\"cus_R9qWAGMQ6nGE7V\",\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\",\"allow_profiles_outside_organization\":false}")
             val result = client.organizations.get(id = "sample-id")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("GET", request.method)
             assertEquals("/organizations/sample-id", request.pathOnly())
             assertEquals("org_01EHWNCE74X7JSDV0X3SZ3KJNY", result.id)
@@ -65,7 +66,7 @@ class OrganizationsTest {
             val (client, server) = testClient(responding = "{\"object\":\"organization\",\"id\":\"org_01EHWNCE74X7JSDV0X3SZ3KJNY\",\"name\":\"Acme Inc.\",\"domains\":[{\"object\":\"organization_domain\",\"id\":\"org_domain_01EHZNVPK2QXHMVWCEDQEKY69A\",\"organization_id\":\"org_01HE8GSH8FQPASKSY27THRKRBP\",\"domain\":\"foo-corp.com\",\"state\":\"pending\",\"verification_prefix\":\"superapp-domain-verification-z3kjny\",\"verification_token\":\"m5Oztg3jdK4NJLgs8uIlIprMw\",\"verification_strategy\":\"dns\",\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\"}],\"metadata\":{\"tier\":\"diamond\"},\"external_id\":\"2fe01467-f7ea-4dd2-8b79-c2b4f56d0191\",\"stripe_customer_id\":\"cus_R9qWAGMQ6nGE7V\",\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\",\"allow_profiles_outside_organization\":false}")
             val result = client.organizations.update(id = "sample-id")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("PUT", request.method)
             assertEquals("/organizations/sample-id", request.pathOnly())
             assertEquals("org_01EHWNCE74X7JSDV0X3SZ3KJNY", result.id)
@@ -77,7 +78,7 @@ class OrganizationsTest {
             val (client, server) = testClient(responding = "{}")
             client.organizations.delete(id = "sample-id")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("DELETE", request.method)
             assertEquals("/organizations/sample-id", request.pathOnly())
         }
@@ -88,7 +89,7 @@ class OrganizationsTest {
             val (client, server) = testClient(responding = "{\"organization_id\":\"org_01EHZNVPK3SFK441A1RGBFSHRT\",\"retention_period_in_days\":30,\"state\":\"active\",\"log_stream\":{\"id\":\"als_01EHZNVPK3SFK441A1RGBFSHRT\",\"type\":\"Datadog\",\"state\":\"active\",\"last_synced_at\":\"2026-01-15T12:00:00.000Z\",\"created_at\":\"2026-01-15T12:00:00.000Z\"}}")
             val result = client.organizations.getAuditLogConfiguration(id = "sample-id")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("GET", request.method)
             assertEquals("/organizations/sample-id/audit_log_configuration", request.pathOnly())
             assertNotNull(result)
@@ -100,7 +101,7 @@ class OrganizationsTest {
             val (client, server) = testClient(responding = "{\"data\":[{\"object\":\"authorized_connect_application\",\"id\":\"authorized_connect_app_01HXYZ123456789ABCDEFGHIJ\",\"granted_scopes\":[\"openid\",\"profile\",\"email\"],\"oauth_resource\":\"https://api.example.com/resource\",\"application\":{\"object\":\"connect_application\",\"id\":\"conn_app_01HXYZ123456789ABCDEFGHIJ\",\"client_id\":\"client_01HXYZ123456789ABCDEFGHIJ\",\"description\":\"An application for managing user access\",\"name\":\"My Application\",\"scopes\":[\"openid\",\"profile\",\"email\"],\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\",\"application_type\":\"oauth\",\"redirect_uris\":[{\"uri\":\"https://example.com\",\"default\":true}],\"uses_pkce\":true,\"is_first_party\":true,\"was_dynamically_registered\":false,\"organization_id\":\"organization_id_01234\"},\"user_id\":\"user_01E4ZCR3C56J083X43JQXF3JK5\"}],\"list_metadata\":{\"before\":null,\"after\":null}}")
             val result = client.organizations.listAuthorizedApplications(organizationId = "sample-organization-id")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("GET", request.method)
             assertEquals("/organizations/sample-organization-id/authorized_applications", request.pathOnly())
             assertEquals(1, result.data.size)
@@ -113,7 +114,7 @@ class OrganizationsTest {
             val (client, server) = testClient(responding = "{\"object\":\"organization\",\"id\":\"org_01EHWNCE74X7JSDV0X3SZ3KJNY\",\"name\":\"Acme Inc.\",\"domains\":[{\"object\":\"organization_domain\",\"id\":\"org_domain_01EHZNVPK2QXHMVWCEDQEKY69A\",\"organization_id\":\"org_01HE8GSH8FQPASKSY27THRKRBP\",\"domain\":\"foo-corp.com\",\"state\":\"pending\",\"verification_prefix\":\"superapp-domain-verification-z3kjny\",\"verification_token\":\"m5Oztg3jdK4NJLgs8uIlIprMw\",\"verification_strategy\":\"dns\",\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\"}],\"metadata\":{\"tier\":\"diamond\"},\"external_id\":\"2fe01467-f7ea-4dd2-8b79-c2b4f56d0191\",\"stripe_customer_id\":\"cus_R9qWAGMQ6nGE7V\",\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\",\"allow_profiles_outside_organization\":false}")
             val result = client.organizations.getByExternalId(externalId = "sample-external-id")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("GET", request.method)
             assertEquals("/organizations/external_id/sample-external-id", request.pathOnly())
             assertEquals("org_01EHWNCE74X7JSDV0X3SZ3KJNY", result.id)
@@ -136,7 +137,7 @@ class OrganizationsTest {
 
             client.organizations.list(before = "a b/c&d=e")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("a b/c&d=e", request.queryParam("before"))
         }
 
@@ -147,7 +148,7 @@ class OrganizationsTest {
 
             client.organizations.list(requestOptions = RequestOptions(headers = mapOf("X-Custom" to "value")))
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("value", request.headerValue("X-Custom"))
         }
 

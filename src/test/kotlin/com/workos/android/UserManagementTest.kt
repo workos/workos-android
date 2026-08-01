@@ -2,6 +2,7 @@
 
 package com.workos.android
 
+import com.workos.android.support.awaitRequest
 import com.workos.android.support.bodyJson
 import com.workos.android.support.headerValue
 import com.workos.android.support.pathOnly
@@ -28,7 +29,7 @@ class UserManagementTest {
             val (client, server) = testClient(responding = "{\"keys\":[{\"alg\":\"RS256\",\"kty\":\"RSA\",\"use\":\"sig\",\"x5c\":[\"MIIDQjCCAiqgAwIBAgIGATz/FuLiMA0GCSqGSIb3DQEBCwUA...\"],\"n\":\"0vx7agoebGc...eKnNs\",\"e\":\"AQAB\",\"kid\":\"key_01HXYZ123456789ABCDEFGHIJ\",\"x5t#S256\":\"ZjQzYjI0OT...NmNjU0\"}]}")
             val result = client.userManagement.getJwks(clientId = "sample-clientId")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("GET", request.method)
             assertEquals("/sso/jwks/sample-clientId", request.pathOnly())
             assertNotNull(result)
@@ -40,7 +41,7 @@ class UserManagementTest {
             val (client, server) = testClient(responding = "{\"user\":{\"object\":\"user\",\"id\":\"user_01E4ZCR3C56J083X43JQXF3JK5\",\"first_name\":\"Marcelina\",\"last_name\":\"Davis\",\"name\":\"Marcelina Davis\",\"profile_picture_url\":\"https://workoscdn.com/images/v1/123abc\",\"email\":\"marcelina.davis@example.com\",\"email_verified\":true,\"external_id\":\"f1ffa2b2-c20b-4d39-be5c-212726e11222\",\"metadata\":{\"timezone\":\"America/New_York\"},\"last_sign_in_at\":\"2025-06-25T19:07:33.155Z\",\"locale\":\"en-US\",\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\"},\"organization_id\":\"org_01H945H0YD4F97JN9MATX7BYAG\",\"authkit_authorization_code\":\"authkit_authz_code_abc123\",\"access_token\":\"eyJhb.nNzb19vaWRjX2tleV9.lc5Uk4yWVk5In0\",\"refresh_token\":\"yAjhKk123NLIjdrBdGZPf8pLIDvK\",\"authentication_method\":\"SSO\",\"impersonator\":{\"email\":\"admin@foocorp.com\",\"reason\":\"Investigating an issue with the customer's account.\"},\"oauth_tokens\":{\"provider\":\"GoogleOAuth\",\"refresh_token\":\"1//04g...\",\"access_token\":\"ya29.a0ARrdaM...\",\"expires_at\":1735141800,\"scopes\":[\"profile\",\"email\",\"openid\"]}}")
             val result = client.userManagement.authenticateWithPassword(email = "test_email", password = "test_password")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("POST", request.method)
             assertEquals("/user_management/authenticate", request.pathOnly())
             val body = request.bodyJson()
@@ -55,7 +56,7 @@ class UserManagementTest {
             val (client, server) = testClient(responding = "{\"user\":{\"object\":\"user\",\"id\":\"user_01E4ZCR3C56J083X43JQXF3JK5\",\"first_name\":\"Marcelina\",\"last_name\":\"Davis\",\"name\":\"Marcelina Davis\",\"profile_picture_url\":\"https://workoscdn.com/images/v1/123abc\",\"email\":\"marcelina.davis@example.com\",\"email_verified\":true,\"external_id\":\"f1ffa2b2-c20b-4d39-be5c-212726e11222\",\"metadata\":{\"timezone\":\"America/New_York\"},\"last_sign_in_at\":\"2025-06-25T19:07:33.155Z\",\"locale\":\"en-US\",\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\"},\"organization_id\":\"org_01H945H0YD4F97JN9MATX7BYAG\",\"authkit_authorization_code\":\"authkit_authz_code_abc123\",\"access_token\":\"eyJhb.nNzb19vaWRjX2tleV9.lc5Uk4yWVk5In0\",\"refresh_token\":\"yAjhKk123NLIjdrBdGZPf8pLIDvK\",\"authentication_method\":\"SSO\",\"impersonator\":{\"email\":\"admin@foocorp.com\",\"reason\":\"Investigating an issue with the customer's account.\"},\"oauth_tokens\":{\"provider\":\"GoogleOAuth\",\"refresh_token\":\"1//04g...\",\"access_token\":\"ya29.a0ARrdaM...\",\"expires_at\":1735141800,\"scopes\":[\"profile\",\"email\",\"openid\"]}}")
             val result = client.userManagement.authenticateWithCode(code = "test_code")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("POST", request.method)
             assertEquals("/user_management/authenticate", request.pathOnly())
             val body = request.bodyJson()
@@ -70,7 +71,7 @@ class UserManagementTest {
             val (client, server) = testClient(responding = "{\"user\":{\"object\":\"user\",\"id\":\"user_01E4ZCR3C56J083X43JQXF3JK5\",\"first_name\":\"Marcelina\",\"last_name\":\"Davis\",\"name\":\"Marcelina Davis\",\"profile_picture_url\":\"https://workoscdn.com/images/v1/123abc\",\"email\":\"marcelina.davis@example.com\",\"email_verified\":true,\"external_id\":\"f1ffa2b2-c20b-4d39-be5c-212726e11222\",\"metadata\":{\"timezone\":\"America/New_York\"},\"last_sign_in_at\":\"2025-06-25T19:07:33.155Z\",\"locale\":\"en-US\",\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\"},\"organization_id\":\"org_01H945H0YD4F97JN9MATX7BYAG\",\"authkit_authorization_code\":\"authkit_authz_code_abc123\",\"access_token\":\"eyJhb.nNzb19vaWRjX2tleV9.lc5Uk4yWVk5In0\",\"refresh_token\":\"yAjhKk123NLIjdrBdGZPf8pLIDvK\",\"authentication_method\":\"SSO\",\"impersonator\":{\"email\":\"admin@foocorp.com\",\"reason\":\"Investigating an issue with the customer's account.\"},\"oauth_tokens\":{\"provider\":\"GoogleOAuth\",\"refresh_token\":\"1//04g...\",\"access_token\":\"ya29.a0ARrdaM...\",\"expires_at\":1735141800,\"scopes\":[\"profile\",\"email\",\"openid\"]}}")
             val result = client.userManagement.authenticateWithRefreshToken(refreshToken = "test_refresh_token")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("POST", request.method)
             assertEquals("/user_management/authenticate", request.pathOnly())
             val body = request.bodyJson()
@@ -85,7 +86,7 @@ class UserManagementTest {
             val (client, server) = testClient(responding = "{\"user\":{\"object\":\"user\",\"id\":\"user_01E4ZCR3C56J083X43JQXF3JK5\",\"first_name\":\"Marcelina\",\"last_name\":\"Davis\",\"name\":\"Marcelina Davis\",\"profile_picture_url\":\"https://workoscdn.com/images/v1/123abc\",\"email\":\"marcelina.davis@example.com\",\"email_verified\":true,\"external_id\":\"f1ffa2b2-c20b-4d39-be5c-212726e11222\",\"metadata\":{\"timezone\":\"America/New_York\"},\"last_sign_in_at\":\"2025-06-25T19:07:33.155Z\",\"locale\":\"en-US\",\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\"},\"organization_id\":\"org_01H945H0YD4F97JN9MATX7BYAG\",\"authkit_authorization_code\":\"authkit_authz_code_abc123\",\"access_token\":\"eyJhb.nNzb19vaWRjX2tleV9.lc5Uk4yWVk5In0\",\"refresh_token\":\"yAjhKk123NLIjdrBdGZPf8pLIDvK\",\"authentication_method\":\"SSO\",\"impersonator\":{\"email\":\"admin@foocorp.com\",\"reason\":\"Investigating an issue with the customer's account.\"},\"oauth_tokens\":{\"provider\":\"GoogleOAuth\",\"refresh_token\":\"1//04g...\",\"access_token\":\"ya29.a0ARrdaM...\",\"expires_at\":1735141800,\"scopes\":[\"profile\",\"email\",\"openid\"]}}")
             val result = client.userManagement.authenticateWithMagicAuth(code = "test_code", email = "test_email")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("POST", request.method)
             assertEquals("/user_management/authenticate", request.pathOnly())
             val body = request.bodyJson()
@@ -100,7 +101,7 @@ class UserManagementTest {
             val (client, server) = testClient(responding = "{\"user\":{\"object\":\"user\",\"id\":\"user_01E4ZCR3C56J083X43JQXF3JK5\",\"first_name\":\"Marcelina\",\"last_name\":\"Davis\",\"name\":\"Marcelina Davis\",\"profile_picture_url\":\"https://workoscdn.com/images/v1/123abc\",\"email\":\"marcelina.davis@example.com\",\"email_verified\":true,\"external_id\":\"f1ffa2b2-c20b-4d39-be5c-212726e11222\",\"metadata\":{\"timezone\":\"America/New_York\"},\"last_sign_in_at\":\"2025-06-25T19:07:33.155Z\",\"locale\":\"en-US\",\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\"},\"organization_id\":\"org_01H945H0YD4F97JN9MATX7BYAG\",\"authkit_authorization_code\":\"authkit_authz_code_abc123\",\"access_token\":\"eyJhb.nNzb19vaWRjX2tleV9.lc5Uk4yWVk5In0\",\"refresh_token\":\"yAjhKk123NLIjdrBdGZPf8pLIDvK\",\"authentication_method\":\"SSO\",\"impersonator\":{\"email\":\"admin@foocorp.com\",\"reason\":\"Investigating an issue with the customer's account.\"},\"oauth_tokens\":{\"provider\":\"GoogleOAuth\",\"refresh_token\":\"1//04g...\",\"access_token\":\"ya29.a0ARrdaM...\",\"expires_at\":1735141800,\"scopes\":[\"profile\",\"email\",\"openid\"]}}")
             val result = client.userManagement.authenticateWithEmailVerification(code = "test_code", pendingAuthenticationToken = "test_pending_authentication_token")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("POST", request.method)
             assertEquals("/user_management/authenticate", request.pathOnly())
             val body = request.bodyJson()
@@ -115,7 +116,7 @@ class UserManagementTest {
             val (client, server) = testClient(responding = "{\"user\":{\"object\":\"user\",\"id\":\"user_01E4ZCR3C56J083X43JQXF3JK5\",\"first_name\":\"Marcelina\",\"last_name\":\"Davis\",\"name\":\"Marcelina Davis\",\"profile_picture_url\":\"https://workoscdn.com/images/v1/123abc\",\"email\":\"marcelina.davis@example.com\",\"email_verified\":true,\"external_id\":\"f1ffa2b2-c20b-4d39-be5c-212726e11222\",\"metadata\":{\"timezone\":\"America/New_York\"},\"last_sign_in_at\":\"2025-06-25T19:07:33.155Z\",\"locale\":\"en-US\",\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\"},\"organization_id\":\"org_01H945H0YD4F97JN9MATX7BYAG\",\"authkit_authorization_code\":\"authkit_authz_code_abc123\",\"access_token\":\"eyJhb.nNzb19vaWRjX2tleV9.lc5Uk4yWVk5In0\",\"refresh_token\":\"yAjhKk123NLIjdrBdGZPf8pLIDvK\",\"authentication_method\":\"SSO\",\"impersonator\":{\"email\":\"admin@foocorp.com\",\"reason\":\"Investigating an issue with the customer's account.\"},\"oauth_tokens\":{\"provider\":\"GoogleOAuth\",\"refresh_token\":\"1//04g...\",\"access_token\":\"ya29.a0ARrdaM...\",\"expires_at\":1735141800,\"scopes\":[\"profile\",\"email\",\"openid\"]}}")
             val result = client.userManagement.authenticateWithTotp(code = "test_code", pendingAuthenticationToken = "test_pending_authentication_token", authenticationChallengeId = "test_authentication_challenge_id")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("POST", request.method)
             assertEquals("/user_management/authenticate", request.pathOnly())
             val body = request.bodyJson()
@@ -130,7 +131,7 @@ class UserManagementTest {
             val (client, server) = testClient(responding = "{\"user\":{\"object\":\"user\",\"id\":\"user_01E4ZCR3C56J083X43JQXF3JK5\",\"first_name\":\"Marcelina\",\"last_name\":\"Davis\",\"name\":\"Marcelina Davis\",\"profile_picture_url\":\"https://workoscdn.com/images/v1/123abc\",\"email\":\"marcelina.davis@example.com\",\"email_verified\":true,\"external_id\":\"f1ffa2b2-c20b-4d39-be5c-212726e11222\",\"metadata\":{\"timezone\":\"America/New_York\"},\"last_sign_in_at\":\"2025-06-25T19:07:33.155Z\",\"locale\":\"en-US\",\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\"},\"organization_id\":\"org_01H945H0YD4F97JN9MATX7BYAG\",\"authkit_authorization_code\":\"authkit_authz_code_abc123\",\"access_token\":\"eyJhb.nNzb19vaWRjX2tleV9.lc5Uk4yWVk5In0\",\"refresh_token\":\"yAjhKk123NLIjdrBdGZPf8pLIDvK\",\"authentication_method\":\"SSO\",\"impersonator\":{\"email\":\"admin@foocorp.com\",\"reason\":\"Investigating an issue with the customer's account.\"},\"oauth_tokens\":{\"provider\":\"GoogleOAuth\",\"refresh_token\":\"1//04g...\",\"access_token\":\"ya29.a0ARrdaM...\",\"expires_at\":1735141800,\"scopes\":[\"profile\",\"email\",\"openid\"]}}")
             val result = client.userManagement.authenticateWithOrganizationSelection(pendingAuthenticationToken = "test_pending_authentication_token", organizationId = "test_organization_id")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("POST", request.method)
             assertEquals("/user_management/authenticate", request.pathOnly())
             val body = request.bodyJson()
@@ -145,7 +146,7 @@ class UserManagementTest {
             val (client, server) = testClient(responding = "{\"user\":{\"object\":\"user\",\"id\":\"user_01E4ZCR3C56J083X43JQXF3JK5\",\"first_name\":\"Marcelina\",\"last_name\":\"Davis\",\"name\":\"Marcelina Davis\",\"profile_picture_url\":\"https://workoscdn.com/images/v1/123abc\",\"email\":\"marcelina.davis@example.com\",\"email_verified\":true,\"external_id\":\"f1ffa2b2-c20b-4d39-be5c-212726e11222\",\"metadata\":{\"timezone\":\"America/New_York\"},\"last_sign_in_at\":\"2025-06-25T19:07:33.155Z\",\"locale\":\"en-US\",\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\"},\"organization_id\":\"org_01H945H0YD4F97JN9MATX7BYAG\",\"authkit_authorization_code\":\"authkit_authz_code_abc123\",\"access_token\":\"eyJhb.nNzb19vaWRjX2tleV9.lc5Uk4yWVk5In0\",\"refresh_token\":\"yAjhKk123NLIjdrBdGZPf8pLIDvK\",\"authentication_method\":\"SSO\",\"impersonator\":{\"email\":\"admin@foocorp.com\",\"reason\":\"Investigating an issue with the customer's account.\"},\"oauth_tokens\":{\"provider\":\"GoogleOAuth\",\"refresh_token\":\"1//04g...\",\"access_token\":\"ya29.a0ARrdaM...\",\"expires_at\":1735141800,\"scopes\":[\"profile\",\"email\",\"openid\"]}}")
             val result = client.userManagement.authenticateWithDeviceCode(deviceCode = "test_device_code")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("POST", request.method)
             assertEquals("/user_management/authenticate", request.pathOnly())
             val body = request.bodyJson()
@@ -160,7 +161,7 @@ class UserManagementTest {
             val (client, server) = testClient(responding = "{\"user\":{\"object\":\"user\",\"id\":\"user_01E4ZCR3C56J083X43JQXF3JK5\",\"first_name\":\"Marcelina\",\"last_name\":\"Davis\",\"name\":\"Marcelina Davis\",\"profile_picture_url\":\"https://workoscdn.com/images/v1/123abc\",\"email\":\"marcelina.davis@example.com\",\"email_verified\":true,\"external_id\":\"f1ffa2b2-c20b-4d39-be5c-212726e11222\",\"metadata\":{\"timezone\":\"America/New_York\"},\"last_sign_in_at\":\"2025-06-25T19:07:33.155Z\",\"locale\":\"en-US\",\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\"},\"organization_id\":\"org_01H945H0YD4F97JN9MATX7BYAG\",\"authkit_authorization_code\":\"authkit_authz_code_abc123\",\"access_token\":\"eyJhb.nNzb19vaWRjX2tleV9.lc5Uk4yWVk5In0\",\"refresh_token\":\"yAjhKk123NLIjdrBdGZPf8pLIDvK\",\"authentication_method\":\"SSO\",\"impersonator\":{\"email\":\"admin@foocorp.com\",\"reason\":\"Investigating an issue with the customer's account.\"},\"oauth_tokens\":{\"provider\":\"GoogleOAuth\",\"refresh_token\":\"1//04g...\",\"access_token\":\"ya29.a0ARrdaM...\",\"expires_at\":1735141800,\"scopes\":[\"profile\",\"email\",\"openid\"]}}")
             val result = client.userManagement.authenticateWithRadarEmailChallenge(code = "test_code", radarChallengeId = "test_radar_challenge_id", pendingAuthenticationToken = "test_pending_authentication_token")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("POST", request.method)
             assertEquals("/user_management/authenticate", request.pathOnly())
             val body = request.bodyJson()
@@ -175,7 +176,7 @@ class UserManagementTest {
             val (client, server) = testClient(responding = "{\"user\":{\"object\":\"user\",\"id\":\"user_01E4ZCR3C56J083X43JQXF3JK5\",\"first_name\":\"Marcelina\",\"last_name\":\"Davis\",\"name\":\"Marcelina Davis\",\"profile_picture_url\":\"https://workoscdn.com/images/v1/123abc\",\"email\":\"marcelina.davis@example.com\",\"email_verified\":true,\"external_id\":\"f1ffa2b2-c20b-4d39-be5c-212726e11222\",\"metadata\":{\"timezone\":\"America/New_York\"},\"last_sign_in_at\":\"2025-06-25T19:07:33.155Z\",\"locale\":\"en-US\",\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\"},\"organization_id\":\"org_01H945H0YD4F97JN9MATX7BYAG\",\"authkit_authorization_code\":\"authkit_authz_code_abc123\",\"access_token\":\"eyJhb.nNzb19vaWRjX2tleV9.lc5Uk4yWVk5In0\",\"refresh_token\":\"yAjhKk123NLIjdrBdGZPf8pLIDvK\",\"authentication_method\":\"SSO\",\"impersonator\":{\"email\":\"admin@foocorp.com\",\"reason\":\"Investigating an issue with the customer's account.\"},\"oauth_tokens\":{\"provider\":\"GoogleOAuth\",\"refresh_token\":\"1//04g...\",\"access_token\":\"ya29.a0ARrdaM...\",\"expires_at\":1735141800,\"scopes\":[\"profile\",\"email\",\"openid\"]}}")
             val result = client.userManagement.authenticateWithRadarSmsChallenge(code = "test_code", verificationId = "test_verification_id", phoneNumber = "test_phone_number", pendingAuthenticationToken = "test_pending_authentication_token")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("POST", request.method)
             assertEquals("/user_management/authenticate", request.pathOnly())
             val body = request.bodyJson()
@@ -193,6 +194,10 @@ class UserManagementTest {
         assertTrue(url.substringBefore('?').endsWith("/user_management/authorize"))
         assertTrue(url.contains("response_type=code"))
         assertTrue(url.contains("redirect_uri="))
+
+        val withMap = client.userManagement.getAuthorizationUrl(redirectUri = "test_redirect_uri", providerQueryParams = mapOf("k1" to "v1"))
+        assertTrue(withMap.contains("provider_query_params%5Bk1%5D=v1"))
+        assertTrue(!withMap.contains("provider_query_params="))
     }
 
     @Test
@@ -201,7 +206,7 @@ class UserManagementTest {
             val (client, server) = testClient(responding = "{\"device_code\":\"CVE2wOfIFK4vhmiDBntpX9s8KT2f0qngpWYL0LGy9HxYgBRXUKIUkZB9BgIFho5h\",\"user_code\":\"BCDF-GHJK\",\"verification_uri\":\"https://authkit_domain/device\",\"verification_uri_complete\":\"https://authkit_domain/device?user_code=BCDF-GHJK\",\"expires_in\":300,\"interval\":5}")
             val result = client.userManagement.createDevice(clientId = "test_client_id")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("POST", request.method)
             assertEquals("/user_management/authorize/device", request.pathOnly())
             assertTrue(request.bodyJson().containsKey("client_id"))
@@ -214,7 +219,7 @@ class UserManagementTest {
             val (client, server) = testClient(responding = "{\"data\":[{\"object\":\"cors_origin\",\"id\":\"cors_origin_01HXYZ123456789ABCDEFGHIJ\",\"origin\":\"https://example.com\",\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\"}],\"list_metadata\":{\"before\":null,\"after\":null}}")
             val result = client.userManagement.listCorsOrigins()
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("GET", request.method)
             assertEquals("/user_management/cors_origins", request.pathOnly())
             assertEquals(1, result.data.size)
@@ -227,7 +232,7 @@ class UserManagementTest {
             val (client, server) = testClient(responding = "{\"object\":\"cors_origin\",\"id\":\"cors_origin_01HXYZ123456789ABCDEFGHIJ\",\"origin\":\"https://example.com\",\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\"}")
             val result = client.userManagement.createCorsOrigin(origin = "test_origin")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("POST", request.method)
             assertEquals("/user_management/cors_origins", request.pathOnly())
             assertTrue(request.bodyJson().containsKey("origin"))
@@ -240,7 +245,7 @@ class UserManagementTest {
             val (client, server) = testClient(responding = "{\"object\":\"email_verification\",\"id\":\"email_verification_01E4ZCR3C56J083X43JQXF3JK5\",\"user_id\":\"user_01E4ZCR3C56J083X43JQXF3JK5\",\"email\":\"marcelina.davis@example.com\",\"expires_at\":\"2026-01-15T12:00:00.000Z\",\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\",\"code\":\"123456\"}")
             val result = client.userManagement.getEmailVerification(id = "sample-id")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("GET", request.method)
             assertEquals("/user_management/email_verification/sample-id", request.pathOnly())
             assertEquals("email_verification_01E4ZCR3C56J083X43JQXF3JK5", result.id)
@@ -252,7 +257,7 @@ class UserManagementTest {
             val (client, server) = testClient(responding = "{\"data\":[{\"object\":\"invitation\",\"id\":\"invitation_01E4ZCR3C56J083X43JQXF3JK5\",\"email\":\"marcelina.davis@example.com\",\"state\":\"pending\",\"accepted_at\":null,\"revoked_at\":null,\"expires_at\":\"2026-01-15T12:00:00.000Z\",\"organization_id\":\"org_01E4ZCR3C56J083X43JQXF3JK5\",\"inviter_user_id\":\"user_01HYGBX8ZGD19949T3BM4FW1C3\",\"accepted_user_id\":null,\"role_slug\":\"admin\",\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\",\"token\":\"Z1uX3RbwcIl5fIGJJJCXXisdI\",\"accept_invitation_url\":\"https://your-app.com/invite?invitation_token=Z1uX3RbwcIl5fIGJJJCXXisdI\"}],\"list_metadata\":{\"before\":null,\"after\":null}}")
             val result = client.userManagement.listInvitations()
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("GET", request.method)
             assertEquals("/user_management/invitations", request.pathOnly())
             assertEquals(1, result.data.size)
@@ -265,7 +270,7 @@ class UserManagementTest {
             val (client, server) = testClient(responding = "{\"object\":\"invitation\",\"id\":\"invitation_01E4ZCR3C56J083X43JQXF3JK5\",\"email\":\"marcelina.davis@example.com\",\"state\":\"pending\",\"accepted_at\":null,\"revoked_at\":null,\"expires_at\":\"2026-01-15T12:00:00.000Z\",\"organization_id\":\"org_01E4ZCR3C56J083X43JQXF3JK5\",\"inviter_user_id\":\"user_01HYGBX8ZGD19949T3BM4FW1C3\",\"accepted_user_id\":null,\"role_slug\":\"admin\",\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\",\"token\":\"Z1uX3RbwcIl5fIGJJJCXXisdI\",\"accept_invitation_url\":\"https://your-app.com/invite?invitation_token=Z1uX3RbwcIl5fIGJJJCXXisdI\"}")
             val result = client.userManagement.sendInvitation(email = "test_email")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("POST", request.method)
             assertEquals("/user_management/invitations", request.pathOnly())
             assertTrue(request.bodyJson().containsKey("email"))
@@ -278,7 +283,7 @@ class UserManagementTest {
             val (client, server) = testClient(responding = "{\"object\":\"invitation\",\"id\":\"invitation_01E4ZCR3C56J083X43JQXF3JK5\",\"email\":\"marcelina.davis@example.com\",\"state\":\"pending\",\"accepted_at\":null,\"revoked_at\":null,\"expires_at\":\"2026-01-15T12:00:00.000Z\",\"organization_id\":\"org_01E4ZCR3C56J083X43JQXF3JK5\",\"inviter_user_id\":\"user_01HYGBX8ZGD19949T3BM4FW1C3\",\"accepted_user_id\":null,\"role_slug\":\"admin\",\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\",\"token\":\"Z1uX3RbwcIl5fIGJJJCXXisdI\",\"accept_invitation_url\":\"https://your-app.com/invite?invitation_token=Z1uX3RbwcIl5fIGJJJCXXisdI\"}")
             val result = client.userManagement.getInvitation(id = "sample-id")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("GET", request.method)
             assertEquals("/user_management/invitations/sample-id", request.pathOnly())
             assertEquals("invitation_01E4ZCR3C56J083X43JQXF3JK5", result.id)
@@ -290,7 +295,7 @@ class UserManagementTest {
             val (client, server) = testClient(responding = "{\"object\":\"invitation\",\"id\":\"invitation_01E4ZCR3C56J083X43JQXF3JK5\",\"email\":\"marcelina.davis@example.com\",\"state\":\"accepted\",\"accepted_at\":\"2026-01-15T12:00:00.000Z\",\"revoked_at\":null,\"expires_at\":\"2026-01-15T12:00:00.000Z\",\"organization_id\":\"org_01E4ZCR3C56J083X43JQXF3JK5\",\"inviter_user_id\":\"user_01HYGBX8ZGD19949T3BM4FW1C3\",\"accepted_user_id\":\"user_01E4ZCR3C56J083X43JQXF3JK5\",\"role_slug\":\"admin\",\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\",\"token\":\"Z1uX3RbwcIl5fIGJJJCXXisdI\",\"accept_invitation_url\":\"https://your-app.com/invite?invitation_token=Z1uX3RbwcIl5fIGJJJCXXisdI\"}")
             val result = client.userManagement.acceptInvitation(id = "sample-id")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("POST", request.method)
             assertEquals("/user_management/invitations/sample-id/accept", request.pathOnly())
             assertEquals("invitation_01E4ZCR3C56J083X43JQXF3JK5", result.id)
@@ -302,7 +307,7 @@ class UserManagementTest {
             val (client, server) = testClient(responding = "{\"object\":\"invitation\",\"id\":\"invitation_01E4ZCR3C56J083X43JQXF3JK5\",\"email\":\"marcelina.davis@example.com\",\"state\":\"pending\",\"accepted_at\":null,\"revoked_at\":null,\"expires_at\":\"2026-01-15T12:00:00.000Z\",\"organization_id\":\"org_01E4ZCR3C56J083X43JQXF3JK5\",\"inviter_user_id\":\"user_01HYGBX8ZGD19949T3BM4FW1C3\",\"accepted_user_id\":null,\"role_slug\":\"admin\",\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\",\"token\":\"Z1uX3RbwcIl5fIGJJJCXXisdI\",\"accept_invitation_url\":\"https://your-app.com/invite?invitation_token=Z1uX3RbwcIl5fIGJJJCXXisdI\"}")
             val result = client.userManagement.resendInvitation(id = "sample-id")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("POST", request.method)
             assertEquals("/user_management/invitations/sample-id/resend", request.pathOnly())
             assertEquals("invitation_01E4ZCR3C56J083X43JQXF3JK5", result.id)
@@ -314,7 +319,7 @@ class UserManagementTest {
             val (client, server) = testClient(responding = "{\"object\":\"invitation\",\"id\":\"invitation_01E4ZCR3C56J083X43JQXF3JK5\",\"email\":\"marcelina.davis@example.com\",\"state\":\"accepted\",\"accepted_at\":\"2026-01-15T12:00:00.000Z\",\"revoked_at\":null,\"expires_at\":\"2026-01-15T12:00:00.000Z\",\"organization_id\":\"org_01E4ZCR3C56J083X43JQXF3JK5\",\"inviter_user_id\":\"user_01HYGBX8ZGD19949T3BM4FW1C3\",\"accepted_user_id\":\"user_01E4ZCR3C56J083X43JQXF3JK5\",\"role_slug\":\"admin\",\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\",\"token\":\"Z1uX3RbwcIl5fIGJJJCXXisdI\",\"accept_invitation_url\":\"https://your-app.com/invite?invitation_token=Z1uX3RbwcIl5fIGJJJCXXisdI\"}")
             val result = client.userManagement.revokeInvitation(id = "sample-id")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("POST", request.method)
             assertEquals("/user_management/invitations/sample-id/revoke", request.pathOnly())
             assertEquals("invitation_01E4ZCR3C56J083X43JQXF3JK5", result.id)
@@ -326,7 +331,7 @@ class UserManagementTest {
             val (client, server) = testClient(responding = "{\"object\":\"invitation\",\"id\":\"invitation_01E4ZCR3C56J083X43JQXF3JK5\",\"email\":\"marcelina.davis@example.com\",\"state\":\"pending\",\"accepted_at\":null,\"revoked_at\":null,\"expires_at\":\"2026-01-15T12:00:00.000Z\",\"organization_id\":\"org_01E4ZCR3C56J083X43JQXF3JK5\",\"inviter_user_id\":\"user_01HYGBX8ZGD19949T3BM4FW1C3\",\"accepted_user_id\":null,\"role_slug\":\"admin\",\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\",\"token\":\"Z1uX3RbwcIl5fIGJJJCXXisdI\",\"accept_invitation_url\":\"https://your-app.com/invite?invitation_token=Z1uX3RbwcIl5fIGJJJCXXisdI\"}")
             val result = client.userManagement.findInvitationByToken(token = "sample-token")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("GET", request.method)
             assertEquals("/user_management/invitations/by_token/sample-token", request.pathOnly())
             assertEquals("invitation_01E4ZCR3C56J083X43JQXF3JK5", result.id)
@@ -338,7 +343,7 @@ class UserManagementTest {
             val (client, server) = testClient(responding = "{\"object\":\"jwt_template\",\"content\":\"{\\\"urn:myapp:full_name\\\": \\\"{{user.first_name}} {{user.last_name}}\\\", \\\"urn:myapp:email\\\": \\\"{{user.email}}\\\"}\",\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\"}")
             val result = client.userManagement.listJWTTemplate()
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("GET", request.method)
             assertEquals("/user_management/jwt_template", request.pathOnly())
             assertNotNull(result)
@@ -350,7 +355,7 @@ class UserManagementTest {
             val (client, server) = testClient(responding = "{\"object\":\"jwt_template\",\"content\":\"{\\\"urn:myapp:full_name\\\": \\\"{{user.first_name}} {{user.last_name}}\\\", \\\"urn:myapp:email\\\": \\\"{{user.email}}\\\"}\",\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\"}")
             val result = client.userManagement.updateJWTTemplate(content = "test_content")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("PUT", request.method)
             assertEquals("/user_management/jwt_template", request.pathOnly())
             assertTrue(request.bodyJson().containsKey("content"))
@@ -363,7 +368,7 @@ class UserManagementTest {
             val (client, server) = testClient(responding = "{\"object\":\"magic_auth\",\"id\":\"magic_auth_01HWZBQZY2M3AMQW166Q22K88F\",\"user_id\":\"user_01E4ZCR3C56J083X43JQXF3JK5\",\"email\":\"marcelina.davis@example.com\",\"expires_at\":\"2026-01-15T12:00:00.000Z\",\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\",\"code\":\"123456\",\"radar_auth_attempt_id\":\"radar_auth_attempt_01HXYZ123456789ABCDEFGHIJ\"}")
             val result = client.userManagement.createMagicAuth(email = "test_email")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("POST", request.method)
             assertEquals("/user_management/magic_auth", request.pathOnly())
             assertTrue(request.bodyJson().containsKey("email"))
@@ -376,7 +381,7 @@ class UserManagementTest {
             val (client, server) = testClient(responding = "{\"object\":\"magic_auth\",\"id\":\"magic_auth_01HWZBQZY2M3AMQW166Q22K88F\",\"user_id\":\"user_01E4ZCR3C56J083X43JQXF3JK5\",\"email\":\"marcelina.davis@example.com\",\"expires_at\":\"2026-01-15T12:00:00.000Z\",\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\",\"code\":\"123456\"}")
             val result = client.userManagement.getMagicAuth(id = "sample-id")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("GET", request.method)
             assertEquals("/user_management/magic_auth/sample-id", request.pathOnly())
             assertEquals("magic_auth_01HWZBQZY2M3AMQW166Q22K88F", result.id)
@@ -388,7 +393,7 @@ class UserManagementTest {
             val (client, server) = testClient(responding = "{\"object\":\"password_reset\",\"id\":\"password_reset_01E4ZCR3C56J083X43JQXF3JK5\",\"user_id\":\"user_01E4ZCR3C56J083X43JQXF3JK5\",\"email\":\"marcelina.davis@example.com\",\"expires_at\":\"2026-01-15T12:00:00.000Z\",\"created_at\":\"2026-01-15T12:00:00.000Z\",\"password_reset_token\":\"Z1uX3RbwcIl5fIGJJJCXXisdI\",\"password_reset_url\":\"https://your-app.com/reset-password?token=Z1uX3RbwcIl5fIGJJJCXXisdI\"}")
             val result = client.userManagement.resetPassword(email = "test_email")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("POST", request.method)
             assertEquals("/user_management/password_reset", request.pathOnly())
             assertTrue(request.bodyJson().containsKey("email"))
@@ -401,7 +406,7 @@ class UserManagementTest {
             val (client, server) = testClient(responding = "{\"object\":\"password_reset\",\"id\":\"password_reset_01E4ZCR3C56J083X43JQXF3JK5\",\"user_id\":\"user_01E4ZCR3C56J083X43JQXF3JK5\",\"email\":\"marcelina.davis@example.com\",\"expires_at\":\"2026-01-15T12:00:00.000Z\",\"created_at\":\"2026-01-15T12:00:00.000Z\",\"password_reset_token\":\"Z1uX3RbwcIl5fIGJJJCXXisdI\",\"password_reset_url\":\"https://your-app.com/reset-password?token=Z1uX3RbwcIl5fIGJJJCXXisdI\"}")
             val result = client.userManagement.getPasswordReset(id = "sample-id")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("GET", request.method)
             assertEquals("/user_management/password_reset/sample-id", request.pathOnly())
             assertEquals("password_reset_01E4ZCR3C56J083X43JQXF3JK5", result.id)
@@ -413,7 +418,7 @@ class UserManagementTest {
             val (client, server) = testClient(responding = "{\"user\":{\"object\":\"user\",\"id\":\"user_01E4ZCR3C56J083X43JQXF3JK5\",\"first_name\":\"Marcelina\",\"last_name\":\"Davis\",\"name\":\"Marcelina Davis\",\"profile_picture_url\":\"https://workoscdn.com/images/v1/123abc\",\"email\":\"marcelina.davis@example.com\",\"email_verified\":true,\"external_id\":\"f1ffa2b2-c20b-4d39-be5c-212726e11222\",\"metadata\":{\"timezone\":\"America/New_York\"},\"last_sign_in_at\":\"2025-06-25T19:07:33.155Z\",\"locale\":\"en-US\",\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\"}}")
             val result = client.userManagement.confirmPasswordReset(token = "test_token", newPassword = "test_new_password")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("POST", request.method)
             assertEquals("/user_management/password_reset/confirm", request.pathOnly())
             assertTrue(request.bodyJson().containsKey("token"))
@@ -426,7 +431,7 @@ class UserManagementTest {
             val (client, server) = testClient(responding = "{\"verification_id\":\"vrf_01HXYZ123456789ABCDEFGHIJ\",\"phone_number\":\"+15555550123\"}")
             val result = client.userManagement.createRadarChallenge(userId = "test_user_id", pendingAuthenticationToken = "test_pending_authentication_token", phoneNumber = "test_phone_number")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("POST", request.method)
             assertEquals("/user_management/radar_challenges", request.pathOnly())
             assertTrue(request.bodyJson().containsKey("user_id"))
@@ -439,7 +444,7 @@ class UserManagementTest {
             val (client, server) = testClient(responding = "{\"object\":\"radar_challenge\",\"id\":\"radar_challenge_01HWZBQZY2M3AMQW166Q22K88F\",\"type\":\"email\",\"user_id\":\"user_01E4ZCR3C56J083X43JQXF3JK5\",\"email\":\"marcelina.davis@example.com\",\"expires_at\":\"2026-01-15T12:00:00.000Z\",\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\",\"code\":\"123456\"}")
             val result = client.userManagement.getRadarChallenge(id = "sample-id")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("GET", request.method)
             assertEquals("/user_management/radar_challenges/sample-id", request.pathOnly())
             assertEquals("radar_challenge_01HWZBQZY2M3AMQW166Q22K88F", result.id)
@@ -451,7 +456,7 @@ class UserManagementTest {
             val (client, server) = testClient(responding = "{\"data\":[{\"object\":\"redirect_uri\",\"id\":\"redir_01EHZNVPK3SFK441A1RGBFSHRT\",\"uri\":\"https://example.com/callback\",\"default\":true,\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\"}],\"list_metadata\":{\"before\":null,\"after\":null}}")
             val result = client.userManagement.listRedirectUris()
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("GET", request.method)
             assertEquals("/user_management/redirect_uris", request.pathOnly())
             assertEquals(1, result.data.size)
@@ -464,7 +469,7 @@ class UserManagementTest {
             val (client, server) = testClient(responding = "{\"object\":\"redirect_uri\",\"id\":\"redir_01EHZNVPK3SFK441A1RGBFSHRT\",\"uri\":\"https://example.com/callback\",\"default\":true,\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\"}")
             val result = client.userManagement.createRedirectUri(uri = "test_uri")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("POST", request.method)
             assertEquals("/user_management/redirect_uris", request.pathOnly())
             assertTrue(request.bodyJson().containsKey("uri"))
@@ -477,7 +482,7 @@ class UserManagementTest {
             val (client, server) = testClient(responding = "{}")
             client.userManagement.deleteRedirectUris(id = "sample-id")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("DELETE", request.method)
             assertEquals("/user_management/redirect_uris/sample-id", request.pathOnly())
         }
@@ -498,7 +503,7 @@ class UserManagementTest {
             val (client, server) = testClient(responding = "{}")
             client.userManagement.revokeSession(sessionId = "test_session_id")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("POST", request.method)
             assertEquals("/user_management/sessions/revoke", request.pathOnly())
             assertTrue(request.bodyJson().containsKey("session_id"))
@@ -510,7 +515,7 @@ class UserManagementTest {
             val (client, server) = testClient(responding = "{\"data\":[{\"object\":\"user\",\"id\":\"user_01E4ZCR3C56J083X43JQXF3JK5\",\"first_name\":\"Marcelina\",\"last_name\":\"Davis\",\"name\":\"Marcelina Davis\",\"profile_picture_url\":\"https://workoscdn.com/images/v1/123abc\",\"email\":\"marcelina.davis@example.com\",\"email_verified\":true,\"external_id\":\"f1ffa2b2-c20b-4d39-be5c-212726e11222\",\"metadata\":{\"timezone\":\"America/New_York\"},\"last_sign_in_at\":\"2025-06-25T19:07:33.155Z\",\"locale\":\"en-US\",\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\"}],\"list_metadata\":{\"before\":null,\"after\":null}}")
             val result = client.userManagement.list()
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("GET", request.method)
             assertEquals("/user_management/users", request.pathOnly())
             assertEquals(1, result.data.size)
@@ -523,7 +528,7 @@ class UserManagementTest {
             val (client, server) = testClient(responding = "{\"object\":\"user\",\"id\":\"user_01E4ZCR3C56J083X43JQXF3JK5\",\"first_name\":\"Marcelina\",\"last_name\":\"Davis\",\"name\":\"Marcelina Davis\",\"profile_picture_url\":\"https://workoscdn.com/images/v1/123abc\",\"email\":\"marcelina.davis@example.com\",\"email_verified\":true,\"external_id\":\"f1ffa2b2-c20b-4d39-be5c-212726e11222\",\"metadata\":{\"timezone\":\"America/New_York\"},\"last_sign_in_at\":\"2025-06-25T19:07:33.155Z\",\"locale\":\"en-US\",\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\",\"radar_auth_attempt_id\":\"radar_auth_attempt_01HXYZ123456789ABCDEFGHIJ\"}")
             val result = client.userManagement.create(email = "test_email")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("POST", request.method)
             assertEquals("/user_management/users", request.pathOnly())
             assertTrue(request.bodyJson().containsKey("email"))
@@ -536,7 +541,7 @@ class UserManagementTest {
             val (client, server) = testClient(responding = "{\"object\":\"user\",\"id\":\"user_01E4ZCR3C56J083X43JQXF3JK5\",\"first_name\":\"Marcelina\",\"last_name\":\"Davis\",\"name\":\"Marcelina Davis\",\"profile_picture_url\":\"https://workoscdn.com/images/v1/123abc\",\"email\":\"marcelina.davis@example.com\",\"email_verified\":true,\"external_id\":\"f1ffa2b2-c20b-4d39-be5c-212726e11222\",\"metadata\":{\"timezone\":\"America/New_York\"},\"last_sign_in_at\":\"2025-06-25T19:07:33.155Z\",\"locale\":\"en-US\",\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\"}")
             val result = client.userManagement.get(id = "sample-id")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("GET", request.method)
             assertEquals("/user_management/users/sample-id", request.pathOnly())
             assertEquals("user_01E4ZCR3C56J083X43JQXF3JK5", result.id)
@@ -548,7 +553,7 @@ class UserManagementTest {
             val (client, server) = testClient(responding = "{\"object\":\"user\",\"id\":\"user_01E4ZCR3C56J083X43JQXF3JK5\",\"first_name\":\"Marcelina\",\"last_name\":\"Davis\",\"name\":\"Marcelina Davis\",\"profile_picture_url\":\"https://workoscdn.com/images/v1/123abc\",\"email\":\"marcelina.davis@example.com\",\"email_verified\":true,\"external_id\":\"f1ffa2b2-c20b-4d39-be5c-212726e11222\",\"metadata\":{\"timezone\":\"America/New_York\"},\"last_sign_in_at\":\"2025-06-25T19:07:33.155Z\",\"locale\":\"en-US\",\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\"}")
             val result = client.userManagement.update(id = "sample-id")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("PUT", request.method)
             assertEquals("/user_management/users/sample-id", request.pathOnly())
             assertEquals("user_01E4ZCR3C56J083X43JQXF3JK5", result.id)
@@ -560,7 +565,7 @@ class UserManagementTest {
             val (client, server) = testClient(responding = "{}")
             client.userManagement.delete(id = "sample-id")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("DELETE", request.method)
             assertEquals("/user_management/users/sample-id", request.pathOnly())
         }
@@ -571,7 +576,7 @@ class UserManagementTest {
             val (client, server) = testClient(responding = "{\"object\":\"email_change_confirmation\",\"user\":{\"object\":\"user\",\"id\":\"user_01E4ZCR3C56J083X43JQXF3JK5\",\"first_name\":\"Marcelina\",\"last_name\":\"Davis\",\"name\":\"Marcelina Davis\",\"profile_picture_url\":\"https://workoscdn.com/images/v1/123abc\",\"email\":\"new.email@example.com\",\"email_verified\":true,\"external_id\":\"f1ffa2b2-c20b-4d39-be5c-212726e11222\",\"metadata\":{\"timezone\":\"America/New_York\"},\"last_sign_in_at\":\"2025-06-25T19:07:33.155Z\",\"locale\":\"en-US\",\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\"}}")
             val result = client.userManagement.confirmEmailChange(id = "sample-id", code = "test_code")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("POST", request.method)
             assertEquals("/user_management/users/sample-id/email_change/confirm", request.pathOnly())
             assertTrue(request.bodyJson().containsKey("code"))
@@ -584,7 +589,7 @@ class UserManagementTest {
             val (client, server) = testClient(responding = "{\"object\":\"email_change\",\"user\":{\"object\":\"user\",\"id\":\"user_01E4ZCR3C56J083X43JQXF3JK5\",\"first_name\":\"Marcelina\",\"last_name\":\"Davis\",\"name\":\"Marcelina Davis\",\"profile_picture_url\":\"https://workoscdn.com/images/v1/123abc\",\"email\":\"marcelina.davis@example.com\",\"email_verified\":true,\"external_id\":\"f1ffa2b2-c20b-4d39-be5c-212726e11222\",\"metadata\":{\"timezone\":\"America/New_York\"},\"last_sign_in_at\":\"2025-06-25T19:07:33.155Z\",\"locale\":\"en-US\",\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\"},\"new_email\":\"new.email@example.com\",\"expires_at\":\"2026-01-15T12:00:00.000Z\",\"created_at\":\"2026-01-15T12:00:00.000Z\"}")
             val result = client.userManagement.sendEmailChange(id = "sample-id", newEmail = "test_new_email")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("POST", request.method)
             assertEquals("/user_management/users/sample-id/email_change/send", request.pathOnly())
             assertTrue(request.bodyJson().containsKey("new_email"))
@@ -597,7 +602,7 @@ class UserManagementTest {
             val (client, server) = testClient(responding = "{\"user\":{\"object\":\"user\",\"id\":\"user_01E4ZCR3C56J083X43JQXF3JK5\",\"first_name\":\"Marcelina\",\"last_name\":\"Davis\",\"name\":\"Marcelina Davis\",\"profile_picture_url\":\"https://workoscdn.com/images/v1/123abc\",\"email\":\"marcelina.davis@example.com\",\"email_verified\":true,\"external_id\":\"f1ffa2b2-c20b-4d39-be5c-212726e11222\",\"metadata\":{\"timezone\":\"America/New_York\"},\"last_sign_in_at\":\"2025-06-25T19:07:33.155Z\",\"locale\":\"en-US\",\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\"}}")
             val result = client.userManagement.verifyEmail(id = "sample-id", code = "test_code")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("POST", request.method)
             assertEquals("/user_management/users/sample-id/email_verification/confirm", request.pathOnly())
             assertTrue(request.bodyJson().containsKey("code"))
@@ -610,7 +615,7 @@ class UserManagementTest {
             val (client, server) = testClient(responding = "{\"user\":{\"object\":\"user\",\"id\":\"user_01E4ZCR3C56J083X43JQXF3JK5\",\"first_name\":\"Marcelina\",\"last_name\":\"Davis\",\"name\":\"Marcelina Davis\",\"profile_picture_url\":\"https://workoscdn.com/images/v1/123abc\",\"email\":\"marcelina.davis@example.com\",\"email_verified\":true,\"external_id\":\"f1ffa2b2-c20b-4d39-be5c-212726e11222\",\"metadata\":{\"timezone\":\"America/New_York\"},\"last_sign_in_at\":\"2025-06-25T19:07:33.155Z\",\"locale\":\"en-US\",\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\"}}")
             val result = client.userManagement.sendVerificationEmail(id = "sample-id")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("POST", request.method)
             assertEquals("/user_management/users/sample-id/email_verification/send", request.pathOnly())
             assertNotNull(result)
@@ -622,7 +627,7 @@ class UserManagementTest {
             val (client, server) = testClient(responding = "[{\"idp_id\":\"4F42ABDE-1E44-4B66-824A-5F733C037A6D\",\"type\":\"OAuth\",\"provider\":\"MicrosoftOAuth\"}]")
             val result = client.userManagement.getIdentities(id = "sample-id")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("GET", request.method)
             assertEquals("/user_management/users/sample-id/identities", request.pathOnly())
             assertEquals(1, result.size)
@@ -634,7 +639,7 @@ class UserManagementTest {
             val (client, server) = testClient(responding = "{\"data\":[{\"object\":\"session\",\"id\":\"session_01H93ZY4F80QPBEZ1R5B2SHQG8\",\"impersonator\":{\"email\":\"admin@foocorp.com\",\"reason\":\"Investigating an issue with the customer's account.\"},\"ip_address\":\"198.51.100.42\",\"organization_id\":\"org_01H945H0YD4F97JN9MATX7BYAG\",\"user_agent\":\"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36\",\"user_id\":\"user_01E4ZCR3C56J083X43JQXF3JK5\",\"auth_method\":\"sso\",\"status\":\"active\",\"expires_at\":\"2026-01-15T12:00:00.000Z\",\"ended_at\":null,\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\"}],\"list_metadata\":{\"before\":null,\"after\":null}}")
             val result = client.userManagement.listSessions(id = "sample-id")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("GET", request.method)
             assertEquals("/user_management/users/sample-id/sessions", request.pathOnly())
             assertEquals(1, result.data.size)
@@ -647,7 +652,7 @@ class UserManagementTest {
             val (client, server) = testClient(responding = "{\"data\":[{\"object\":\"authorized_connect_application\",\"id\":\"authorized_connect_app_01HXYZ123456789ABCDEFGHIJ\",\"granted_scopes\":[\"openid\",\"profile\",\"email\"],\"oauth_resource\":\"https://api.example.com/resource\",\"application\":{\"object\":\"connect_application\",\"id\":\"conn_app_01HXYZ123456789ABCDEFGHIJ\",\"client_id\":\"client_01HXYZ123456789ABCDEFGHIJ\",\"description\":\"An application for managing user access\",\"name\":\"My Application\",\"scopes\":[\"openid\",\"profile\",\"email\"],\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\",\"application_type\":\"oauth\",\"redirect_uris\":[{\"uri\":\"https://example.com\",\"default\":true}],\"uses_pkce\":true,\"is_first_party\":true,\"was_dynamically_registered\":false,\"organization_id\":\"organization_id_01234\"}}],\"list_metadata\":{\"before\":null,\"after\":null}}")
             val result = client.userManagement.listAuthorizedApplications(userId = "sample-user-id")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("GET", request.method)
             assertEquals("/user_management/users/sample-user-id/authorized_applications", request.pathOnly())
             assertEquals(1, result.data.size)
@@ -660,7 +665,7 @@ class UserManagementTest {
             val (client, server) = testClient(responding = "{}")
             client.userManagement.deleteAuthorizedApplication(userId = "sample-user-id", applicationId = "sample-application-id")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("DELETE", request.method)
             assertEquals("/user_management/users/sample-user-id/authorized_applications/sample-application-id", request.pathOnly())
         }
@@ -671,7 +676,7 @@ class UserManagementTest {
             val (client, server) = testClient(responding = "{\"data\":[{\"object\":\"api_key\",\"id\":\"api_key_01EHZNVPK3SFK441A1RGBFSHRT\",\"owner\":{\"type\":\"user\",\"id\":\"user_01EHZNVPK3SFK441A1RGBFSHRT\",\"organization_id\":\"org_01EHZNVPK3SFK441A1RGBFSHRT\"},\"name\":\"Production API Key\",\"obfuscated_value\":\"sk_...3456\",\"last_used_at\":null,\"expires_at\":null,\"permissions\":[\"posts:read\",\"posts:write\"],\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\"}],\"list_metadata\":{\"before\":null,\"after\":null}}")
             val result = client.userManagement.listApiKeys(userId = "sample-userId")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("GET", request.method)
             assertEquals("/user_management/users/sample-userId/api_keys", request.pathOnly())
             assertEquals(1, result.data.size)
@@ -684,7 +689,7 @@ class UserManagementTest {
             val (client, server) = testClient(responding = "{\"object\":\"api_key\",\"id\":\"api_key_01EHZNVPK3SFK441A1RGBFSHRT\",\"owner\":{\"type\":\"user\",\"id\":\"user_01EHZNVPK3SFK441A1RGBFSHRT\",\"organization_id\":\"org_01EHZNVPK3SFK441A1RGBFSHRT\"},\"name\":\"Production API Key\",\"obfuscated_value\":\"sk_...3456\",\"last_used_at\":null,\"expires_at\":\"2030-01-01T00:00:00.000Z\",\"permissions\":[\"posts:read\",\"posts:write\"],\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\",\"value\":\"sk_abcdefghijklmnop123456\"}")
             val result = client.userManagement.createApiKey(userId = "sample-userId", name = "test_name", organizationId = "test_organization_id")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("POST", request.method)
             assertEquals("/user_management/users/sample-userId/api_keys", request.pathOnly())
             assertTrue(request.bodyJson().containsKey("name"))
@@ -697,7 +702,7 @@ class UserManagementTest {
             val (client, server) = testClient(responding = "{\"object\":\"user\",\"id\":\"user_01E4ZCR3C56J083X43JQXF3JK5\",\"first_name\":\"Marcelina\",\"last_name\":\"Davis\",\"name\":\"Marcelina Davis\",\"profile_picture_url\":\"https://workoscdn.com/images/v1/123abc\",\"email\":\"marcelina.davis@example.com\",\"email_verified\":true,\"external_id\":\"f1ffa2b2-c20b-4d39-be5c-212726e11222\",\"metadata\":{\"timezone\":\"America/New_York\"},\"last_sign_in_at\":\"2025-06-25T19:07:33.155Z\",\"locale\":\"en-US\",\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\"}")
             val result = client.userManagement.getByExternalId(externalId = "sample-external-id")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("GET", request.method)
             assertEquals("/user_management/users/external_id/sample-external-id", request.pathOnly())
             assertEquals("user_01E4ZCR3C56J083X43JQXF3JK5", result.id)
@@ -720,7 +725,7 @@ class UserManagementTest {
 
             client.userManagement.listCorsOrigins(before = "a b/c&d=e")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("a b/c&d=e", request.queryParam("before"))
         }
 
@@ -731,7 +736,7 @@ class UserManagementTest {
 
             client.userManagement.getJwks(clientId = "sample-clientId", requestOptions = RequestOptions(headers = mapOf("X-Custom" to "value")))
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("value", request.headerValue("X-Custom"))
         }
 

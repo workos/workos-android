@@ -6,6 +6,7 @@ import com.workos.android.enums.RadarListAction
 import com.workos.android.enums.RadarListType
 import com.workos.android.enums.RadarStandaloneAssessRequestAction
 import com.workos.android.enums.RadarStandaloneAssessRequestAuthMethod
+import com.workos.android.support.awaitRequest
 import com.workos.android.support.bodyJson
 import com.workos.android.support.headerValue
 import com.workos.android.support.pathOnly
@@ -30,7 +31,7 @@ class RadarTest {
             val (client, server) = testClient(responding = "{\"verdict\":\"block\",\"reason\":\"Detected enabled Radar control\",\"attempt_id\":\"radar_att_01HZBC6N1EB1ZY7KG32X\",\"control\":\"bot_detection\",\"blocklist_type\":\"ip_address\"}")
             val result = client.radar.createAttempt(ipAddress = "test_ip_address", userAgent = "test_user_agent", email = "test_email", authMethod = RadarStandaloneAssessRequestAuthMethod.fromRawValue("Password"), action = RadarStandaloneAssessRequestAction.fromRawValue("sign-up"))
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("POST", request.method)
             assertEquals("/radar/attempts", request.pathOnly())
             assertTrue(request.bodyJson().containsKey("ip_address"))
@@ -43,7 +44,7 @@ class RadarTest {
             val (client, server) = testClient(responding = "{}")
             client.radar.updateAttempt(id = "sample-id")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("PUT", request.method)
             assertEquals("/radar/attempts/sample-id", request.pathOnly())
         }
@@ -54,7 +55,7 @@ class RadarTest {
             val (client, server) = testClient(responding = "{\"message\":\"Entry already present in list\"}")
             val result = client.radar.addListEntry(type = RadarListType.fromRawValue("ip_address"), action = RadarListAction.fromRawValue("block"), entry = "test_entry")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("POST", request.method)
             assertEquals("/radar/lists/ip_address/block", request.pathOnly())
             assertTrue(request.bodyJson().containsKey("entry"))
@@ -67,7 +68,7 @@ class RadarTest {
             val (client, server) = testClient(responding = "{}")
             client.radar.removeListEntry(type = RadarListType.fromRawValue("ip_address"), action = RadarListAction.fromRawValue("block"), entry = "test_entry")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("DELETE", request.method)
             assertEquals("/radar/lists/ip_address/block", request.pathOnly())
             assertTrue(request.bodyJson().containsKey("entry"))
@@ -80,7 +81,7 @@ class RadarTest {
 
             client.radar.createAttempt(ipAddress = "test_ip_address", userAgent = "test_user_agent", email = "test_email", authMethod = RadarStandaloneAssessRequestAuthMethod.fromRawValue("Password"), action = RadarStandaloneAssessRequestAction.fromRawValue("sign-up"), requestOptions = RequestOptions(headers = mapOf("X-Custom" to "value")))
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("value", request.headerValue("X-Custom"))
         }
 

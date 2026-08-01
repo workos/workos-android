@@ -4,6 +4,7 @@ package com.workos.android
 
 import com.workos.android.models.CreateApplicationSecret
 import com.workos.android.models.UserObject
+import com.workos.android.support.awaitRequest
 import com.workos.android.support.bodyJson
 import com.workos.android.support.headerValue
 import com.workos.android.support.pathOnly
@@ -30,7 +31,7 @@ class ConnectTest {
             val (client, server) = testClient(responding = "{\"redirect_uri\":\"https://your-authkit-domain.workos.com/oauth/authorize/complete?state=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdGF0ZSI6InJhbmRvbV9zdGF0ZV9zdHJpbmciLCJpYXQiOjE3NDI2MDQ4NTN9.abc123def456ghi789\"}")
             val result = client.connect.completeOAuth2(externalAuthId = "test_external_auth_id", user = UserObject(id = "test_id", email = "test_email"))
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("POST", request.method)
             assertEquals("/authkit/oauth2/complete", request.pathOnly())
             assertTrue(request.bodyJson().containsKey("external_auth_id"))
@@ -43,7 +44,7 @@ class ConnectTest {
             val (client, server) = testClient(responding = "{\"data\":[{\"object\":\"connect_application\",\"id\":\"conn_app_01HXYZ123456789ABCDEFGHIJ\",\"client_id\":\"client_01HXYZ123456789ABCDEFGHIJ\",\"description\":\"An application for managing user access\",\"name\":\"My Application\",\"scopes\":[\"openid\",\"profile\",\"email\"],\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\",\"application_type\":\"oauth\",\"redirect_uris\":[{\"uri\":\"https://example.com\",\"default\":true}],\"uses_pkce\":true,\"is_first_party\":true,\"was_dynamically_registered\":false,\"organization_id\":\"organization_id_01234\"}],\"list_metadata\":{\"before\":null,\"after\":null}}")
             val result = client.connect.listApplications()
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("GET", request.method)
             assertEquals("/connect/applications", request.pathOnly())
             assertEquals(1, result.data.size)
@@ -56,7 +57,7 @@ class ConnectTest {
             val (client, server) = testClient(responding = "{\"object\":\"connect_application\",\"id\":\"conn_app_01HXYZ123456789ABCDEFGHIJ\",\"client_id\":\"client_01HXYZ123456789ABCDEFGHIJ\",\"description\":\"An application for managing user access\",\"name\":\"My Application\",\"scopes\":[\"openid\",\"profile\",\"email\"],\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\",\"application_type\":\"oauth\",\"redirect_uris\":[{\"uri\":\"https://example.com\",\"default\":true}],\"uses_pkce\":true,\"is_first_party\":true,\"was_dynamically_registered\":false,\"organization_id\":\"organization_id_01234\"}")
             val result = client.connect.createOAuthApplication(name = "test_name", isFirstParty = true)
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("POST", request.method)
             assertEquals("/connect/applications", request.pathOnly())
             val body = request.bodyJson()
@@ -71,7 +72,7 @@ class ConnectTest {
             val (client, server) = testClient(responding = "{\"object\":\"connect_application\",\"id\":\"conn_app_01HXYZ123456789ABCDEFGHIJ\",\"client_id\":\"client_01HXYZ123456789ABCDEFGHIJ\",\"description\":\"An application for managing user access\",\"name\":\"My Application\",\"scopes\":[\"openid\",\"profile\",\"email\"],\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\",\"application_type\":\"oauth\",\"redirect_uris\":[{\"uri\":\"https://example.com\",\"default\":true}],\"uses_pkce\":true,\"is_first_party\":true,\"was_dynamically_registered\":false,\"organization_id\":\"organization_id_01234\"}")
             val result = client.connect.createM2MApplication(name = "test_name", organizationId = "test_organization_id")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("POST", request.method)
             assertEquals("/connect/applications", request.pathOnly())
             val body = request.bodyJson()
@@ -86,7 +87,7 @@ class ConnectTest {
             val (client, server) = testClient(responding = "{\"object\":\"connect_application\",\"id\":\"conn_app_01HXYZ123456789ABCDEFGHIJ\",\"client_id\":\"client_01HXYZ123456789ABCDEFGHIJ\",\"description\":\"An application for managing user access\",\"name\":\"My Application\",\"scopes\":[\"openid\",\"profile\",\"email\"],\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\",\"application_type\":\"oauth\",\"redirect_uris\":[{\"uri\":\"https://example.com\",\"default\":true}],\"uses_pkce\":true,\"is_first_party\":true,\"was_dynamically_registered\":false,\"organization_id\":\"organization_id_01234\"}")
             val result = client.connect.getApplication(id = "sample-id")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("GET", request.method)
             assertEquals("/connect/applications/sample-id", request.pathOnly())
             assertEquals("conn_app_01HXYZ123456789ABCDEFGHIJ", result.id)
@@ -98,7 +99,7 @@ class ConnectTest {
             val (client, server) = testClient(responding = "{\"object\":\"connect_application\",\"id\":\"conn_app_01HXYZ123456789ABCDEFGHIJ\",\"client_id\":\"client_01HXYZ123456789ABCDEFGHIJ\",\"description\":\"An application for managing user access\",\"name\":\"My Application\",\"scopes\":[\"openid\",\"profile\",\"email\"],\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\",\"application_type\":\"oauth\",\"redirect_uris\":[{\"uri\":\"https://example.com\",\"default\":true}],\"uses_pkce\":true,\"is_first_party\":true,\"was_dynamically_registered\":false,\"organization_id\":\"organization_id_01234\"}")
             val result = client.connect.updateApplication(id = "sample-id")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("PUT", request.method)
             assertEquals("/connect/applications/sample-id", request.pathOnly())
             assertEquals("conn_app_01HXYZ123456789ABCDEFGHIJ", result.id)
@@ -110,7 +111,7 @@ class ConnectTest {
             val (client, server) = testClient(responding = "{}")
             client.connect.deleteApplication(id = "sample-id")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("DELETE", request.method)
             assertEquals("/connect/applications/sample-id", request.pathOnly())
         }
@@ -121,7 +122,7 @@ class ConnectTest {
             val (client, server) = testClient(responding = "[{\"object\":\"connect_application_secret\",\"id\":\"secret_01J9Q2Z3X4Y5W6V7U8T9S0R1Q\",\"secret_hint\":\"abc123\",\"last_used_at\":null,\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\"}]")
             val result = client.connect.listApplicationClientSecrets(id = "sample-id")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("GET", request.method)
             assertEquals("/connect/applications/sample-id/client_secrets", request.pathOnly())
             assertEquals(1, result.size)
@@ -133,7 +134,7 @@ class ConnectTest {
             val (client, server) = testClient(responding = "{\"object\":\"connect_application_secret\",\"id\":\"secret_01J9Q2Z3X4Y5W6V7U8T9S0R1Q\",\"secret_hint\":\"abc123\",\"last_used_at\":null,\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\",\"secret\":\"abc123def456ghi789jkl012mno345pqr678stu901vwx234yz\"}")
             val result = client.connect.createApplicationClientSecret(id = "sample-id", body = CreateApplicationSecret())
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("POST", request.method)
             assertEquals("/connect/applications/sample-id/client_secrets", request.pathOnly())
             assertEquals("secret_01J9Q2Z3X4Y5W6V7U8T9S0R1Q", result.id)
@@ -145,7 +146,7 @@ class ConnectTest {
             val (client, server) = testClient(responding = "{}")
             client.connect.deleteClientSecret(id = "sample-id")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("DELETE", request.method)
             assertEquals("/connect/client_secrets/sample-id", request.pathOnly())
         }
@@ -167,7 +168,7 @@ class ConnectTest {
 
             client.connect.listApplications(before = "a b/c&d=e")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("a b/c&d=e", request.queryParam("before"))
         }
 
@@ -178,7 +179,7 @@ class ConnectTest {
 
             client.connect.completeOAuth2(externalAuthId = "test_external_auth_id", user = UserObject(id = "test_id", email = "test_email"), requestOptions = RequestOptions(headers = mapOf("X-Custom" to "value")))
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("value", request.headerValue("X-Custom"))
         }
 

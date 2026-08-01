@@ -2,6 +2,7 @@
 
 package com.workos.android
 
+import com.workos.android.support.awaitRequest
 import com.workos.android.support.bodyJson
 import com.workos.android.support.headerValue
 import com.workos.android.support.pathOnly
@@ -27,7 +28,7 @@ class VaultTest {
             val (client, server) = testClient(responding = "{\"context\":{\"organization_id\":\"org_01K8ZYT4AWJ6XP0E0S8CTBHE3P\"},\"data_key\":\"DR9idtey9MpMrA1VRFrz30HB1yNgL2PoHZyjAkFeWgg=\",\"encrypted_keys\":\"V09TLkVLTS52MQBiZjUxY2NlYy03OGI0LTUyMDAtYjM4My0zNTczMGU3MWVmNjEBATEBJGJmNjVlMzI2LTQzYTAtNGIyMC04OGM0LTA3ZmYzZGU1NDM0YwF0YmY2NWUzMjYtNDNhMC00YjIwLTg4YzQtMDdmZjNkZTU0MzRj\",\"id\":\"bf51ccec-78b4-5200-b383-35730e71ef61\"}")
             val result = client.vault.createDataKey(context = mapOf("key" to "test_context"))
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("POST", request.method)
             assertEquals("/vault/v1/keys/data-key", request.pathOnly())
             assertTrue(request.bodyJson().containsKey("context"))
@@ -40,7 +41,7 @@ class VaultTest {
             val (client, server) = testClient(responding = "{\"data_key\":\"DR9idtey9MpMrA1VRFrz30HB1yNgL2PoHZyjAkFeWgg=\",\"id\":\"bf51ccec-78b4-5200-b383-35730e71ef61\"}")
             val result = client.vault.createDecrypt(keys = "test_keys")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("POST", request.method)
             assertEquals("/vault/v1/keys/decrypt", request.pathOnly())
             assertTrue(request.bodyJson().containsKey("keys"))
@@ -53,7 +54,7 @@ class VaultTest {
             val (client, server) = testClient(responding = "{\"context\":{\"organization_id\":\"org_01K8ZYT4AWJ6XP0E0S8CTBHE3P\"},\"data_key\":\"DR9idtey9MpMrA1VRFrz30HB1yNgL2PoHZyjAkFeWgg=\",\"encrypted_keys\":\"V09TLkVLTS52MQBiZjUxY2NlYy03OGI0LTUyMDAtYjM4My0zNTczMGU3MWVmNjEBATEBJGJmNjVlMzI2LTQzYTAtNGIyMC04OGM0LTA3ZmYzZGU1NDM0YwF0YmY2NWUzMjYtNDNhMC00YjIwLTg4YzQtMDdmZjNkZTU0MzRj\",\"id\":\"bf51ccec-78b4-5200-b383-35730e71ef61\"}")
             val result = client.vault.createRekey(context = mapOf("key" to "test_context"), encryptedKeys = "test_encrypted_keys")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("POST", request.method)
             assertEquals("/vault/v1/keys/rekey", request.pathOnly())
             assertTrue(request.bodyJson().containsKey("context"))
@@ -66,7 +67,7 @@ class VaultTest {
             val (client, server) = testClient(responding = "{\"data\":[{\"id\":\"a1b2c3d4-e5f6-7890-abcd-ef1234567890\",\"name\":\"my-secret\",\"updated_at\":\"2024-06-15T10:30:00Z\"}],\"list_metadata\":{\"before\":null,\"after\":null}}")
             val result = client.vault.listKv()
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("GET", request.method)
             assertEquals("/vault/v1/kv", request.pathOnly())
             assertEquals(1, result.data.size)
@@ -79,7 +80,7 @@ class VaultTest {
             val (client, server) = testClient(responding = "{\"context\":{\"organization_id\":\"org_01K8ZYT4AWJ6XP0E0S8CTBHE3P\"},\"environment_id\":\"environment_01K8ZYT4AWJ6XP0E0S8CTBHE3P\",\"id\":\"a1b2c3d4-e5f6-7890-abcd-ef1234567890\",\"key_id\":\"bf65e326-43a0-4b20-88c4-07ff3de5434c\",\"updated_at\":\"2024-06-15T10:30:00Z\",\"updated_by\":{\"id\":\"key_01K8ZYT4AWJ6XP0E0S8CTBHE3P\",\"name\":\"My API Key\"},\"version_id\":\"c3d4e5f6-7890-abcd-ef12-34567890abcd\"}")
             val result = client.vault.createKv(keyContext = mapOf("key" to "test_key_context"), name = "test_name", value = "test_value")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("POST", request.method)
             assertEquals("/vault/v1/kv", request.pathOnly())
             assertTrue(request.bodyJson().containsKey("key_context"))
@@ -92,7 +93,7 @@ class VaultTest {
             val (client, server) = testClient(responding = "{\"id\":\"a1b2c3d4-e5f6-7890-abcd-ef1234567890\",\"metadata\":{\"context\":{\"organization_id\":\"org_01K8ZYT4AWJ6XP0E0S8CTBHE3P\"},\"environment_id\":\"environment_01K8ZYT4AWJ6XP0E0S8CTBHE3P\",\"id\":\"a1b2c3d4-e5f6-7890-abcd-ef1234567890\",\"key_id\":\"bf65e326-43a0-4b20-88c4-07ff3de5434c\",\"updated_at\":\"2024-06-15T10:30:00Z\",\"updated_by\":{\"id\":\"key_01K8ZYT4AWJ6XP0E0S8CTBHE3P\",\"name\":\"My API Key\"},\"version_id\":\"c3d4e5f6-7890-abcd-ef12-34567890abcd\"},\"name\":\"my-secret\",\"value\":\"s3cr3t-v4lu3\"}")
             val result = client.vault.getKv(id = "sample-id")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("GET", request.method)
             assertEquals("/vault/v1/kv/sample-id", request.pathOnly())
             assertEquals("a1b2c3d4-e5f6-7890-abcd-ef1234567890", result.id)
@@ -104,7 +105,7 @@ class VaultTest {
             val (client, server) = testClient(responding = "{\"id\":\"a1b2c3d4-e5f6-7890-abcd-ef1234567890\",\"metadata\":{\"context\":{\"organization_id\":\"org_01K8ZYT4AWJ6XP0E0S8CTBHE3P\"},\"environment_id\":\"environment_01K8ZYT4AWJ6XP0E0S8CTBHE3P\",\"id\":\"a1b2c3d4-e5f6-7890-abcd-ef1234567890\",\"key_id\":\"bf65e326-43a0-4b20-88c4-07ff3de5434c\",\"updated_at\":\"2024-06-15T10:30:00Z\",\"updated_by\":{\"id\":\"key_01K8ZYT4AWJ6XP0E0S8CTBHE3P\",\"name\":\"My API Key\"},\"version_id\":\"c3d4e5f6-7890-abcd-ef12-34567890abcd\"},\"name\":\"my-secret\"}")
             val result = client.vault.updateKv(id = "sample-id", value = "test_value")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("PUT", request.method)
             assertEquals("/vault/v1/kv/sample-id", request.pathOnly())
             assertTrue(request.bodyJson().containsKey("value"))
@@ -117,7 +118,7 @@ class VaultTest {
             val (client, server) = testClient(responding = "{}")
             client.vault.deleteKv(id = "sample-id")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("DELETE", request.method)
             assertEquals("/vault/v1/kv/sample-id", request.pathOnly())
         }
@@ -128,7 +129,7 @@ class VaultTest {
             val (client, server) = testClient(responding = "{\"id\":\"a1b2c3d4-e5f6-7890-abcd-ef1234567890\",\"metadata\":{\"context\":{\"organization_id\":\"org_01K8ZYT4AWJ6XP0E0S8CTBHE3P\"},\"environment_id\":\"environment_01K8ZYT4AWJ6XP0E0S8CTBHE3P\",\"id\":\"a1b2c3d4-e5f6-7890-abcd-ef1234567890\",\"key_id\":\"bf65e326-43a0-4b20-88c4-07ff3de5434c\",\"updated_at\":\"2024-06-15T10:30:00Z\",\"updated_by\":{\"id\":\"key_01K8ZYT4AWJ6XP0E0S8CTBHE3P\",\"name\":\"My API Key\"},\"version_id\":\"c3d4e5f6-7890-abcd-ef12-34567890abcd\"},\"name\":\"my-secret\"}")
             val result = client.vault.listKvMetadata(id = "sample-id")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("GET", request.method)
             assertEquals("/vault/v1/kv/sample-id/metadata", request.pathOnly())
             assertEquals("a1b2c3d4-e5f6-7890-abcd-ef1234567890", result.id)
@@ -140,7 +141,7 @@ class VaultTest {
             val (client, server) = testClient(responding = "{\"data\":[{\"created_at\":\"2024-06-15T10:30:00Z\",\"current_version\":true,\"etag\":\"d41d8cd98f00b204e9800998ecf8427e\",\"id\":\"c3d4e5f6-7890-abcd-ef12-34567890abcd\",\"size\":256}],\"list_metadata\":{\"after\":\"b21f3a8c-7e4d-4b1a-9c5e-2d8f6a7b3c4e\",\"before\":\"a10e2b7d-6c3f-4a2b-8d1e-3f9a5b8c7d6e\"}}")
             val result = client.vault.listKvVersions(id = "sample-id")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("GET", request.method)
             assertEquals("/vault/v1/kv/sample-id/versions", request.pathOnly())
             assertNotNull(result)
@@ -152,7 +153,7 @@ class VaultTest {
             val (client, server) = testClient(responding = "{\"id\":\"a1b2c3d4-e5f6-7890-abcd-ef1234567890\",\"metadata\":{\"context\":{\"organization_id\":\"org_01K8ZYT4AWJ6XP0E0S8CTBHE3P\"},\"environment_id\":\"environment_01K8ZYT4AWJ6XP0E0S8CTBHE3P\",\"id\":\"a1b2c3d4-e5f6-7890-abcd-ef1234567890\",\"key_id\":\"bf65e326-43a0-4b20-88c4-07ff3de5434c\",\"updated_at\":\"2024-06-15T10:30:00Z\",\"updated_by\":{\"id\":\"key_01K8ZYT4AWJ6XP0E0S8CTBHE3P\",\"name\":\"My API Key\"},\"version_id\":\"c3d4e5f6-7890-abcd-ef12-34567890abcd\"},\"name\":\"my-secret\",\"value\":\"s3cr3t-v4lu3\"}")
             val result = client.vault.getName(name = "sample-name")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("GET", request.method)
             assertEquals("/vault/v1/kv/name/sample-name", request.pathOnly())
             assertEquals("a1b2c3d4-e5f6-7890-abcd-ef1234567890", result.id)
@@ -175,7 +176,7 @@ class VaultTest {
 
             client.vault.listKv(before = "a b/c&d=e")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("a b/c&d=e", request.queryParam("before"))
         }
 
@@ -186,7 +187,7 @@ class VaultTest {
 
             client.vault.createDataKey(context = mapOf("key" to "test_context"), requestOptions = RequestOptions(headers = mapOf("X-Custom" to "value")))
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("value", request.headerValue("X-Custom"))
         }
 

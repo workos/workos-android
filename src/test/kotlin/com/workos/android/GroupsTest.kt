@@ -2,6 +2,7 @@
 
 package com.workos.android
 
+import com.workos.android.support.awaitRequest
 import com.workos.android.support.bodyJson
 import com.workos.android.support.headerValue
 import com.workos.android.support.pathOnly
@@ -26,7 +27,7 @@ class GroupsTest {
             val (client, server) = testClient(responding = "{\"data\":[{\"object\":\"group\",\"id\":\"group_01HXYZ123456789ABCDEFGHIJ\",\"organization_id\":\"org_01EHWNCE74X7JSDV0X3SZ3KJNY\",\"name\":\"Engineering\",\"description\":\"The engineering team\",\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\"}],\"list_metadata\":{\"before\":null,\"after\":null}}")
             val result = client.groups.listOrganizationGroups(organizationId = "sample-organizationId")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("GET", request.method)
             assertEquals("/organizations/sample-organizationId/groups", request.pathOnly())
             assertEquals(1, result.data.size)
@@ -39,7 +40,7 @@ class GroupsTest {
             val (client, server) = testClient(responding = "{\"object\":\"group\",\"id\":\"group_01HXYZ123456789ABCDEFGHIJ\",\"organization_id\":\"org_01EHWNCE74X7JSDV0X3SZ3KJNY\",\"name\":\"Engineering\",\"description\":\"The engineering team\",\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\"}")
             val result = client.groups.createOrganizationGroup(organizationId = "sample-organizationId", name = "test_name")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("POST", request.method)
             assertEquals("/organizations/sample-organizationId/groups", request.pathOnly())
             assertTrue(request.bodyJson().containsKey("name"))
@@ -52,7 +53,7 @@ class GroupsTest {
             val (client, server) = testClient(responding = "{\"object\":\"group\",\"id\":\"group_01HXYZ123456789ABCDEFGHIJ\",\"organization_id\":\"org_01EHWNCE74X7JSDV0X3SZ3KJNY\",\"name\":\"Engineering\",\"description\":\"The engineering team\",\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\"}")
             val result = client.groups.getOrganizationGroup(organizationId = "sample-organizationId", groupId = "sample-groupId")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("GET", request.method)
             assertEquals("/organizations/sample-organizationId/groups/sample-groupId", request.pathOnly())
             assertEquals("group_01HXYZ123456789ABCDEFGHIJ", result.id)
@@ -64,7 +65,7 @@ class GroupsTest {
             val (client, server) = testClient(responding = "{\"object\":\"group\",\"id\":\"group_01HXYZ123456789ABCDEFGHIJ\",\"organization_id\":\"org_01EHWNCE74X7JSDV0X3SZ3KJNY\",\"name\":\"Engineering\",\"description\":\"The engineering team\",\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\"}")
             val result = client.groups.updateOrganizationGroup(organizationId = "sample-organizationId", groupId = "sample-groupId")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("PATCH", request.method)
             assertEquals("/organizations/sample-organizationId/groups/sample-groupId", request.pathOnly())
             assertEquals("group_01HXYZ123456789ABCDEFGHIJ", result.id)
@@ -76,7 +77,7 @@ class GroupsTest {
             val (client, server) = testClient(responding = "{}")
             client.groups.deleteOrganizationGroup(organizationId = "sample-organizationId", groupId = "sample-groupId")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("DELETE", request.method)
             assertEquals("/organizations/sample-organizationId/groups/sample-groupId", request.pathOnly())
         }
@@ -87,7 +88,7 @@ class GroupsTest {
             val (client, server) = testClient(responding = "{\"data\":[{\"object\":\"organization_membership\",\"id\":\"om_01HXYZ123456789ABCDEFGHIJ\",\"user_id\":\"user_01E4ZCR3C56J083X43JQXF3JK5\",\"organization_id\":\"org_01EHZNVPK3SFK441A1RGBFSHRT\",\"status\":\"active\",\"directory_managed\":false,\"organization_name\":\"Acme Corp\",\"custom_attributes\":{\"department\":\"Engineering\",\"title\":\"Developer Experience Engineer\",\"location\":\"Brooklyn\"},\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\",\"user\":{\"object\":\"user\",\"id\":\"user_01E4ZCR3C56J083X43JQXF3JK5\",\"first_name\":\"Marcelina\",\"last_name\":\"Davis\",\"name\":\"Marcelina Davis\",\"profile_picture_url\":\"https://workoscdn.com/images/v1/123abc\",\"email\":\"marcelina.davis@example.com\",\"email_verified\":true,\"external_id\":\"f1ffa2b2-c20b-4d39-be5c-212726e11222\",\"metadata\":{\"timezone\":\"America/New_York\"},\"last_sign_in_at\":\"2025-06-25T19:07:33.155Z\",\"locale\":\"en-US\",\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\"}}],\"list_metadata\":{\"before\":null,\"after\":null}}")
             val result = client.groups.listOrganizationMemberships(organizationId = "sample-organizationId", groupId = "sample-groupId")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("GET", request.method)
             assertEquals("/organizations/sample-organizationId/groups/sample-groupId/organization-memberships", request.pathOnly())
             assertEquals(1, result.data.size)
@@ -100,7 +101,7 @@ class GroupsTest {
             val (client, server) = testClient(responding = "{\"object\":\"group\",\"id\":\"group_01HXYZ123456789ABCDEFGHIJ\",\"organization_id\":\"org_01EHWNCE74X7JSDV0X3SZ3KJNY\",\"name\":\"Engineering\",\"description\":\"The engineering team\",\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\"}")
             val result = client.groups.createOrganizationMembership(organizationId = "sample-organizationId", groupId = "sample-groupId", organizationMembershipId = "test_organization_membership_id")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("POST", request.method)
             assertEquals("/organizations/sample-organizationId/groups/sample-groupId/organization-memberships", request.pathOnly())
             assertTrue(request.bodyJson().containsKey("organization_membership_id"))
@@ -113,7 +114,7 @@ class GroupsTest {
             val (client, server) = testClient(responding = "{}")
             client.groups.deleteOrganizationMembership(organizationId = "sample-organizationId", groupId = "sample-groupId", omId = "sample-omId")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("DELETE", request.method)
             assertEquals("/organizations/sample-organizationId/groups/sample-groupId/organization-memberships/sample-omId", request.pathOnly())
         }
@@ -135,7 +136,7 @@ class GroupsTest {
 
             client.groups.listOrganizationGroups(organizationId = "sample-organizationId", before = "a b/c&d=e")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("a b/c&d=e", request.queryParam("before"))
         }
 
@@ -146,7 +147,7 @@ class GroupsTest {
 
             client.groups.listOrganizationGroups(organizationId = "sample-organizationId", requestOptions = RequestOptions(headers = mapOf("X-Custom" to "value")))
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("value", request.headerValue("X-Custom"))
         }
 

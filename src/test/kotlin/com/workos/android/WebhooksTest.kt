@@ -3,6 +3,7 @@
 package com.workos.android
 
 import com.workos.android.enums.CreateWebhookEndpointEvents
+import com.workos.android.support.awaitRequest
 import com.workos.android.support.bodyJson
 import com.workos.android.support.headerValue
 import com.workos.android.support.pathOnly
@@ -27,7 +28,7 @@ class WebhooksTest {
             val (client, server) = testClient(responding = "{\"data\":[{\"object\":\"webhook_endpoint\",\"id\":\"we_0123456789\",\"endpoint_url\":\"https://example.com/webhooks\",\"secret\":\"whsec_0FWAiVGkEfGBqqsJH4aNAGBJ4\",\"status\":\"enabled\",\"events\":[\"user.created\",\"dsync.user.created\"],\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\"}],\"list_metadata\":{\"before\":null,\"after\":null}}")
             val result = client.webhooks.listEndpoints()
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("GET", request.method)
             assertEquals("/webhook_endpoints", request.pathOnly())
             assertEquals(1, result.data.size)
@@ -40,7 +41,7 @@ class WebhooksTest {
             val (client, server) = testClient(responding = "{\"object\":\"webhook_endpoint\",\"id\":\"we_0123456789\",\"endpoint_url\":\"https://example.com/webhooks\",\"secret\":\"whsec_0FWAiVGkEfGBqqsJH4aNAGBJ4\",\"status\":\"enabled\",\"events\":[\"user.created\",\"dsync.user.created\"],\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\"}")
             val result = client.webhooks.createEndpoint(endpointUrl = "test_endpoint_url", events = listOf(CreateWebhookEndpointEvents.fromRawValue("agent.registration.created")))
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("POST", request.method)
             assertEquals("/webhook_endpoints", request.pathOnly())
             assertTrue(request.bodyJson().containsKey("endpoint_url"))
@@ -53,7 +54,7 @@ class WebhooksTest {
             val (client, server) = testClient(responding = "{\"object\":\"webhook_endpoint\",\"id\":\"we_0123456789\",\"endpoint_url\":\"https://example.com/webhooks\",\"secret\":\"whsec_0FWAiVGkEfGBqqsJH4aNAGBJ4\",\"status\":\"enabled\",\"events\":[\"user.created\",\"dsync.user.created\"],\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\"}")
             val result = client.webhooks.updateEndpoint(id = "sample-id")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("PATCH", request.method)
             assertEquals("/webhook_endpoints/sample-id", request.pathOnly())
             assertEquals("we_0123456789", result.id)
@@ -65,7 +66,7 @@ class WebhooksTest {
             val (client, server) = testClient(responding = "{}")
             client.webhooks.deleteEndpoint(id = "sample-id")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("DELETE", request.method)
             assertEquals("/webhook_endpoints/sample-id", request.pathOnly())
         }
@@ -87,7 +88,7 @@ class WebhooksTest {
 
             client.webhooks.listEndpoints(before = "a b/c&d=e")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("a b/c&d=e", request.queryParam("before"))
         }
 
@@ -98,7 +99,7 @@ class WebhooksTest {
 
             client.webhooks.listEndpoints(requestOptions = RequestOptions(headers = mapOf("X-Custom" to "value")))
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("value", request.headerValue("X-Custom"))
         }
 

@@ -2,6 +2,7 @@
 
 package com.workos.android
 
+import com.workos.android.support.awaitRequest
 import com.workos.android.support.bodyJson
 import com.workos.android.support.headerValue
 import com.workos.android.support.pathOnly
@@ -26,7 +27,7 @@ class ClientApiTest {
             val (client, server) = testClient(responding = "{\"token\":\"eyJhbGciOiJSUzI1NiIsImtpZCI6InNlc3Npb24...\"}")
             val result = client.clientApi.createToken(organizationId = "test_organization_id", userId = "test_user_id")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("POST", request.method)
             assertEquals("/client/token", request.pathOnly())
             assertTrue(request.bodyJson().containsKey("organization_id"))
@@ -40,7 +41,7 @@ class ClientApiTest {
 
             client.clientApi.createToken(organizationId = "test_organization_id", userId = "test_user_id", requestOptions = RequestOptions(headers = mapOf("X-Custom" to "value")))
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("value", request.headerValue("X-Custom"))
         }
 

@@ -2,6 +2,7 @@
 
 package com.workos.android
 
+import com.workos.android.support.awaitRequest
 import com.workos.android.support.headerValue
 import com.workos.android.support.pathOnly
 import com.workos.android.support.testClient
@@ -24,7 +25,7 @@ class PipesProviderTest {
             val (client, server) = testClient(responding = "{\"object\":\"list\",\"data\":[{\"object\":\"data_integration_configuration\",\"id\":\"data_integration_01EHZNVPK3SFK441A1RGBFSHRT\",\"organization_id\":\"org_01EHZNVPK3SFK441A1RGBFSHRT\",\"slug\":\"github\",\"name\":\"GitHub\",\"enabled\":true,\"scopes\":[\"repo\",\"user:email\"],\"config\":{\"account_identifier\":\"acme-prod\"},\"created_at\":\"2024-01-15T10:30:00.000Z\",\"updated_at\":\"2024-01-15T10:30:00.000Z\",\"credentials\":{\"credentials_type\":\"organization\",\"has_credentials\":true,\"client_id\":\"client_01EHZNVPK3SFK441A1RGBFSHRT\",\"client_secret_last_four\":\"1a2b\",\"redirect_uri\":\"https://api.workos.com/data-integrations/github/dik_01EHZNVPK3SFK441A1RGBFSHRT/callback\"}}]}")
             val result = client.pipesProvider.listOrganizationDataIntegrationConfigurations(organizationId = "sample-organizationId")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("GET", request.method)
             assertEquals("/organizations/sample-organizationId/data_integration_configurations", request.pathOnly())
             assertNotNull(result)
@@ -36,7 +37,7 @@ class PipesProviderTest {
             val (client, server) = testClient(responding = "{\"object\":\"data_integration_configuration\",\"id\":\"data_integration_01EHZNVPK3SFK441A1RGBFSHRT\",\"organization_id\":\"org_01EHZNVPK3SFK441A1RGBFSHRT\",\"slug\":\"github\",\"name\":\"GitHub\",\"enabled\":true,\"scopes\":[\"repo\",\"user:email\"],\"config\":{\"account_identifier\":\"acme-prod\"},\"created_at\":\"2024-01-15T10:30:00.000Z\",\"updated_at\":\"2024-01-15T10:30:00.000Z\",\"credentials\":{\"credentials_type\":\"organization\",\"has_credentials\":true,\"client_id\":\"client_01EHZNVPK3SFK441A1RGBFSHRT\",\"client_secret_last_four\":\"1a2b\",\"redirect_uri\":\"https://api.workos.com/data-integrations/github/dik_01EHZNVPK3SFK441A1RGBFSHRT/callback\"}}")
             val result = client.pipesProvider.updateOrganizationDataIntegrationConfiguration(organizationId = "sample-organizationId", slug = "sample-slug")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("PUT", request.method)
             assertEquals("/organizations/sample-organizationId/data_integration_configurations/sample-slug", request.pathOnly())
             assertEquals("data_integration_01EHZNVPK3SFK441A1RGBFSHRT", result.id)
@@ -49,7 +50,7 @@ class PipesProviderTest {
 
             client.pipesProvider.listOrganizationDataIntegrationConfigurations(organizationId = "sample-organizationId", requestOptions = RequestOptions(headers = mapOf("X-Custom" to "value")))
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("value", request.headerValue("X-Custom"))
         }
 

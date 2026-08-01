@@ -3,6 +3,7 @@
 package com.workos.android
 
 import com.workos.android.models.ReplaceGroupRoleAssignmentEntry
+import com.workos.android.support.awaitRequest
 import com.workos.android.support.bodyJson
 import com.workos.android.support.headerValue
 import com.workos.android.support.pathOnly
@@ -28,7 +29,7 @@ class AuthorizationTest {
             val (client, server) = testClient(responding = "{\"data\":[{\"object\":\"group_role_assignment\",\"id\":\"gra_01HXYZ123456789ABCDEFGH\",\"group_id\":\"group_01HXYZ123456789ABCDEFGHIJ\",\"role\":{\"slug\":\"admin\"},\"resource\":{\"id\":\"authz_resource_01HXYZ123456789ABCDEFGH\",\"external_id\":\"proj-456\",\"resource_type_slug\":\"project\"},\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\"}],\"list_metadata\":{\"before\":null,\"after\":null}}")
             val result = client.authorization.listGroupRoleAssignments(groupId = "sample-group-id")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("GET", request.method)
             assertEquals("/authorization/groups/sample-group-id/role_assignments", request.pathOnly())
             assertEquals(1, result.data.size)
@@ -41,7 +42,7 @@ class AuthorizationTest {
             val (client, server) = testClient(responding = "{\"object\":\"group_role_assignment\",\"id\":\"gra_01HXYZ123456789ABCDEFGH\",\"group_id\":\"group_01HXYZ123456789ABCDEFGHIJ\",\"role\":{\"slug\":\"admin\"},\"resource\":{\"id\":\"authz_resource_01HXYZ123456789ABCDEFGH\",\"external_id\":\"proj-456\",\"resource_type_slug\":\"project\"},\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\"}")
             val result = client.authorization.createGroupRoleAssignment(groupId = "sample-group-id", roleSlug = "test_role_slug")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("POST", request.method)
             assertEquals("/authorization/groups/sample-group-id/role_assignments", request.pathOnly())
             assertTrue(request.bodyJson().containsKey("role_slug"))
@@ -54,7 +55,7 @@ class AuthorizationTest {
             val (client, server) = testClient(responding = "{\"object\":\"list\",\"data\":[{\"object\":\"group_role_assignment\",\"id\":\"gra_01HXYZ123456789ABCDEFGH\",\"group_id\":\"group_01HXYZ123456789ABCDEFGHIJ\",\"role\":{\"slug\":\"admin\"},\"resource\":{\"id\":\"authz_resource_01HXYZ123456789ABCDEFGH\",\"external_id\":\"proj-456\",\"resource_type_slug\":\"project\"},\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\"}],\"list_metadata\":{\"after\":\"b21f3a8c-7e4d-4b1a-9c5e-2d8f6a7b3c4e\",\"before\":\"a10e2b7d-6c3f-4a2b-8d1e-3f9a5b8c7d6e\"}}")
             val result = client.authorization.updateGroupRoleAssignments(groupId = "sample-group-id", roleAssignments = listOf(ReplaceGroupRoleAssignmentEntry(roleSlug = "test_role_slug")))
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("PUT", request.method)
             assertEquals("/authorization/groups/sample-group-id/role_assignments", request.pathOnly())
             assertTrue(request.bodyJson().containsKey("role_assignments"))
@@ -67,7 +68,7 @@ class AuthorizationTest {
             val (client, server) = testClient(responding = "{}")
             client.authorization.deleteGroupRoleAssignments(groupId = "sample-group-id", roleSlug = "test_role_slug")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("DELETE", request.method)
             assertEquals("/authorization/groups/sample-group-id/role_assignments", request.pathOnly())
             assertTrue(request.bodyJson().containsKey("role_slug"))
@@ -79,7 +80,7 @@ class AuthorizationTest {
             val (client, server) = testClient(responding = "{\"object\":\"group_role_assignment\",\"id\":\"gra_01HXYZ123456789ABCDEFGH\",\"group_id\":\"group_01HXYZ123456789ABCDEFGHIJ\",\"role\":{\"slug\":\"admin\"},\"resource\":{\"id\":\"authz_resource_01HXYZ123456789ABCDEFGH\",\"external_id\":\"proj-456\",\"resource_type_slug\":\"project\"},\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\"}")
             val result = client.authorization.getGroupRoleAssignment(groupId = "sample-group-id", roleAssignmentId = "sample-role-assignment-id")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("GET", request.method)
             assertEquals("/authorization/groups/sample-group-id/role_assignments/sample-role-assignment-id", request.pathOnly())
             assertEquals("gra_01HXYZ123456789ABCDEFGH", result.id)
@@ -91,7 +92,7 @@ class AuthorizationTest {
             val (client, server) = testClient(responding = "{}")
             client.authorization.deleteGroupRoleAssignment(groupId = "sample-group-id", roleAssignmentId = "sample-role-assignment-id")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("DELETE", request.method)
             assertEquals("/authorization/groups/sample-group-id/role_assignments/sample-role-assignment-id", request.pathOnly())
         }
@@ -102,7 +103,7 @@ class AuthorizationTest {
             val (client, server) = testClient(responding = "{\"authorized\":true}")
             val result = client.authorization.check(organizationMembershipId = "sample-organization-membership-id", permissionSlug = "test_permission_slug")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("POST", request.method)
             assertEquals("/authorization/organization_memberships/sample-organization-membership-id/check", request.pathOnly())
             assertTrue(request.bodyJson().containsKey("permission_slug"))
@@ -115,7 +116,7 @@ class AuthorizationTest {
             val (client, server) = testClient(responding = "{\"data\":[{\"object\":\"authorization_resource\",\"name\":\"Website Redesign\",\"description\":\"Company website redesign project\",\"organization_id\":\"org_01EHZNVPK3SFK441A1RGBFSHRT\",\"parent_resource_id\":\"authz_resource_01HXYZ123456789ABCDEFGHIJ\",\"id\":\"authz_resource_01HXYZ123456789ABCDEFGH\",\"external_id\":\"proj-456\",\"resource_type_slug\":\"project\",\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\"}],\"list_metadata\":{\"before\":null,\"after\":null}}")
             val result = client.authorization.listResourcesForMembership(organizationMembershipId = "sample-organization-membership-id", permissionSlug = "test_permission_slug")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("GET", request.method)
             assertEquals("/authorization/organization_memberships/sample-organization-membership-id/resources", request.pathOnly())
             assertEquals("test_permission_slug", request.queryParam("permission_slug"))
@@ -129,7 +130,7 @@ class AuthorizationTest {
             val (client, server) = testClient(responding = "{\"data\":[{\"object\":\"permission\",\"id\":\"perm_01HXYZ123456789ABCDEFGHIJ\",\"slug\":\"documents:read\",\"name\":\"View Documents\",\"description\":\"Allows viewing document contents\",\"system\":false,\"resource_type_slug\":\"workspace\",\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\"}],\"list_metadata\":{\"before\":null,\"after\":null}}")
             val result = client.authorization.listEffectivePermissions(organizationMembershipId = "sample-organization-membership-id", resourceId = "sample-resource-id")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("GET", request.method)
             assertEquals("/authorization/organization_memberships/sample-organization-membership-id/resources/sample-resource-id/permissions", request.pathOnly())
             assertEquals(1, result.data.size)
@@ -142,7 +143,7 @@ class AuthorizationTest {
             val (client, server) = testClient(responding = "{\"data\":[{\"object\":\"permission\",\"id\":\"perm_01HXYZ123456789ABCDEFGHIJ\",\"slug\":\"documents:read\",\"name\":\"View Documents\",\"description\":\"Allows viewing document contents\",\"system\":false,\"resource_type_slug\":\"workspace\",\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\"}],\"list_metadata\":{\"before\":null,\"after\":null}}")
             val result = client.authorization.listEffectivePermissionsByExternalId(organizationMembershipId = "sample-organization-membership-id", resourceTypeSlug = "sample-resource-type-slug", externalId = "sample-external-id")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("GET", request.method)
             assertEquals("/authorization/organization_memberships/sample-organization-membership-id/resources/sample-resource-type-slug/sample-external-id/permissions", request.pathOnly())
             assertEquals(1, result.data.size)
@@ -155,7 +156,7 @@ class AuthorizationTest {
             val (client, server) = testClient(responding = "{\"data\":[{\"object\":\"role_assignment\",\"id\":\"role_assignment_01HXYZ123456789ABCDEFGH\",\"organization_membership_id\":\"om_01HXYZ123456789ABCDEFGHIJ\",\"role\":{\"slug\":\"admin\"},\"resource\":{\"id\":\"authz_resource_01HXYZ123456789ABCDEFGH\",\"external_id\":\"proj-456\",\"resource_type_slug\":\"project\"},\"source\":{\"type\":\"direct\",\"group_role_assignment_id\":null},\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\"}],\"list_metadata\":{\"before\":null,\"after\":null}}")
             val result = client.authorization.listRoleAssignments(organizationMembershipId = "sample-organization-membership-id")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("GET", request.method)
             assertEquals("/authorization/organization_memberships/sample-organization-membership-id/role_assignments", request.pathOnly())
             assertEquals(1, result.data.size)
@@ -168,7 +169,7 @@ class AuthorizationTest {
             val (client, server) = testClient(responding = "{\"object\":\"role_assignment\",\"id\":\"role_assignment_01HXYZ123456789ABCDEFGH\",\"organization_membership_id\":\"om_01HXYZ123456789ABCDEFGHIJ\",\"role\":{\"slug\":\"admin\"},\"resource\":{\"id\":\"authz_resource_01HXYZ123456789ABCDEFGH\",\"external_id\":\"proj-456\",\"resource_type_slug\":\"project\"},\"source\":{\"type\":\"direct\",\"group_role_assignment_id\":null},\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\"}")
             val result = client.authorization.assignRole(organizationMembershipId = "sample-organization-membership-id", roleSlug = "test_role_slug")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("POST", request.method)
             assertEquals("/authorization/organization_memberships/sample-organization-membership-id/role_assignments", request.pathOnly())
             assertTrue(request.bodyJson().containsKey("role_slug"))
@@ -181,7 +182,7 @@ class AuthorizationTest {
             val (client, server) = testClient(responding = "{}")
             client.authorization.removeRole(organizationMembershipId = "sample-organization-membership-id", roleSlug = "test_role_slug")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("DELETE", request.method)
             assertEquals("/authorization/organization_memberships/sample-organization-membership-id/role_assignments", request.pathOnly())
             assertTrue(request.bodyJson().containsKey("role_slug"))
@@ -193,7 +194,7 @@ class AuthorizationTest {
             val (client, server) = testClient(responding = "{}")
             client.authorization.removeRoleAssignment(organizationMembershipId = "sample-organization-membership-id", roleAssignmentId = "sample-role-assignment-id")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("DELETE", request.method)
             assertEquals("/authorization/organization_memberships/sample-organization-membership-id/role_assignments/sample-role-assignment-id", request.pathOnly())
         }
@@ -204,7 +205,7 @@ class AuthorizationTest {
             val (client, server) = testClient(responding = "{\"object\":\"authorization_resource\",\"name\":\"Website Redesign\",\"description\":\"Company website redesign project\",\"organization_id\":\"org_01EHZNVPK3SFK441A1RGBFSHRT\",\"parent_resource_id\":\"authz_resource_01HXYZ123456789ABCDEFGHIJ\",\"id\":\"authz_resource_01HXYZ123456789ABCDEFGH\",\"external_id\":\"proj-456\",\"resource_type_slug\":\"project\",\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\"}")
             val result = client.authorization.getResourceByExternalId(organizationId = "sample-organization-id", resourceTypeSlug = "sample-resource-type-slug", externalId = "sample-external-id")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("GET", request.method)
             assertEquals("/authorization/organizations/sample-organization-id/resources/sample-resource-type-slug/sample-external-id", request.pathOnly())
             assertEquals("authz_resource_01HXYZ123456789ABCDEFGH", result.id)
@@ -216,7 +217,7 @@ class AuthorizationTest {
             val (client, server) = testClient(responding = "{\"object\":\"authorization_resource\",\"name\":\"Website Redesign\",\"description\":\"Company website redesign project\",\"organization_id\":\"org_01EHZNVPK3SFK441A1RGBFSHRT\",\"parent_resource_id\":\"authz_resource_01HXYZ123456789ABCDEFGHIJ\",\"id\":\"authz_resource_01HXYZ123456789ABCDEFGH\",\"external_id\":\"proj-456\",\"resource_type_slug\":\"project\",\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\"}")
             val result = client.authorization.updateResourceByExternalId(organizationId = "sample-organization-id", resourceTypeSlug = "sample-resource-type-slug", externalId = "sample-external-id")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("PATCH", request.method)
             assertEquals("/authorization/organizations/sample-organization-id/resources/sample-resource-type-slug/sample-external-id", request.pathOnly())
             assertEquals("authz_resource_01HXYZ123456789ABCDEFGH", result.id)
@@ -228,7 +229,7 @@ class AuthorizationTest {
             val (client, server) = testClient(responding = "{}")
             client.authorization.deleteResourceByExternalId(organizationId = "sample-organization-id", resourceTypeSlug = "sample-resource-type-slug", externalId = "sample-external-id")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("DELETE", request.method)
             assertEquals("/authorization/organizations/sample-organization-id/resources/sample-resource-type-slug/sample-external-id", request.pathOnly())
         }
@@ -239,7 +240,7 @@ class AuthorizationTest {
             val (client, server) = testClient(responding = "{\"data\":[{\"object\":\"organization_membership\",\"id\":\"om_01HXYZ123456789ABCDEFGHIJ\",\"user_id\":\"user_01E4ZCR3C56J083X43JQXF3JK5\",\"organization_id\":\"org_01EHZNVPK3SFK441A1RGBFSHRT\",\"status\":\"active\",\"directory_managed\":false,\"organization_name\":\"Acme Corp\",\"custom_attributes\":{\"department\":\"Engineering\",\"title\":\"Developer Experience Engineer\",\"location\":\"Brooklyn\"},\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\",\"user\":{\"object\":\"user\",\"id\":\"user_01E4ZCR3C56J083X43JQXF3JK5\",\"first_name\":\"Marcelina\",\"last_name\":\"Davis\",\"name\":\"Marcelina Davis\",\"profile_picture_url\":\"https://workoscdn.com/images/v1/123abc\",\"email\":\"marcelina.davis@example.com\",\"email_verified\":true,\"external_id\":\"f1ffa2b2-c20b-4d39-be5c-212726e11222\",\"metadata\":{\"timezone\":\"America/New_York\"},\"last_sign_in_at\":\"2025-06-25T19:07:33.155Z\",\"locale\":\"en-US\",\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\"}}],\"list_metadata\":{\"before\":null,\"after\":null}}")
             val result = client.authorization.listMembershipsForResourceByExternalId(organizationId = "sample-organization-id", resourceTypeSlug = "sample-resource-type-slug", externalId = "sample-external-id", permissionSlug = "test_permission_slug")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("GET", request.method)
             assertEquals("/authorization/organizations/sample-organization-id/resources/sample-resource-type-slug/sample-external-id/organization_memberships", request.pathOnly())
             assertEquals("test_permission_slug", request.queryParam("permission_slug"))
@@ -253,7 +254,7 @@ class AuthorizationTest {
             val (client, server) = testClient(responding = "{\"data\":[{\"object\":\"role_assignment\",\"id\":\"role_assignment_01HXYZ123456789ABCDEFGH\",\"organization_membership_id\":\"om_01HXYZ123456789ABCDEFGHIJ\",\"role\":{\"slug\":\"admin\"},\"resource\":{\"id\":\"authz_resource_01HXYZ123456789ABCDEFGH\",\"external_id\":\"proj-456\",\"resource_type_slug\":\"project\"},\"source\":{\"type\":\"direct\",\"group_role_assignment_id\":null},\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\"}],\"list_metadata\":{\"before\":null,\"after\":null}}")
             val result = client.authorization.listRoleAssignmentsForResourceByExternalId(organizationId = "sample-organization-id", resourceTypeSlug = "sample-resource-type-slug", externalId = "sample-external-id")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("GET", request.method)
             assertEquals("/authorization/organizations/sample-organization-id/resources/sample-resource-type-slug/sample-external-id/role_assignments", request.pathOnly())
             assertEquals(1, result.data.size)
@@ -266,7 +267,7 @@ class AuthorizationTest {
             val (client, server) = testClient(responding = "{\"object\":\"list\",\"data\":[{\"slug\":\"admin\",\"object\":\"role\",\"id\":\"role_01EHQMYV6MBK39QC5PZXHY59C3\",\"name\":\"Admin\",\"description\":\"Can manage all resources\",\"type\":\"EnvironmentRole\",\"resource_type_slug\":\"organization\",\"permissions\":[\"posts:read\",\"posts:write\"],\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\"}]}")
             val result = client.authorization.listOrganizationRoles(organizationId = "sample-organizationId")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("GET", request.method)
             assertEquals("/authorization/organizations/sample-organizationId/roles", request.pathOnly())
             assertNotNull(result)
@@ -278,7 +279,7 @@ class AuthorizationTest {
             val (client, server) = testClient(responding = "{\"slug\":\"admin\",\"object\":\"role\",\"id\":\"role_01EHQMYV6MBK39QC5PZXHY59C3\",\"name\":\"Admin\",\"description\":\"Can manage all resources\",\"type\":\"EnvironmentRole\",\"resource_type_slug\":\"organization\",\"permissions\":[\"posts:read\",\"posts:write\"],\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\"}")
             val result = client.authorization.createOrganizationRole(organizationId = "sample-organizationId", name = "test_name")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("POST", request.method)
             assertEquals("/authorization/organizations/sample-organizationId/roles", request.pathOnly())
             assertTrue(request.bodyJson().containsKey("name"))
@@ -291,7 +292,7 @@ class AuthorizationTest {
             val (client, server) = testClient(responding = "{\"slug\":\"admin\",\"object\":\"role\",\"id\":\"role_01EHQMYV6MBK39QC5PZXHY59C3\",\"name\":\"Admin\",\"description\":\"Can manage all resources\",\"type\":\"EnvironmentRole\",\"resource_type_slug\":\"organization\",\"permissions\":[\"posts:read\",\"posts:write\"],\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\"}")
             val result = client.authorization.getOrganizationRole(organizationId = "sample-organizationId", slug = "sample-slug")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("GET", request.method)
             assertEquals("/authorization/organizations/sample-organizationId/roles/sample-slug", request.pathOnly())
             assertEquals("role_01EHQMYV6MBK39QC5PZXHY59C3", result.id)
@@ -303,7 +304,7 @@ class AuthorizationTest {
             val (client, server) = testClient(responding = "{\"slug\":\"admin\",\"object\":\"role\",\"id\":\"role_01EHQMYV6MBK39QC5PZXHY59C3\",\"name\":\"Admin\",\"description\":\"Can manage all resources\",\"type\":\"EnvironmentRole\",\"resource_type_slug\":\"organization\",\"permissions\":[\"posts:read\",\"posts:write\"],\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\"}")
             val result = client.authorization.updateOrganizationRole(organizationId = "sample-organizationId", slug = "sample-slug")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("PATCH", request.method)
             assertEquals("/authorization/organizations/sample-organizationId/roles/sample-slug", request.pathOnly())
             assertEquals("role_01EHQMYV6MBK39QC5PZXHY59C3", result.id)
@@ -315,7 +316,7 @@ class AuthorizationTest {
             val (client, server) = testClient(responding = "{}")
             client.authorization.deleteOrganizationRole(organizationId = "sample-organizationId", slug = "sample-slug")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("DELETE", request.method)
             assertEquals("/authorization/organizations/sample-organizationId/roles/sample-slug", request.pathOnly())
         }
@@ -326,7 +327,7 @@ class AuthorizationTest {
             val (client, server) = testClient(responding = "{\"slug\":\"admin\",\"object\":\"role\",\"id\":\"role_01EHQMYV6MBK39QC5PZXHY59C3\",\"name\":\"Admin\",\"description\":\"Can manage all resources\",\"type\":\"EnvironmentRole\",\"resource_type_slug\":\"organization\",\"permissions\":[\"posts:read\",\"posts:write\"],\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\"}")
             val result = client.authorization.addOrganizationRolePermission(organizationId = "sample-organizationId", slug = "sample-slug", slug2 = "test_slug")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("POST", request.method)
             assertEquals("/authorization/organizations/sample-organizationId/roles/sample-slug/permissions", request.pathOnly())
             assertTrue(request.bodyJson().containsKey("slug"))
@@ -339,7 +340,7 @@ class AuthorizationTest {
             val (client, server) = testClient(responding = "{\"slug\":\"admin\",\"object\":\"role\",\"id\":\"role_01EHQMYV6MBK39QC5PZXHY59C3\",\"name\":\"Admin\",\"description\":\"Can manage all resources\",\"type\":\"EnvironmentRole\",\"resource_type_slug\":\"organization\",\"permissions\":[\"posts:read\",\"posts:write\"],\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\"}")
             val result = client.authorization.setOrganizationRolePermissions(organizationId = "sample-organizationId", slug = "sample-slug", permissions = listOf("test_permissions"))
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("PUT", request.method)
             assertEquals("/authorization/organizations/sample-organizationId/roles/sample-slug/permissions", request.pathOnly())
             assertTrue(request.bodyJson().containsKey("permissions"))
@@ -352,7 +353,7 @@ class AuthorizationTest {
             val (client, server) = testClient(responding = "{}")
             client.authorization.removeOrganizationRolePermission(organizationId = "sample-organizationId", slug = "sample-slug", permissionSlug = "sample-permissionSlug")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("DELETE", request.method)
             assertEquals("/authorization/organizations/sample-organizationId/roles/sample-slug/permissions/sample-permissionSlug", request.pathOnly())
         }
@@ -363,7 +364,7 @@ class AuthorizationTest {
             val (client, server) = testClient(responding = "{\"data\":[{\"object\":\"permission\",\"id\":\"perm_01HXYZ123456789ABCDEFGHIJ\",\"slug\":\"documents:read\",\"name\":\"View Documents\",\"description\":\"Allows viewing document contents\",\"system\":false,\"resource_type_slug\":\"workspace\",\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\"}],\"list_metadata\":{\"before\":null,\"after\":null}}")
             val result = client.authorization.listPermissions()
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("GET", request.method)
             assertEquals("/authorization/permissions", request.pathOnly())
             assertEquals(1, result.data.size)
@@ -376,7 +377,7 @@ class AuthorizationTest {
             val (client, server) = testClient(responding = "{\"object\":\"permission\",\"id\":\"perm_01HXYZ123456789ABCDEFGHIJ\",\"slug\":\"documents:read\",\"name\":\"View Documents\",\"description\":\"Allows viewing document contents\",\"system\":false,\"resource_type_slug\":\"document\",\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\"}")
             val result = client.authorization.createPermission(slug = "test_slug", name = "test_name")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("POST", request.method)
             assertEquals("/authorization/permissions", request.pathOnly())
             assertTrue(request.bodyJson().containsKey("slug"))
@@ -389,7 +390,7 @@ class AuthorizationTest {
             val (client, server) = testClient(responding = "{\"object\":\"permission\",\"id\":\"perm_01HXYZ123456789ABCDEFGHIJ\",\"slug\":\"documents:read\",\"name\":\"View Documents\",\"description\":\"Allows viewing document contents\",\"system\":false,\"resource_type_slug\":\"workspace\",\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\"}")
             val result = client.authorization.getPermission(slug = "sample-slug")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("GET", request.method)
             assertEquals("/authorization/permissions/sample-slug", request.pathOnly())
             assertEquals("perm_01HXYZ123456789ABCDEFGHIJ", result.id)
@@ -401,7 +402,7 @@ class AuthorizationTest {
             val (client, server) = testClient(responding = "{\"object\":\"permission\",\"id\":\"perm_01HXYZ123456789ABCDEFGHIJ\",\"slug\":\"documents:read\",\"name\":\"View Documents\",\"description\":\"Allows viewing document contents\",\"system\":false,\"resource_type_slug\":\"workspace\",\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\"}")
             val result = client.authorization.updatePermission(slug = "sample-slug")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("PATCH", request.method)
             assertEquals("/authorization/permissions/sample-slug", request.pathOnly())
             assertEquals("perm_01HXYZ123456789ABCDEFGHIJ", result.id)
@@ -413,7 +414,7 @@ class AuthorizationTest {
             val (client, server) = testClient(responding = "{}")
             client.authorization.deletePermission(slug = "sample-slug")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("DELETE", request.method)
             assertEquals("/authorization/permissions/sample-slug", request.pathOnly())
         }
@@ -424,7 +425,7 @@ class AuthorizationTest {
             val (client, server) = testClient(responding = "{\"data\":[{\"object\":\"authorization_resource\",\"name\":\"Website Redesign\",\"description\":\"Company website redesign project\",\"organization_id\":\"org_01EHZNVPK3SFK441A1RGBFSHRT\",\"parent_resource_id\":\"authz_resource_01HXYZ123456789ABCDEFGHIJ\",\"id\":\"authz_resource_01HXYZ123456789ABCDEFGH\",\"external_id\":\"proj-456\",\"resource_type_slug\":\"project\",\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\"}],\"list_metadata\":{\"before\":null,\"after\":null}}")
             val result = client.authorization.listResources()
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("GET", request.method)
             assertEquals("/authorization/resources", request.pathOnly())
             assertEquals(1, result.data.size)
@@ -437,7 +438,7 @@ class AuthorizationTest {
             val (client, server) = testClient(responding = "{\"object\":\"authorization_resource\",\"name\":\"Website Redesign\",\"description\":\"Company website redesign project\",\"organization_id\":\"org_01EHZNVPK3SFK441A1RGBFSHRT\",\"parent_resource_id\":\"authz_resource_01HXYZ123456789ABCDEFGHIJ\",\"id\":\"authz_resource_01HXYZ123456789ABCDEFGH\",\"external_id\":\"proj-456\",\"resource_type_slug\":\"project\",\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\"}")
             val result = client.authorization.createResource(externalId = "test_external_id", name = "test_name", resourceTypeSlug = "test_resource_type_slug", organizationId = "test_organization_id")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("POST", request.method)
             assertEquals("/authorization/resources", request.pathOnly())
             assertTrue(request.bodyJson().containsKey("external_id"))
@@ -450,7 +451,7 @@ class AuthorizationTest {
             val (client, server) = testClient(responding = "{\"object\":\"authorization_resource\",\"name\":\"Website Redesign\",\"description\":\"Company website redesign project\",\"organization_id\":\"org_01EHZNVPK3SFK441A1RGBFSHRT\",\"parent_resource_id\":\"authz_resource_01HXYZ123456789ABCDEFGHIJ\",\"id\":\"authz_resource_01HXYZ123456789ABCDEFGH\",\"external_id\":\"proj-456\",\"resource_type_slug\":\"project\",\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\"}")
             val result = client.authorization.getResource(resourceId = "sample-resource-id")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("GET", request.method)
             assertEquals("/authorization/resources/sample-resource-id", request.pathOnly())
             assertEquals("authz_resource_01HXYZ123456789ABCDEFGH", result.id)
@@ -462,7 +463,7 @@ class AuthorizationTest {
             val (client, server) = testClient(responding = "{\"object\":\"authorization_resource\",\"name\":\"Website Redesign\",\"description\":\"Company website redesign project\",\"organization_id\":\"org_01EHZNVPK3SFK441A1RGBFSHRT\",\"parent_resource_id\":\"authz_resource_01HXYZ123456789ABCDEFGHIJ\",\"id\":\"authz_resource_01HXYZ123456789ABCDEFGH\",\"external_id\":\"proj-456\",\"resource_type_slug\":\"project\",\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\"}")
             val result = client.authorization.updateResource(resourceId = "sample-resource-id")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("PATCH", request.method)
             assertEquals("/authorization/resources/sample-resource-id", request.pathOnly())
             assertEquals("authz_resource_01HXYZ123456789ABCDEFGH", result.id)
@@ -474,7 +475,7 @@ class AuthorizationTest {
             val (client, server) = testClient(responding = "{}")
             client.authorization.deleteResource(resourceId = "sample-resource-id")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("DELETE", request.method)
             assertEquals("/authorization/resources/sample-resource-id", request.pathOnly())
         }
@@ -485,7 +486,7 @@ class AuthorizationTest {
             val (client, server) = testClient(responding = "{\"data\":[{\"object\":\"organization_membership\",\"id\":\"om_01HXYZ123456789ABCDEFGHIJ\",\"user_id\":\"user_01E4ZCR3C56J083X43JQXF3JK5\",\"organization_id\":\"org_01EHZNVPK3SFK441A1RGBFSHRT\",\"status\":\"active\",\"directory_managed\":false,\"organization_name\":\"Acme Corp\",\"custom_attributes\":{\"department\":\"Engineering\",\"title\":\"Developer Experience Engineer\",\"location\":\"Brooklyn\"},\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\",\"user\":{\"object\":\"user\",\"id\":\"user_01E4ZCR3C56J083X43JQXF3JK5\",\"first_name\":\"Marcelina\",\"last_name\":\"Davis\",\"name\":\"Marcelina Davis\",\"profile_picture_url\":\"https://workoscdn.com/images/v1/123abc\",\"email\":\"marcelina.davis@example.com\",\"email_verified\":true,\"external_id\":\"f1ffa2b2-c20b-4d39-be5c-212726e11222\",\"metadata\":{\"timezone\":\"America/New_York\"},\"last_sign_in_at\":\"2025-06-25T19:07:33.155Z\",\"locale\":\"en-US\",\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\"}}],\"list_metadata\":{\"before\":null,\"after\":null}}")
             val result = client.authorization.listMembershipsForResource(resourceId = "sample-resource-id", permissionSlug = "test_permission_slug")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("GET", request.method)
             assertEquals("/authorization/resources/sample-resource-id/organization_memberships", request.pathOnly())
             assertEquals("test_permission_slug", request.queryParam("permission_slug"))
@@ -499,7 +500,7 @@ class AuthorizationTest {
             val (client, server) = testClient(responding = "{\"data\":[{\"object\":\"role_assignment\",\"id\":\"role_assignment_01HXYZ123456789ABCDEFGH\",\"organization_membership_id\":\"om_01HXYZ123456789ABCDEFGHIJ\",\"role\":{\"slug\":\"admin\"},\"resource\":{\"id\":\"authz_resource_01HXYZ123456789ABCDEFGH\",\"external_id\":\"proj-456\",\"resource_type_slug\":\"project\"},\"source\":{\"type\":\"direct\",\"group_role_assignment_id\":null},\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\"}],\"list_metadata\":{\"before\":null,\"after\":null}}")
             val result = client.authorization.listRoleAssignmentsForResource(resourceId = "sample-resource-id")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("GET", request.method)
             assertEquals("/authorization/resources/sample-resource-id/role_assignments", request.pathOnly())
             assertEquals(1, result.data.size)
@@ -512,7 +513,7 @@ class AuthorizationTest {
             val (client, server) = testClient(responding = "{\"object\":\"list\",\"data\":[{\"slug\":\"admin\",\"object\":\"role\",\"id\":\"role_01EHQMYV6MBK39QC5PZXHY59C3\",\"name\":\"Admin\",\"description\":\"Can manage all resources\",\"type\":\"EnvironmentRole\",\"resource_type_slug\":\"organization\",\"permissions\":[\"posts:read\",\"posts:write\"],\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\"}]}")
             val result = client.authorization.listEnvironmentRoles()
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("GET", request.method)
             assertEquals("/authorization/roles", request.pathOnly())
             assertNotNull(result)
@@ -524,7 +525,7 @@ class AuthorizationTest {
             val (client, server) = testClient(responding = "{\"slug\":\"admin\",\"object\":\"role\",\"id\":\"role_01EHQMYV6MBK39QC5PZXHY59C3\",\"name\":\"Admin\",\"description\":\"Can manage all resources\",\"type\":\"EnvironmentRole\",\"resource_type_slug\":\"organization\",\"permissions\":[\"posts:read\",\"posts:write\"],\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\"}")
             val result = client.authorization.createEnvironmentRole(slug = "test_slug", name = "test_name")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("POST", request.method)
             assertEquals("/authorization/roles", request.pathOnly())
             assertTrue(request.bodyJson().containsKey("slug"))
@@ -537,7 +538,7 @@ class AuthorizationTest {
             val (client, server) = testClient(responding = "{\"slug\":\"admin\",\"object\":\"role\",\"id\":\"role_01EHQMYV6MBK39QC5PZXHY59C3\",\"name\":\"Admin\",\"description\":\"Can manage all resources\",\"type\":\"EnvironmentRole\",\"resource_type_slug\":\"organization\",\"permissions\":[\"posts:read\",\"posts:write\"],\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\"}")
             val result = client.authorization.getEnvironmentRole(slug = "sample-slug")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("GET", request.method)
             assertEquals("/authorization/roles/sample-slug", request.pathOnly())
             assertEquals("role_01EHQMYV6MBK39QC5PZXHY59C3", result.id)
@@ -549,7 +550,7 @@ class AuthorizationTest {
             val (client, server) = testClient(responding = "{\"slug\":\"admin\",\"object\":\"role\",\"id\":\"role_01EHQMYV6MBK39QC5PZXHY59C3\",\"name\":\"Admin\",\"description\":\"Can manage all resources\",\"type\":\"EnvironmentRole\",\"resource_type_slug\":\"organization\",\"permissions\":[\"posts:read\",\"posts:write\"],\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\"}")
             val result = client.authorization.updateEnvironmentRole(slug = "sample-slug")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("PATCH", request.method)
             assertEquals("/authorization/roles/sample-slug", request.pathOnly())
             assertEquals("role_01EHQMYV6MBK39QC5PZXHY59C3", result.id)
@@ -561,7 +562,7 @@ class AuthorizationTest {
             val (client, server) = testClient(responding = "{\"slug\":\"admin\",\"object\":\"role\",\"id\":\"role_01EHQMYV6MBK39QC5PZXHY59C3\",\"name\":\"Admin\",\"description\":\"Can manage all resources\",\"type\":\"EnvironmentRole\",\"resource_type_slug\":\"organization\",\"permissions\":[\"posts:read\",\"posts:write\"],\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\"}")
             val result = client.authorization.addEnvironmentRolePermission(slug = "sample-slug", slug2 = "test_slug")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("POST", request.method)
             assertEquals("/authorization/roles/sample-slug/permissions", request.pathOnly())
             assertTrue(request.bodyJson().containsKey("slug"))
@@ -574,7 +575,7 @@ class AuthorizationTest {
             val (client, server) = testClient(responding = "{\"slug\":\"admin\",\"object\":\"role\",\"id\":\"role_01EHQMYV6MBK39QC5PZXHY59C3\",\"name\":\"Admin\",\"description\":\"Can manage all resources\",\"type\":\"EnvironmentRole\",\"resource_type_slug\":\"organization\",\"permissions\":[\"posts:read\",\"posts:write\"],\"created_at\":\"2026-01-15T12:00:00.000Z\",\"updated_at\":\"2026-01-15T12:00:00.000Z\"}")
             val result = client.authorization.setEnvironmentRolePermissions(slug = "sample-slug", permissions = listOf("test_permissions"))
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("PUT", request.method)
             assertEquals("/authorization/roles/sample-slug/permissions", request.pathOnly())
             assertTrue(request.bodyJson().containsKey("permissions"))
@@ -598,7 +599,7 @@ class AuthorizationTest {
 
             client.authorization.listGroupRoleAssignments(groupId = "sample-group-id", before = "a b/c&d=e")
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("a b/c&d=e", request.queryParam("before"))
         }
 
@@ -609,7 +610,7 @@ class AuthorizationTest {
 
             client.authorization.listGroupRoleAssignments(groupId = "sample-group-id", requestOptions = RequestOptions(headers = mapOf("X-Custom" to "value")))
 
-            val request = server.takeRequest()
+            val request = server.awaitRequest()
             assertEquals("value", request.headerValue("X-Custom"))
         }
 
