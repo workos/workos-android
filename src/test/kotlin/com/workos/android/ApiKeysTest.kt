@@ -13,7 +13,6 @@ import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
-import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
 
 /**
@@ -55,7 +54,7 @@ class ApiKeysTest {
             assertEquals("POST", request.method)
             assertEquals("/api_keys/validations", request.pathOnly())
             assertTrue(request.bodyJson().containsKey("value"))
-            assertNotNull(result)
+            assertEquals("agent_reg_01EHZNVPK3SFK441A1RGBFSHRT", result.agentRegistrationId)
         }
 
     @Test

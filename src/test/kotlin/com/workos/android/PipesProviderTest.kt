@@ -11,7 +11,6 @@ import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
-import kotlin.test.assertNotNull
 
 /**
  * Wire-level tests for the PipesProvider resource: each test performs a real call
@@ -28,7 +27,8 @@ class PipesProviderTest {
             val request = server.awaitRequest()
             assertEquals("GET", request.method)
             assertEquals("/organizations/sample-organizationId/data_integration_configurations", request.pathOnly())
-            assertNotNull(result)
+            assertEquals(1, result.data.size)
+            assertEquals("data_integration_01EHZNVPK3SFK441A1RGBFSHRT", result.data.first().id)
         }
 
     @Test

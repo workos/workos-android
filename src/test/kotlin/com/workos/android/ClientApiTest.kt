@@ -12,7 +12,6 @@ import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
-import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
 
 /**
@@ -31,7 +30,7 @@ class ClientApiTest {
             assertEquals("POST", request.method)
             assertEquals("/client/token", request.pathOnly())
             assertTrue(request.bodyJson().containsKey("organization_id"))
-            assertNotNull(result)
+            assertEquals("eyJhbGciOiJSUzI1NiIsImtpZCI6InNlc3Npb24...", result.token)
         }
 
     @Test

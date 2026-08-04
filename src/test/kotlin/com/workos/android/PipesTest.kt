@@ -13,7 +13,6 @@ import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
-import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
 
 /**
@@ -58,7 +57,7 @@ class PipesTest {
             assertEquals("POST", request.method)
             assertEquals("/data-integrations/sample-provider/token", request.pathOnly())
             assertTrue(request.bodyJson().containsKey("user_id"))
-            assertNotNull(result)
+            assertEquals("gho_16C7e42F292c6912E7710c838347Ae178B4a", result.accessToken?.accessToken)
         }
 
     @Test
@@ -119,7 +118,7 @@ class PipesTest {
             assertEquals("POST", request.method)
             assertEquals("/data-integrations/sample-slug/authorize", request.pathOnly())
             assertTrue(request.bodyJson().containsKey("user_id"))
-            assertNotNull(result)
+            assertEquals("https://api.workos.com/data-integrations/q2czJKmVAraSBg8xFpT7M9uR/authorize-redirect", result.url)
         }
 
     @Test
@@ -132,7 +131,7 @@ class PipesTest {
             assertEquals("POST", request.method)
             assertEquals("/data-integrations/sample-slug/credentials", request.pathOnly())
             assertTrue(request.bodyJson().containsKey("user_id"))
-            assertNotNull(result)
+            assertEquals("gho_16C7e42F292c6912E7710c838347Ae178B4a", result.credential?.value)
         }
 
     @Test
@@ -191,7 +190,8 @@ class PipesTest {
             val request = server.awaitRequest()
             assertEquals("GET", request.method)
             assertEquals("/user_management/users/sample-user-id/data_providers", request.pathOnly())
-            assertNotNull(result)
+            assertEquals(1, result.data.size)
+            assertEquals("data_integration_01EHZNVPK3SFK441A1RGBFSHRT", result.data.first().id)
         }
 
     @Test

@@ -21,7 +21,6 @@ import kotlinx.datetime.Instant
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
-import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
 
 /**
@@ -40,7 +39,7 @@ class AuditLogsTest {
             assertEquals("GET", request.method)
             assertEquals("/audit_logs/actions", request.pathOnly())
             assertEquals(1, result.data.size)
-            assertNotNull(result.data.first())
+            assertEquals("user.viewed_invoice", result.data.first().name)
         }
 
     @Test
@@ -72,7 +71,7 @@ class AuditLogsTest {
             assertEquals("GET", request.method)
             assertEquals("/audit_logs/actions/sample-actionName/schemas", request.pathOnly())
             assertEquals(1, result.data.size)
-            assertNotNull(result.data.first())
+            assertEquals(1L, result.data.first().version)
         }
 
     @Test
@@ -85,7 +84,7 @@ class AuditLogsTest {
             assertEquals("POST", request.method)
             assertEquals("/audit_logs/actions/sample-actionName/schemas", request.pathOnly())
             assertTrue(request.bodyJson().containsKey("targets"))
-            assertNotNull(result)
+            assertEquals(1L, result.version)
         }
 
     @Test
@@ -98,7 +97,7 @@ class AuditLogsTest {
             assertEquals("POST", request.method)
             assertEquals("/audit_logs/events", request.pathOnly())
             assertTrue(request.bodyJson().containsKey("organization_id"))
-            assertNotNull(result)
+            assertEquals(true, result.success)
         }
 
     @Test
@@ -135,7 +134,7 @@ class AuditLogsTest {
             val request = server.awaitRequest()
             assertEquals("GET", request.method)
             assertEquals("/organizations/sample-id/audit_logs_retention", request.pathOnly())
-            assertNotNull(result)
+            assertEquals(30L, result.retentionPeriodInDays)
         }
 
     @Test
@@ -148,7 +147,7 @@ class AuditLogsTest {
             assertEquals("PUT", request.method)
             assertEquals("/organizations/sample-id/audit_logs_retention", request.pathOnly())
             assertTrue(request.bodyJson().containsKey("retention_period_in_days"))
-            assertNotNull(result)
+            assertEquals(30L, result.retentionPeriodInDays)
         }
 
     @Test

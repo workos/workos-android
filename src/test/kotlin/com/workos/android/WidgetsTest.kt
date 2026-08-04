@@ -11,7 +11,6 @@ import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
-import kotlin.test.assertNotNull
 
 /**
  * Wire-level tests for the Widgets resource: each test performs a real call
@@ -28,7 +27,7 @@ class WidgetsTest {
             val request = server.awaitRequest()
             assertEquals("POST", request.method)
             assertEquals("/widgets/token", request.pathOnly())
-            assertNotNull(result)
+            assertEquals("eyJhbGciOiJSUzI1NiIsImtpZCI6InNlc3Npb24...", result.token)
         }
 
     @Test

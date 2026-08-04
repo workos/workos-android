@@ -14,7 +14,6 @@ import kotlinx.serialization.json.jsonPrimitive
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
-import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
 
 /**
@@ -32,7 +31,8 @@ class UserManagementTest {
             val request = server.awaitRequest()
             assertEquals("GET", request.method)
             assertEquals("/sso/jwks/sample-clientId", request.pathOnly())
-            assertNotNull(result)
+            assertEquals(1, result.keys.size)
+            assertEquals("0vx7agoebGc...eKnNs", result.keys.first().n)
         }
 
     @Test
@@ -47,7 +47,7 @@ class UserManagementTest {
             val body = request.bodyJson()
             assertEquals("password", body["grant_type"]?.jsonPrimitive?.content)
             assertTrue(body.containsKey("email"))
-            assertNotNull(result)
+            assertEquals("eyJhb.nNzb19vaWRjX2tleV9.lc5Uk4yWVk5In0", result.accessToken)
         }
 
     @Test
@@ -62,7 +62,7 @@ class UserManagementTest {
             val body = request.bodyJson()
             assertEquals("authorization_code", body["grant_type"]?.jsonPrimitive?.content)
             assertTrue(body.containsKey("code"))
-            assertNotNull(result)
+            assertEquals("eyJhb.nNzb19vaWRjX2tleV9.lc5Uk4yWVk5In0", result.accessToken)
         }
 
     @Test
@@ -77,7 +77,7 @@ class UserManagementTest {
             val body = request.bodyJson()
             assertEquals("refresh_token", body["grant_type"]?.jsonPrimitive?.content)
             assertTrue(body.containsKey("refresh_token"))
-            assertNotNull(result)
+            assertEquals("eyJhb.nNzb19vaWRjX2tleV9.lc5Uk4yWVk5In0", result.accessToken)
         }
 
     @Test
@@ -92,7 +92,7 @@ class UserManagementTest {
             val body = request.bodyJson()
             assertEquals("urn:workos:oauth:grant-type:magic-auth:code", body["grant_type"]?.jsonPrimitive?.content)
             assertTrue(body.containsKey("code"))
-            assertNotNull(result)
+            assertEquals("eyJhb.nNzb19vaWRjX2tleV9.lc5Uk4yWVk5In0", result.accessToken)
         }
 
     @Test
@@ -107,7 +107,7 @@ class UserManagementTest {
             val body = request.bodyJson()
             assertEquals("urn:workos:oauth:grant-type:email-verification:code", body["grant_type"]?.jsonPrimitive?.content)
             assertTrue(body.containsKey("code"))
-            assertNotNull(result)
+            assertEquals("eyJhb.nNzb19vaWRjX2tleV9.lc5Uk4yWVk5In0", result.accessToken)
         }
 
     @Test
@@ -122,7 +122,7 @@ class UserManagementTest {
             val body = request.bodyJson()
             assertEquals("urn:workos:oauth:grant-type:mfa-totp", body["grant_type"]?.jsonPrimitive?.content)
             assertTrue(body.containsKey("code"))
-            assertNotNull(result)
+            assertEquals("eyJhb.nNzb19vaWRjX2tleV9.lc5Uk4yWVk5In0", result.accessToken)
         }
 
     @Test
@@ -137,7 +137,7 @@ class UserManagementTest {
             val body = request.bodyJson()
             assertEquals("urn:workos:oauth:grant-type:organization-selection", body["grant_type"]?.jsonPrimitive?.content)
             assertTrue(body.containsKey("pending_authentication_token"))
-            assertNotNull(result)
+            assertEquals("eyJhb.nNzb19vaWRjX2tleV9.lc5Uk4yWVk5In0", result.accessToken)
         }
 
     @Test
@@ -152,7 +152,7 @@ class UserManagementTest {
             val body = request.bodyJson()
             assertEquals("urn:ietf:params:oauth:grant-type:device_code", body["grant_type"]?.jsonPrimitive?.content)
             assertTrue(body.containsKey("device_code"))
-            assertNotNull(result)
+            assertEquals("eyJhb.nNzb19vaWRjX2tleV9.lc5Uk4yWVk5In0", result.accessToken)
         }
 
     @Test
@@ -167,7 +167,7 @@ class UserManagementTest {
             val body = request.bodyJson()
             assertEquals("urn:workos:oauth:grant-type:radar-email-challenge:code", body["grant_type"]?.jsonPrimitive?.content)
             assertTrue(body.containsKey("code"))
-            assertNotNull(result)
+            assertEquals("eyJhb.nNzb19vaWRjX2tleV9.lc5Uk4yWVk5In0", result.accessToken)
         }
 
     @Test
@@ -182,7 +182,7 @@ class UserManagementTest {
             val body = request.bodyJson()
             assertEquals("urn:workos:oauth:grant-type:radar-sms-challenge:code", body["grant_type"]?.jsonPrimitive?.content)
             assertTrue(body.containsKey("code"))
-            assertNotNull(result)
+            assertEquals("eyJhb.nNzb19vaWRjX2tleV9.lc5Uk4yWVk5In0", result.accessToken)
         }
 
     @Test
@@ -210,7 +210,7 @@ class UserManagementTest {
             assertEquals("POST", request.method)
             assertEquals("/user_management/authorize/device", request.pathOnly())
             assertTrue(request.bodyJson().containsKey("client_id"))
-            assertNotNull(result)
+            assertEquals("CVE2wOfIFK4vhmiDBntpX9s8KT2f0qngpWYL0LGy9HxYgBRXUKIUkZB9BgIFho5h", result.deviceCode)
         }
 
     @Test
@@ -346,7 +346,7 @@ class UserManagementTest {
             val request = server.awaitRequest()
             assertEquals("GET", request.method)
             assertEquals("/user_management/jwt_template", request.pathOnly())
-            assertNotNull(result)
+            assertEquals("{\"urn:myapp:full_name\": \"{{user.first_name}} {{user.last_name}}\", \"urn:myapp:email\": \"{{user.email}}\"}", result.content)
         }
 
     @Test
@@ -359,7 +359,7 @@ class UserManagementTest {
             assertEquals("PUT", request.method)
             assertEquals("/user_management/jwt_template", request.pathOnly())
             assertTrue(request.bodyJson().containsKey("content"))
-            assertNotNull(result)
+            assertEquals("{\"urn:myapp:full_name\": \"{{user.first_name}} {{user.last_name}}\", \"urn:myapp:email\": \"{{user.email}}\"}", result.content)
         }
 
     @Test
@@ -422,7 +422,7 @@ class UserManagementTest {
             assertEquals("POST", request.method)
             assertEquals("/user_management/password_reset/confirm", request.pathOnly())
             assertTrue(request.bodyJson().containsKey("token"))
-            assertNotNull(result)
+            assertEquals("user_01E4ZCR3C56J083X43JQXF3JK5", result.user.id)
         }
 
     @Test
@@ -435,7 +435,7 @@ class UserManagementTest {
             assertEquals("POST", request.method)
             assertEquals("/user_management/radar_challenges", request.pathOnly())
             assertTrue(request.bodyJson().containsKey("user_id"))
-            assertNotNull(result)
+            assertEquals("vrf_01HXYZ123456789ABCDEFGHIJ", result.verificationId)
         }
 
     @Test
@@ -580,7 +580,7 @@ class UserManagementTest {
             assertEquals("POST", request.method)
             assertEquals("/user_management/users/sample-id/email_change/confirm", request.pathOnly())
             assertTrue(request.bodyJson().containsKey("code"))
-            assertNotNull(result)
+            assertEquals("user_01E4ZCR3C56J083X43JQXF3JK5", result.user.id)
         }
 
     @Test
@@ -593,7 +593,7 @@ class UserManagementTest {
             assertEquals("POST", request.method)
             assertEquals("/user_management/users/sample-id/email_change/send", request.pathOnly())
             assertTrue(request.bodyJson().containsKey("new_email"))
-            assertNotNull(result)
+            assertEquals("new.email@example.com", result.newEmail)
         }
 
     @Test
@@ -606,7 +606,7 @@ class UserManagementTest {
             assertEquals("POST", request.method)
             assertEquals("/user_management/users/sample-id/email_verification/confirm", request.pathOnly())
             assertTrue(request.bodyJson().containsKey("code"))
-            assertNotNull(result)
+            assertEquals("user_01E4ZCR3C56J083X43JQXF3JK5", result.user.id)
         }
 
     @Test
@@ -618,7 +618,7 @@ class UserManagementTest {
             val request = server.awaitRequest()
             assertEquals("POST", request.method)
             assertEquals("/user_management/users/sample-id/email_verification/send", request.pathOnly())
-            assertNotNull(result)
+            assertEquals("user_01E4ZCR3C56J083X43JQXF3JK5", result.user.id)
         }
 
     @Test

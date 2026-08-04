@@ -13,7 +13,6 @@ import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
-import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
 
 /**
@@ -93,7 +92,7 @@ class SSOTest {
             assertEquals("POST", request.method)
             assertEquals("/sso/logout/authorize", request.pathOnly())
             assertTrue(request.bodyJson().containsKey("profile_id"))
-            assertNotNull(result)
+            assertEquals("https://auth.workos.com/sso/logout?token=eyJhbGciOiJSUzI1NiJ9", result.logoutUrl)
         }
 
     @Test
@@ -119,7 +118,7 @@ class SSOTest {
             assertEquals("/sso/token", request.pathOnly())
             assertTrue(request.bodyJson().containsKey("code"))
             assertEquals("test_code", request.queryParam("code"))
-            assertNotNull(result)
+            assertEquals("eyJhbGciOiJSUzI1NiIsImtpZCI6InNzby...", result.accessToken)
         }
 
     @Test

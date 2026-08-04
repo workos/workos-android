@@ -16,7 +16,6 @@ import kotlinx.serialization.json.jsonPrimitive
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
-import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
 
 /**
@@ -35,7 +34,7 @@ class ConnectTest {
             assertEquals("POST", request.method)
             assertEquals("/authkit/oauth2/complete", request.pathOnly())
             assertTrue(request.bodyJson().containsKey("external_auth_id"))
-            assertNotNull(result)
+            assertEquals("https://your-authkit-domain.workos.com/oauth/authorize/complete?state=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdGF0ZSI6InJhbmRvbV9zdGF0ZV9zdHJpbmciLCJpYXQiOjE3NDI2MDQ4NTN9.abc123def456ghi789", result.redirectUri)
         }
 
     @Test

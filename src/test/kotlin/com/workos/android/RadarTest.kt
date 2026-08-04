@@ -16,7 +16,6 @@ import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
-import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
 
 /**
@@ -35,7 +34,7 @@ class RadarTest {
             assertEquals("POST", request.method)
             assertEquals("/radar/attempts", request.pathOnly())
             assertTrue(request.bodyJson().containsKey("ip_address"))
-            assertNotNull(result)
+            assertEquals("Detected enabled Radar control", result.reason)
         }
 
     @Test
@@ -59,7 +58,7 @@ class RadarTest {
             assertEquals("POST", request.method)
             assertEquals("/radar/lists/ip_address/block", request.pathOnly())
             assertTrue(request.bodyJson().containsKey("entry"))
-            assertNotNull(result)
+            assertEquals("Entry already present in list", result.message)
         }
 
     @Test

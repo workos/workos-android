@@ -13,7 +13,6 @@ import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
-import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
 
 /**
@@ -92,7 +91,7 @@ class OrganizationsTest {
             val request = server.awaitRequest()
             assertEquals("GET", request.method)
             assertEquals("/organizations/sample-id/audit_log_configuration", request.pathOnly())
-            assertNotNull(result)
+            assertEquals("org_01EHZNVPK3SFK441A1RGBFSHRT", result.organizationId)
         }
 
     @Test

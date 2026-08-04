@@ -14,7 +14,6 @@ import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
-import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
 
 /**
@@ -59,7 +58,8 @@ class AuthorizationTest {
             assertEquals("PUT", request.method)
             assertEquals("/authorization/groups/sample-group-id/role_assignments", request.pathOnly())
             assertTrue(request.bodyJson().containsKey("role_assignments"))
-            assertNotNull(result)
+            assertEquals(1, result.data.size)
+            assertEquals("gra_01HXYZ123456789ABCDEFGH", result.data.first().id)
         }
 
     @Test
@@ -107,7 +107,7 @@ class AuthorizationTest {
             assertEquals("POST", request.method)
             assertEquals("/authorization/organization_memberships/sample-organization-membership-id/check", request.pathOnly())
             assertTrue(request.bodyJson().containsKey("permission_slug"))
-            assertNotNull(result)
+            assertEquals(true, result.authorized)
         }
 
     @Test
@@ -270,7 +270,8 @@ class AuthorizationTest {
             val request = server.awaitRequest()
             assertEquals("GET", request.method)
             assertEquals("/authorization/organizations/sample-organizationId/roles", request.pathOnly())
-            assertNotNull(result)
+            assertEquals(1, result.data.size)
+            assertEquals("role_01EHQMYV6MBK39QC5PZXHY59C3", result.data.first().id)
         }
 
     @Test
@@ -516,7 +517,8 @@ class AuthorizationTest {
             val request = server.awaitRequest()
             assertEquals("GET", request.method)
             assertEquals("/authorization/roles", request.pathOnly())
-            assertNotNull(result)
+            assertEquals(1, result.data.size)
+            assertEquals("role_01EHQMYV6MBK39QC5PZXHY59C3", result.data.first().id)
         }
 
     @Test

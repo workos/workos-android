@@ -13,7 +13,6 @@ import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
-import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
 
 /**
@@ -144,7 +143,8 @@ class VaultTest {
             val request = server.awaitRequest()
             assertEquals("GET", request.method)
             assertEquals("/vault/v1/kv/sample-id/versions", request.pathOnly())
-            assertNotNull(result)
+            assertEquals(1, result.data.size)
+            assertEquals("c3d4e5f6-7890-abcd-ef12-34567890abcd", result.data.first().id)
         }
 
     @Test

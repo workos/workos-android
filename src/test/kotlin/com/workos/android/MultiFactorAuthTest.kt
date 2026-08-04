@@ -14,7 +14,6 @@ import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
-import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
 
 /**
@@ -33,7 +32,7 @@ class MultiFactorAuthTest {
             assertEquals("POST", request.method)
             assertEquals("/auth/challenges/sample-id/verify", request.pathOnly())
             assertTrue(request.bodyJson().containsKey("code"))
-            assertNotNull(result)
+            assertEquals(true, result.valid)
         }
 
     @Test
@@ -107,7 +106,7 @@ class MultiFactorAuthTest {
             assertEquals("POST", request.method)
             assertEquals("/user_management/users/sample-userlandUserId/auth_factors", request.pathOnly())
             assertTrue(request.bodyJson().containsKey("type"))
-            assertNotNull(result)
+            assertEquals("auth_factor_01FVYZ5QM8N98T9ME5BCB2BBMJ", result.authenticationFactor.id)
         }
 
     @Test

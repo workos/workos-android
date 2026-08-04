@@ -12,7 +12,6 @@ import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
-import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
 
 /**
@@ -31,7 +30,7 @@ class AdminPortalTest {
             assertEquals("POST", request.method)
             assertEquals("/portal/generate_link", request.pathOnly())
             assertTrue(request.bodyJson().containsKey("organization"))
-            assertNotNull(result)
+            assertEquals("https://setup.workos.com?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...", result.link)
         }
 
     @Test
