@@ -11,6 +11,7 @@ import com.nimbusds.jwt.SignedJWT
 import com.workos.android.helpers.AuthenticateSessionFailureReason
 import com.workos.android.helpers.AuthenticateSessionResult
 import com.workos.android.helpers.Iron
+import com.workos.android.helpers.IronException
 import com.workos.android.helpers.JwksVerifier
 import com.workos.android.helpers.JwtVerifier
 import com.workos.android.helpers.RefreshSessionFailureReason
@@ -45,6 +46,7 @@ import kotlin.test.assertNull
 import kotlin.test.assertTrue
 
 private const val PASSWORD = "this-is-at-least-thirty-two-chars!"
+private const val OTHER_PASSWORD = "a-second-password-of-32-chars-ok!!"
 
 /** Generated once — RSA keygen is the slowest thing in this suite. */
 private val signingKey: RSAKey = RSAKeyGenerator(2048).keyID("test-key-1").generate()
@@ -673,6 +675,77 @@ class SessionTest {
             }
         }
 
+    // ---------------------------------------------------------------- H05 inline convenience
+
+    @Test
+    fun `H05 authenticateWithSessionCookie authenticates without building a handle`() =
+        runTest {
+            routedServer().use { server ->
+                val client = clientAgainst(server)
+                val token = signedJwt(claims = mapOf("sid" to "session_01INLINE", "org_id" to "org_01INLINE"))
+                val sealed = Iron.seal(encodeSessionCookie(SessionCookieData(token, "tok_r")), PASSWORD)
+
+                val success =
+                    assertIs<AuthenticateSessionResult.Success>(
+                        client.session.authenticateWithSessionCookie(sealed, PASSWORD),
+                    )
+
+                assertEquals("session_01INLINE", success.sessionId)
+                assertEquals("org_01INLINE", success.organizationId)
+                // The inline path builds a real JwksVerifier rather than taking one,
+                // so the key set has to actually be fetched — it must not silently
+                // skip signature verification.
+                assertEquals("/sso/jwks/client_test_123", server.awaitRequest().pathOnly())
+            }
+        }
+
+    @Test
+    fun `H05 authenticateWithSessionCookie reports a bad cookie as a typed failure`() =
+        runTest {
+            routedServer().use { server ->
+                val client = clientAgainst(server)
+
+                assertEquals(
+                    AuthenticateSessionResult.Failure(AuthenticateSessionFailureReason.NO_SESSION_COOKIE_PROVIDED),
+                    client.session.authenticateWithSessionCookie(null, PASSWORD),
+                )
+                assertEquals(
+                    AuthenticateSessionResult.Failure(AuthenticateSessionFailureReason.INVALID_SESSION_COOKIE),
+                    client.session.authenticateWithSessionCookie("not-an-iron-token", PASSWORD),
+                )
+            }
+        }
+
+    @Test
+    fun `H05 refreshSession exchanges the refresh token without building a handle`() =
+        runTest {
+            val newToken = signedJwt(claims = mapOf("sid" to "session_02INLINE"))
+            val body = """{"user": ${userResponseJson()}, "access_token": "$newToken", "refresh_token": "tok_r2"}"""
+            routedServer(authenticateBody = body).use { server ->
+                val client = clientAgainst(server)
+                val old = signedJwt(claims = mapOf("sid" to "session_01OLD"))
+                val sealed = Iron.seal(encodeSessionCookie(SessionCookieData(old, "tok_r1")), PASSWORD)
+
+                val success =
+                    assertIs<RefreshSessionResult.Success>(
+                        client.session.refreshSession(sealed, PASSWORD, newCookiePassword = OTHER_PASSWORD),
+                    )
+
+                val request = server.awaitRequest()
+                assertEquals("POST", request.method)
+                assertEquals("/user_management/authenticate", request.pathOnly())
+                assertEquals("tok_r1", request.bodyJson()["refresh_token"]?.jsonPrimitive?.content)
+
+                assertEquals("session_02INLINE", success.sessionId)
+                // newCookiePassword has to be threaded through the inline wrapper, so
+                // the returned cookie opens under the new password and not the old.
+                val reopened = decodeSessionCookie(Iron.unseal(success.sealedSession, OTHER_PASSWORD))
+                assertEquals(newToken, reopened.accessToken)
+                assertEquals("tok_r2", reopened.refreshToken)
+                assertFailsWith<IronException> { Iron.unseal(success.sealedSession, PASSWORD) }
+            }
+        }
+
     @Test
     fun `loadSealedSession requires a client id for JWKS verification`() {
         val server = MockWebServer()
@@ -706,6 +779,38 @@ class SessionTest {
         password: String = PASSWORD,
         valid: Boolean = true,
     ) = SessionCookie(client.userManagement, sessionData, password, FakeVerifier(valid))
+
+    /**
+     * A client whose base URL is [server] and which carries the client id the
+     * inline session helpers require. [testClient] cannot be used for these: it
+     * enqueues a single canned response, and the inline path needs the JWKS fetch
+     * and the refresh POST answered by path.
+     */
+    private fun clientAgainst(server: MockWebServer) =
+        WorkOSClient(
+            Configuration(
+                apiKey = "sk_test_123",
+                baseUrl = server.url("/").toString().trimEnd('/'),
+                maxRetries = 0,
+                clientId = "client_test_123",
+            ),
+        )
+
+    /** [jwksServer], plus an answer for the refresh POST the inline helpers make. */
+    private fun routedServer(authenticateBody: String = "{}"): MockWebServer {
+        val jwks = """{"keys":[${signingKey.toPublicJWK().toJSONString()}]}"""
+        val server = MockWebServer()
+        server.dispatcher =
+            object : Dispatcher() {
+                override fun dispatch(request: RecordedRequest): MockResponse =
+                    MockResponse()
+                        .setResponseCode(200)
+                        .addHeader("Content-Type", "application/json")
+                        .setBody(if (request.path?.startsWith("/sso/jwks/") == true) jwks else authenticateBody)
+            }
+        server.start()
+        return server
+    }
 
     private fun jwksServer(): MockWebServer {
         val body = """{"keys":[${signingKey.toPublicJWK().toJSONString()}]}"""
