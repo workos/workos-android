@@ -13,7 +13,7 @@ plugins {
   // SDK touches an Android API — it is OkHttp + kotlinx only — so a plain JVM
   // library is consumable from Android and buildable without the Android SDK.
   // Switching to `com.android.library` to publish an AAR is a build-file change,
-  // not a source change. See docs/ANDROID_TARGET.md.
+  // not a source change. See the "Android target" section of README.md.
   id("org.jetbrains.kotlin.jvm") version "2.1.10"
 
   id("org.jetbrains.kotlin.plugin.serialization") version "2.1.10"
