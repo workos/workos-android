@@ -14,11 +14,23 @@ plugins {
   // library is consumable from Android and buildable without the Android SDK.
   // Switching to `com.android.library` to publish an AAR is a build-file change,
   // not a source change. See the "Android target" section of README.md.
-  id("org.jetbrains.kotlin.jvm") version "2.1.10"
+  id("org.jetbrains.kotlin.jvm") version "2.4.0"
 
-  id("org.jetbrains.kotlin.plugin.serialization") version "2.1.10"
+  id("org.jetbrains.kotlin.plugin.serialization") version "2.4.0"
 
   id("org.jlleitschuh.gradle.ktlint") version "14.2.0"
+
+  // Dokka generates the HTML API reference published to GitHub Pages by
+  // .github/workflows/docs.yml via ./script/docs. Only the `html` publication
+  // is used; it runs solely through script/docs, never on the CI build path.
+  id("org.jetbrains.dokka") version "2.2.0"
+
+  // Maven Central publishing (com.vanniktech.maven.publish). The split
+  // release process: release-please.yml tags + creates the GitHub Release;
+  // .github/workflows/release.yml consumes `release: published` and runs
+  // `publishAndReleaseToMavenCentral -Prelease`. Signing key + Maven Central
+  // credentials are injected via ORG_GRADLE_PROJECT_* env vars in release.yml.
+  id("com.vanniktech.maven.publish") version "0.36.0"
 
   `java-library`
 }

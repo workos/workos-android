@@ -146,7 +146,7 @@ class SessionTest {
         assertEquals("tok_r", data.refreshToken)
         assertEquals("alice@example.com", data.user?.email)
         assertTrue(data.user?.emailVerified == true)
-        assertEquals("Alice", data.user?.firstName)
+        assertEquals("Alice", data.user.firstName)
     }
 
     @Test
