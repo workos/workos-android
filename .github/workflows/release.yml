@@ -1,0 +1,46 @@
+name: Release
+
+on:
+  release:
+    types: [published]
+
+defaults:
+  run:
+    shell: bash
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    name: Publish to Maven Central
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # 6.0.3
+
+      - name: Run tests
+        run: ./gradlew test --info
+
+      # The GPG signing key is stored base64-encoded in the MAVEN_SIGNING_KEY
+      # secret. Decode it, mask every line, and expose it as the in-memory key
+      # the vanniktech maven-publish plugin reads via project properties.
+      - name: Decode signing key
+        env:
+          MAVEN_SIGNING_KEY: ${{ secrets.MAVEN_SIGNING_KEY }}
+        run: |
+          DECODED="$(echo "$MAVEN_SIGNING_KEY" | base64 --decode)"
+          while IFS= read -r line; do
+            [ -n "$line" ] && echo "::add-mask::$line"
+          done <<< "$DECODED"
+          {
+            echo "ORG_GRADLE_PROJECT_signingInMemoryKey<<__EOF__"
+            echo "$DECODED"
+            echo "__EOF__"
+          } >> "$GITHUB_ENV"
+
+      - name: Publish to Maven Central
+        env:
+          ORG_GRADLE_PROJECT_signingInMemoryKeyPassword: ${{ secrets.NEXUS_SIGNING_PASSWORD }}
+          ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.MAVEN_USER_NAME }}
+          ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ secrets.MAVEN_PASSWORD }}
+        run: ./gradlew publishAndReleaseToMavenCentral --no-configuration-cache -Prelease

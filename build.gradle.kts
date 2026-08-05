@@ -98,3 +98,39 @@ tasks.test {
   useJUnitPlatform()
   testLogging { events("failed") }
 }
+
+mavenPublishing {
+  publishToMavenCentral(automaticRelease = true)
+  signAllPublications()
+
+  coordinates("com.workos", "workos-android", version.toString())
+
+  pom {
+    name.set("WorkOS Android SDK")
+    description.set(
+      "The WorkOS Android (Kotlin) library provides convenient access to the WorkOS API " +
+        "from applications written in Kotlin for Android.",
+    )
+    url.set("https://github.com/workos/workos-android")
+    licenses {
+      license {
+        name.set("MIT License")
+        url.set("https://github.com/workos/workos-android/blob/main/LICENSE")
+      }
+    }
+    developers {
+      developer {
+        id.set("workos")
+        name.set("WorkOS")
+        email.set("sdk@workos.com")
+        organization.set("WorkOS")
+        organizationUrl.set("https://workos.com")
+      }
+    }
+    scm {
+      connection.set("scm:git:git://github.com/workos/workos-android.git")
+      developerConnection.set("scm:git:git@github.com:workos/workos-android.git")
+      url.set("https://github.com/workos/workos-android")
+    }
+  }
+}

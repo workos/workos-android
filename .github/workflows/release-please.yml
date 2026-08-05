@@ -21,10 +21,10 @@ jobs:
   # of history or proposes a spurious major bump. This job is kept minimal so
   # nothing downstream (changelog enrichment, release notes) can fail it.
   #
-  # Unlike the sibling SDKs there is no publish step wired up yet: this repo
-  # has no release.yml, so the `release: published` event this fires is not
-  # consumed. Tagging and changelog management work; artifact publishing is
-  # still to be added.
+  # The publish step lives in .github/workflows/release.yml, which consumes
+  # the `release: published` event this job fires: release-please tags and
+  # creates the GitHub Release here, which triggers release.yml to publish the
+  # artifact to Maven Central.
   release-please:
     runs-on: ubuntu-latest
     outputs:
