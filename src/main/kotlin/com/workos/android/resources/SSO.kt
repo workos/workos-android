@@ -206,7 +206,7 @@ public class SSO internal constructor(
         domainHint?.let { query.add(QueryParam("domain_hint", it)) }
         loginHint?.let { query.add(QueryParam("login_hint", it)) }
         nonce?.let { query.add(QueryParam("nonce", it)) }
-        prompt?.let { query.add(QueryParam("prompt", it.toString())) }
+        prompt?.let { query.add(QueryParam("prompt", it)) }
         return transport.buildUrl(path, query)
     }
 

@@ -544,7 +544,7 @@ public class UserManagement internal constructor(
         val query = mutableListOf<QueryParam>()
         query.add(QueryParam("response_type", "code"))
         transport.configuration.clientId?.let { query.add(QueryParam("client_id", it)) }
-        codeChallengeMethod?.let { query.add(QueryParam("code_challenge_method", it.toString())) }
+        codeChallengeMethod?.let { query.add(QueryParam("code_challenge_method", it)) }
         codeChallenge?.let { query.add(QueryParam("code_challenge", it)) }
         domainHint?.let { query.add(QueryParam("domain_hint", it)) }
         connectionId?.let { query.add(QueryParam("connection_id", it)) }
