@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.1](https://github.com/workos/workos-android/compare/v0.2.0...v0.2.1) (2026-08-05)
+
+
+### Bug Fixes
+
+* **build:** promote kotlinx deps to api scope ([#3](https://github.com/workos/workos-android/issues/3)) ([5341736](https://github.com/workos/workos-android/commit/53417367483bb02d6f69547cfb049f0e7b2ccec0))
+
 ## [0.2.0](https://github.com/workos/workos-android/compare/v0.1.0...v0.2.0) (2026-08-05)
 
 
@@ -12,4 +19,3 @@
 * publish API docs to GitHub Pages ([0f7756d](https://github.com/workos/workos-android/commit/0f7756d28c50e0d78dbf1953446196c04f42e02e))
 * publish to Maven Central via split release workflow ([a1daa5e](https://github.com/workos/workos-android/commit/a1daa5ec77a4b1a4a7cfdb7a2488b3c20ba1cab9))
 * webhook signature verification (H01, H02) ([6d2aa96](https://github.com/workos/workos-android/commit/6d2aa96bda67a07d39212996e1144555b05d59e9))
-
