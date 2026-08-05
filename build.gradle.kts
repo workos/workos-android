@@ -83,6 +83,13 @@ kotlin {
   compilerOptions {
     // minSdk 24 consumers run on JVM 17 toolchains via AGP desugaring.
     jvmTarget.set(JvmTarget.JVM_17)
+
+    // Fail the build on any compiler warning. The redundant-.toString()
+    // warnings that Kotlin 2.4.0 introduced in generated query-param code
+    // were fixed at the emitter (workos/oagen-emitters#206) and the SDK
+    // regenerated, so this passes cleanly today; it stays in to prevent
+    // future regressions.
+    allWarningsAsErrors.set(true)
   }
   jvmToolchain(17)
 }
