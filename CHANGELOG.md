@@ -13,4 +13,3 @@
 * publish to Maven Central via split release workflow ([a1daa5e](https://github.com/workos/workos-android/commit/a1daa5ec77a4b1a4a7cfdb7a2488b3c20ba1cab9))
 * webhook signature verification (H01, H02) ([6d2aa96](https://github.com/workos/workos-android/commit/6d2aa96bda67a07d39212996e1144555b05d59e9))
 
-## Changelog
