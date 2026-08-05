@@ -15,3 +15,18 @@ Checks: `./script/ci` (ktlint + tests).
 
 `gradle.properties` is committed here and its heap settings are load-bearing — the
 compiler OOMs without them. See the comment in that file.
+
+## Always run `./script/ci` after regenerating
+
+`oagen generate` invokes the emitter's `formatCommand` (`./gradlew ktlintFormat`),
+but it is **best-effort in two ways**:
+
+1. It is swallowed on failure (`; true`), so a missing JDK formats nothing silently.
+2. oagen only formats files the run actually *wrote* — `formatTargetFiles` returns
+   early when the written-file list is empty. So once unformatted output lands on
+   disk, a subsequent identical generation writes nothing and therefore re-formats
+   nothing. The unformatted state is sticky.
+
+`./script/ci` runs `ktlintFormat` unconditionally, which is why it comes first
+there. **`generate` then `script/ci`** is idempotent — verified byte-identical
+across two full cycles. `generate` alone is not.
