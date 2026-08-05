@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+cd "$(dirname "$0")/.."
+
+echo "==> prepare docs output"
+rm -rf docs/_site
+mkdir -p docs/_site
+
+# -Prelease drops the -SNAPSHOT suffix so the published docs cite the real
+# version (build.gradle.kts appends -SNAPSHOT unless the property is set).
+echo "==> generate Dokka HTML site"
+./gradlew dokkaGenerateHtml -Prelease
+
+echo "==> copy site"
+cp -R build/dokka/html/. docs/_site/
