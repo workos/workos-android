@@ -141,7 +141,7 @@ public class Connect internal constructor(
         }
 
     /**
-     * Create oauth application
+     * Create OAuth application
      *
      * Create a new Connect Application. Supports both OAuth and Machine-to-Machine (M2M) application types.
      *
@@ -185,7 +185,7 @@ public class Connect internal constructor(
     }
 
     /**
-     * Create m2m application
+     * Create M2M application
      *
      * Create a new Connect Application. Supports both OAuth and Machine-to-Machine (M2M) application types.
      *
