@@ -50,10 +50,14 @@ dependencies {
   // kotlinx.serialization rather than Jackson: compile-time serializers, no
   // reflection, no R8/ProGuard keep rules. This is the decisive difference from
   // workos-kotlin and the reason `android` is a separate emitter.
-  implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.3")
+  // `api` because JsonElement/JsonObject appear in public signatures
+  // (WorkOSException.raw, Session.sealData) — consumers must be able to compile
+  // against those members without re-declaring the dependency.
+  api("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.3")
 
   // kotlinx-datetime rather than java.time: java.time needs desugaring below API 26.
-  implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.6.1")
+  // `api` because Instant is the type of every model timestamp field.
+  api("org.jetbrains.kotlinx:kotlinx-datetime:0.6.1")
 
   implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0")
 
