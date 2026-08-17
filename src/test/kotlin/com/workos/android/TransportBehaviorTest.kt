@@ -56,6 +56,19 @@ class TransportBehaviorTest {
         }
 
     @Test
+    fun `sends a WorkOS Android user agent ending in the version`() =
+        runTest {
+            val (c, server) = testClient(responding = """{"data":[],"list_metadata":{}}""")
+
+            c.organizations.list()
+
+            val userAgent = server.awaitRequest().headerValue("User-Agent")
+            assertNotNull(userAgent)
+            // End-anchored like the data platform's SDK-attribution regexes.
+            assertTrue(userAgent.matches(Regex("""WorkOS Android/[^\s]+""")), "unexpected User-Agent: $userAgent")
+        }
+
+    @Test
     fun `retries a 500 and then succeeds`() =
         runTest {
             val server = MockWebServer()
