@@ -40,6 +40,16 @@ private const val BACKOFF_MULTIPLIER = 2.0
 private const val MAX_DELAY_MS = 8_000L
 private const val JITTER_FACTOR = 0.5
 
+// Stamped by release-please on every release (see release-please-config.json);
+// must stay on one line with the marker comment or it stops being updated.
+private const val VERSION = "0.2.1" // x-release-please-version
+
+/**
+ * Mirrors the other WorkOS SDKs' `WorkOS <platform>/<version>` shape, which the
+ * data platform parses with an end-anchored regex — nothing may follow the version.
+ */
+private const val USER_AGENT = "WorkOS Android/$VERSION"
+
 /** A fully-read HTTP exchange. Read before any error decision so the body is available. */
 private class RawResponse(
     val code: Int,
@@ -113,6 +123,7 @@ public class Transport(
                 .method(method, requestBody)
                 .header("Authorization", "Bearer " + configuration.apiKey)
                 .header("Content-Type", "application/json")
+                .header("User-Agent", USER_AGENT)
         if (idempotencyKey != null) builder.header("Idempotency-Key", idempotencyKey)
         val extra = options?.headers
         if (extra != null) {
