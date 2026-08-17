@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.0](https://github.com/workos/workos-android/compare/v0.2.1...v0.3.0) (2026-08-17)
+
+
+### Features
+
+* **transport:** send a WorkOS Android/&lt;version&gt; User-Agent header ([#5](https://github.com/workos/workos-android/issues/5)) ([8588113](https://github.com/workos/workos-android/commit/858811386f48063503c7deaf837cfdd0ac35e11b))
+
 ## [0.2.1](https://github.com/workos/workos-android/compare/v0.2.0...v0.2.1) (2026-08-05)
 
 
