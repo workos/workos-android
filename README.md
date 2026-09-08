@@ -9,7 +9,7 @@ The WorkOS Android SDK provides access to AuthKit from Kotlin applications. Use
 
 ## Requirements
 
-- Android 7.0 (API level 24) or later
+- Android 8.0 (API level 26) or later
 - Kotlin 2.4 or later
 - JDK 17
 
