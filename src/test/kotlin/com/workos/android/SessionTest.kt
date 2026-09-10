@@ -401,6 +401,88 @@ class SessionTest {
             }
         }
 
+    @Test
+    fun `JwksVerifier ignores the issuer when none is configured`() =
+        runTest {
+            jwksServer().use { server ->
+                val verifier = JwksVerifier(server.url("/").toString().trimEnd('/'), "client_test_123")
+                assertTrue(verifier.isValid(signedJwt(claims = mapOf("iss" to "https://issuer.example"))))
+            }
+        }
+
+    @Test
+    fun `JwksVerifier accepts a token whose iss matches a configured issuer`() =
+        runTest {
+            jwksServer().use { server ->
+                val verifier =
+                    JwksVerifier(
+                        server.url("/").toString().trimEnd('/'),
+                        "client_test_123",
+                        issuers = listOf("https://issuer.example"),
+                    )
+                assertTrue(verifier.isValid(signedJwt(claims = mapOf("iss" to "https://issuer.example"))))
+            }
+        }
+
+    @Test
+    fun `JwksVerifier accepts any issuer in the configured list`() =
+        runTest {
+            jwksServer().use { server ->
+                val issuers = listOf("https://api.workos.com", "https://api.workos.com/user_management/client_test_123")
+                val verifier = JwksVerifier(server.url("/").toString().trimEnd('/'), "client_test_123", issuers)
+                assertTrue(verifier.isValid(signedJwt(claims = mapOf("iss" to issuers[0]))))
+                assertTrue(verifier.isValid(signedJwt(claims = mapOf("iss" to issuers[1]))))
+            }
+        }
+
+    @Test
+    fun `JwksVerifier rejects a token whose iss does not match the configured issuer`() =
+        runTest {
+            jwksServer().use { server ->
+                val verifier =
+                    JwksVerifier(
+                        server.url("/").toString().trimEnd('/'),
+                        "client_test_123",
+                        issuers = listOf("https://issuer.example"),
+                    )
+                assertFalse(verifier.isValid(signedJwt(claims = mapOf("iss" to "https://other.example"))))
+            }
+        }
+
+    @Test
+    fun `JwksVerifier rejects a token without iss when an issuer is configured`() =
+        runTest {
+            jwksServer().use { server ->
+                val verifier =
+                    JwksVerifier(
+                        server.url("/").toString().trimEnd('/'),
+                        "client_test_123",
+                        issuers = listOf("https://issuer.example"),
+                    )
+                assertFalse(verifier.isValid(signedJwt()))
+            }
+        }
+
+    @Test
+    fun `JwksVerifier rejects every token when the issuer list is empty`() =
+        runTest {
+            jwksServer().use { server ->
+                val verifier = JwksVerifier(server.url("/").toString().trimEnd('/'), "client_test_123", emptyList())
+                assertFalse(verifier.isValid(signedJwt(claims = mapOf("iss" to "https://issuer.example"))))
+            }
+        }
+
+    @Test
+    fun `JwksVerifier snapshots the issuer list it was given`() =
+        runTest {
+            jwksServer().use { server ->
+                val issuers = mutableListOf("https://issuer.example")
+                val verifier = JwksVerifier(server.url("/").toString().trimEnd('/'), "client_test_123", issuers)
+                issuers += "https://other.example"
+                assertFalse(verifier.isValid(signedJwt(claims = mapOf("iss" to "https://other.example"))))
+            }
+        }
+
     // ---------------------------------------------------------------- refresh
 
     @Test
@@ -696,6 +778,27 @@ class SessionTest {
                 // so the key set has to actually be fetched — it must not silently
                 // skip signature verification.
                 assertEquals("/sso/jwks/client_test_123", server.awaitRequest().pathOnly())
+            }
+        }
+
+    @Test
+    fun `H05 authenticateWithSessionCookie enforces a configured issuer`() =
+        runTest {
+            routedServer().use { server ->
+                val client = clientAgainst(server)
+                val token = signedJwt(claims = mapOf("sid" to "session_01ISS", "iss" to "https://issuer.example"))
+                val sealed = Iron.seal(encodeSessionCookie(SessionCookieData(token, "tok_r")), PASSWORD)
+
+                assertIs<AuthenticateSessionResult.Success>(
+                    client.session.authenticateWithSessionCookie(sealed, PASSWORD, listOf("https://issuer.example")),
+                )
+                assertEquals(
+                    AuthenticateSessionResult.Failure(AuthenticateSessionFailureReason.INVALID_JWT),
+                    client.session.authenticateWithSessionCookie(sealed, PASSWORD, listOf("https://other.example")),
+                )
+                assertIs<AuthenticateSessionResult.Success>(
+                    client.session.loadSealedSession(sealed, PASSWORD, listOf("https://issuer.example")).authenticate(),
+                )
             }
         }
 
