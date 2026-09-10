@@ -207,11 +207,19 @@ private object Jwks {
         }
 }
 
-/** [JwtVerifier] backed by the live JWKS at `{baseUrl}/sso/jwks/{clientId}`. */
+/**
+ * [JwtVerifier] backed by the live JWKS at `{baseUrl}/sso/jwks/{clientId}`.
+ *
+ * When [issuers] is non-null the token's `iss` claim must exactly match one of
+ * its entries; when null the issuer is not checked.
+ */
 internal class JwksVerifier(
     private val baseUrl: String,
     private val clientId: String,
+    issuers: List<String>? = null,
 ) : JwtVerifier {
+    private val issuers: List<String>? = issuers?.toList()
+
     /**
      * The JWKS fetch is blocking, so it runs on [Dispatchers.IO] — calling this
      * from the main thread must not stall the UI.
@@ -222,8 +230,10 @@ internal class JwksVerifier(
                 // Rejects a bad signature, an unknown `kid`, and an expired or
                 // not-yet-valid token: DefaultJWTProcessor installs a claims
                 // verifier that checks `exp`/`nbf`.
-                Jwks.processor(baseUrl, clientId).process(SignedJWT.parse(accessToken), null)
-                true
+                val claims = Jwks.processor(baseUrl, clientId).process(SignedJWT.parse(accessToken), null)
+                val accepted = issuers ?: return@withContext true
+                val iss = claims.issuer
+                iss != null && iss in accepted
             } catch (_: Exception) {
                 false
             }
@@ -414,6 +424,22 @@ public class Session internal constructor(
     public fun loadSealedSession(
         sessionData: String?,
         cookiePassword: String,
+    ): SessionCookie = loadSealedSession(sessionData, cookiePassword, issuers = null)
+
+    /**
+     * Wrap an inbound sealed-cookie value so it can be authenticated or refreshed.
+     *
+     * @param issuers Accepted values for the access token's `iss` claim; when null
+     *   the issuer is not checked. The match is exact (case-sensitive). The `iss`
+     *   value WorkOS mints varies by environment — `https://api.workos.com`,
+     *   `https://api.workos.com/user_management/<clientId>`, or a custom auth
+     *   domain — so pass the precise value(s) your tokens actually carry.
+     *   Enforced by [SessionCookie.authenticate] only, not [SessionCookie.refresh].
+     */
+    public fun loadSealedSession(
+        sessionData: String?,
+        cookiePassword: String,
+        issuers: List<String>?,
     ): SessionCookie {
         val clientId =
             requireNotNull(client.configuration.clientId) {
@@ -424,7 +450,7 @@ public class Session internal constructor(
             userManagement = client.userManagement,
             sessionData = sessionData,
             cookiePassword = cookiePassword,
-            verifier = JwksVerifier(client.configuration.baseUrl, clientId),
+            verifier = JwksVerifier(client.configuration.baseUrl, clientId, issuers),
         )
     }
 
@@ -432,7 +458,19 @@ public class Session internal constructor(
     public suspend fun authenticateWithSessionCookie(
         sessionData: String?,
         cookiePassword: String,
-    ): AuthenticateSessionResult = loadSealedSession(sessionData, cookiePassword).authenticate()
+    ): AuthenticateSessionResult = authenticateWithSessionCookie(sessionData, cookiePassword, issuers = null)
+
+    /**
+     * Authenticate a sealed cookie in one call.
+     *
+     * @param issuers Accepted values for the access token's `iss` claim; when null
+     *   the issuer is not checked. See [loadSealedSession].
+     */
+    public suspend fun authenticateWithSessionCookie(
+        sessionData: String?,
+        cookiePassword: String,
+        issuers: List<String>?,
+    ): AuthenticateSessionResult = loadSealedSession(sessionData, cookiePassword, issuers).authenticate()
 
     /** Refresh a sealed cookie in one call. */
     public suspend fun refreshSession(
