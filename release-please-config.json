@@ -4,6 +4,7 @@
     ".": {
       "release-type": "simple",
       "package-name": "workos",
+      "bump-minor-pre-major": true,
       "changelog-path": "CHANGELOG.md",
       "include-component-in-tag": false,
       "extra-files": [
