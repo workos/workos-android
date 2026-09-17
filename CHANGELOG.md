@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.0](https://github.com/workos/workos-android/compare/v0.3.0...v0.4.0) (2026-09-17)
+
+
+### Features
+
+* Add optional issuers check to session authentication ([#9](https://github.com/workos/workos-android/issues/9)) ([fa57545](https://github.com/workos/workos-android/commit/fa57545a558e943e15d03c440dc6267f3ad044c0))
+
 ## [0.3.0](https://github.com/workos/workos-android/compare/v0.2.1...v0.3.0) (2026-08-17)
 
 
