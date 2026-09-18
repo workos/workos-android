@@ -20,7 +20,7 @@ Add Maven Central to your repositories, then add the SDK to your app module's
 
 ```kotlin
 dependencies {
-    implementation("com.workos:workos-android:0.2.1")
+    implementation("com.workos:workos-android:x.x.x")
 }
 ```
 
