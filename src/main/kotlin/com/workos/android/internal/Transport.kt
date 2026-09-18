@@ -42,7 +42,7 @@ private const val JITTER_FACTOR = 0.5
 
 // Stamped by release-please on every release (see release-please-config.json);
 // must stay on one line with the marker comment or it stops being updated.
-private const val VERSION = "0.3.0" // x-release-please-version
+private const val VERSION = "0.4.0" // x-release-please-version
 
 /**
  * Mirrors the other WorkOS SDKs' `WorkOS <platform>/<version>` shape, which the

@@ -2,7 +2,7 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.plugin.getKotlinPluginVersion
 
 group = "com.workos"
-version = "0.3.0" // x-release-please-version
+version = "0.4.0" // x-release-please-version
 
 if (!project.hasProperty("release")) {
   version = "$version-SNAPSHOT"
