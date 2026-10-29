@@ -158,6 +158,63 @@ class HelpersTest {
             assertEquals("Bearer", auth)
         }
 
+    @Test
+    fun `H19 authenticateWithCode sends no client_secret`() =
+        runTest {
+            val (public, server) = publicClientResponding(AUTHENTICATE_RESPONSE)
+
+            val result = public.authenticateWithCode(code = "code_123", codeVerifier = "verifier_123")
+
+            val request = server.awaitRequest()
+            assertEquals("POST", request.method)
+            assertEquals("/user_management/authenticate", request.pathOnly())
+            val body = request.bodyJson()
+            assertEquals(setOf("grant_type", "client_id", "code", "code_verifier"), body.keys)
+            assertEquals("authorization_code", body["grant_type"]?.jsonPrimitive?.content)
+            assertEquals("client_123", body["client_id"]?.jsonPrimitive?.content)
+            assertEquals("code_123", body["code"]?.jsonPrimitive?.content)
+            assertEquals("verifier_123", body["code_verifier"]?.jsonPrimitive?.content)
+            assertEquals("access_123", result.accessToken)
+        }
+
+    @Test
+    fun `H19 authenticateWithRefreshToken sends no client_secret`() =
+        runTest {
+            val (public, server) = publicClientResponding(AUTHENTICATE_RESPONSE)
+
+            val result = public.authenticateWithRefreshToken(refreshToken = "refresh_123", organizationId = "org_123")
+
+            val request = server.awaitRequest()
+            assertEquals("POST", request.method)
+            assertEquals("/user_management/authenticate", request.pathOnly())
+            val body = request.bodyJson()
+            assertEquals(setOf("grant_type", "client_id", "refresh_token", "organization_id"), body.keys)
+            assertEquals("refresh_token", body["grant_type"]?.jsonPrimitive?.content)
+            assertEquals("client_123", body["client_id"]?.jsonPrimitive?.content)
+            assertEquals("refresh_123", body["refresh_token"]?.jsonPrimitive?.content)
+            assertEquals("org_123", body["organization_id"]?.jsonPrimitive?.content)
+            assertEquals("refresh_456", result.refreshToken)
+        }
+
+    @Test
+    fun `H19 authenticateWithRefreshToken omits organization_id when absent`() =
+        runTest {
+            val (public, server) = publicClientResponding(AUTHENTICATE_RESPONSE)
+
+            public.authenticateWithRefreshToken(refreshToken = "refresh_123")
+
+            val body = server.awaitRequest().bodyJson()
+            assertEquals(setOf("grant_type", "client_id", "refresh_token"), body.keys)
+        }
+
+    private fun publicClientResponding(body: String): Pair<PublicClient, MockWebServer> {
+        val server = MockWebServer()
+        server.start()
+        server.enqueue(MockResponse().setResponseCode(200).setBody(body))
+        val public = PublicClient.create(clientId = "client_123", baseUrl = server.url("/").toString().trimEnd('/'))
+        return public to server
+    }
+
     // --- Passwordless --------------------------------------------------------
 
     @Test
@@ -229,3 +286,8 @@ class HelpersTest {
             assertEquals(true, response.success)
         }
 }
+
+private const val AUTHENTICATE_RESPONSE =
+    """{"user":{"object":"user","id":"user_123","email":"a@b.com","email_verified":true,"metadata":{},""" +
+        """"created_at":"2026-01-15T12:00:00.000Z","updated_at":"2026-01-15T12:00:00.000Z"},""" +
+        """"access_token":"access_123","refresh_token":"refresh_456"}"""

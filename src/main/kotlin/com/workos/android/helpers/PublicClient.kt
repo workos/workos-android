@@ -3,6 +3,7 @@ package com.workos.android.helpers
 
 import com.workos.android.Configuration
 import com.workos.android.WorkOSClient
+import com.workos.android.internal.JsonBody
 import com.workos.android.models.AuthenticateResponse
 import com.workos.android.resources.UserManagement
 import com.workos.android.userManagement
@@ -15,7 +16,7 @@ import com.workos.android.userManagement
  * service API must not be reachable from a distributed app at all. This factory
  * builds a client with an **empty** API key and exposes only the operations that
  * are safe without a client secret — authorization-URL building, PKCE code
- * exchange, and the PKCE helper itself.
+ * exchange, refresh-token exchange, and the PKCE helper itself.
  *
  * The empty key is deliberate: if a caller reaches past this facade into the full
  * generated surface, the server rejects the request rather than the mistake going
@@ -60,14 +61,42 @@ public class PublicClient private constructor(
     /**
      * Exchange an authorization code plus its PKCE verifier for tokens.
      *
-     * No `client_secret` is sent — the generated `authenticateWithCode` takes
-     * `codeVerifier` from the spec, which is what makes the public-client flow
-     * possible without a secret.
+     * The body is built here, not by the generated `authenticateWithCode`: that one
+     * always sends `client_secret`, and the API rejects an empty one with a 422.
      */
     public suspend fun authenticateWithCode(
         code: String,
         codeVerifier: String,
-    ): AuthenticateResponse = userManagement.authenticateWithCode(code = code, codeVerifier = codeVerifier)
+    ): AuthenticateResponse {
+        val payload = JsonBody()
+        payload.set("grant_type", "authorization_code")
+        payload.set("client_id", clientId)
+        payload.set("code", code)
+        payload.set("code_verifier", codeVerifier)
+        return authenticate(payload)
+    }
+
+    /** Exchange a refresh token for new tokens, with no `client_secret`. */
+    public suspend fun authenticateWithRefreshToken(
+        refreshToken: String,
+        organizationId: String? = null,
+    ): AuthenticateResponse {
+        val payload = JsonBody()
+        payload.set("grant_type", "refresh_token")
+        payload.set("client_id", clientId)
+        payload.set("refresh_token", refreshToken)
+        payload.set("organization_id", organizationId)
+        return authenticate(payload)
+    }
+
+    private suspend fun authenticate(payload: JsonBody): AuthenticateResponse =
+        client.transport.request(
+            method = "POST",
+            path = "user_management/authenticate",
+            query = emptyList(),
+            body = payload,
+            options = null,
+        )
 
     private val userManagement: UserManagement get() = client.userManagement
 
