@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.1](https://github.com/workos/workos-android/compare/v0.4.0...v0.4.1) (2026-10-29)
+
+
+### Bug Fixes
+
+* PublicClient sends no client_secret on code and refresh exchange ([#13](https://github.com/workos/workos-android/issues/13)) ([#14](https://github.com/workos/workos-android/issues/14)) ([bc767d1](https://github.com/workos/workos-android/commit/bc767d198b40033856f8a157dba42af44aed1cc8))
+
 ## [0.4.0](https://github.com/workos/workos-android/compare/v0.3.0...v0.4.0) (2026-09-17)
 
 
