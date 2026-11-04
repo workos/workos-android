@@ -231,6 +231,7 @@ internal class JwksVerifier(
                 // not-yet-valid token: DefaultJWTProcessor installs a claims
                 // verifier that checks `exp`/`nbf`.
                 val claims = Jwks.processor(baseUrl, clientId).process(SignedJWT.parse(accessToken), null)
+                if (!isUserAccessToken(claims)) return@withContext false
                 val accepted = issuers ?: return@withContext true
                 val iss = claims.issuer
                 iss != null && iss in accepted
@@ -238,6 +239,16 @@ internal class JwksVerifier(
                 false
             }
         }
+
+    // Other token types signed by the same environment key (agent and widget
+    // tokens) must not authenticate a session cookie.
+    private fun isUserAccessToken(claims: JWTClaimsSet): Boolean {
+        val subProfile = claims.getClaim("sub_profile")
+        return claims.getClaim("sid") is String &&
+            claims.getClaim("auth_time") is Number &&
+            (subProfile == null || subProfile == "user") &&
+            claims.getClaim("sub_type") == null
+    }
 }
 
 /**
