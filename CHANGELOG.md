@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.2](https://github.com/workos/workos-android/compare/v0.4.1...v0.4.2) (2026-11-06)
+
+
+### Bug Fixes
+
+* **session:** Reject non-user access tokens in session cookies ([#16](https://github.com/workos/workos-android/issues/16)) ([3d888d9](https://github.com/workos/workos-android/commit/3d888d9db1a07b4eae6d8c2bae14487acf968174))
+
 ## [0.4.1](https://github.com/workos/workos-android/compare/v0.4.0...v0.4.1) (2026-10-29)
 
 
