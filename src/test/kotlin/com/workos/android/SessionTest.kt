@@ -61,6 +61,8 @@ private fun signedJwt(
             .Builder()
             .subject("user_01ABC")
             .expirationTime(Date(System.currentTimeMillis() + expiresInSeconds * 1000))
+            .claim("sid", "session_01ABC")
+            .claim("auth_time", System.currentTimeMillis() / 1000)
     for ((k, v) in claims) builder.claim(k, v)
     val jwt = SignedJWT(JWSHeader.Builder(JWSAlgorithm.RS256).keyID(key.keyID).build(), builder.build())
     jwt.sign(RSASSASigner(key))
@@ -398,6 +400,37 @@ class SessionTest {
             jwksServer().use { server ->
                 val verifier = JwksVerifier(server.url("/").toString().trimEnd('/'), "client_test_123")
                 assertFalse(verifier.isValid("not.a.jwt"))
+            }
+        }
+
+    @Test
+    fun `JwksVerifier rejects tokens that are not user access tokens`() =
+        runTest {
+            jwksServer().use { server ->
+                val verifier = JwksVerifier(server.url("/").toString().trimEnd('/'), "client_test_123")
+                val nonUserClaims =
+                    listOf(
+                        mapOf("sub_profile" to "ai_agent"),
+                        mapOf("sub_type" to "authkit"),
+                        mapOf("sub_type" to "standalone"),
+                        mapOf("sid" to null),
+                        mapOf("sid" to 123),
+                        mapOf("auth_time" to null),
+                        mapOf("auth_time" to "1700000000"),
+                    )
+                for (claims in nonUserClaims) {
+                    assertFalse(verifier.isValid(signedJwt(claims = claims)), "accepted $claims")
+                }
+            }
+        }
+
+    @Test
+    fun `JwksVerifier accepts user access tokens with or without sub_profile user`() =
+        runTest {
+            jwksServer().use { server ->
+                val verifier = JwksVerifier(server.url("/").toString().trimEnd('/'), "client_test_123")
+                assertTrue(verifier.isValid(signedJwt()))
+                assertTrue(verifier.isValid(signedJwt(claims = mapOf("sub_profile" to "user"))))
             }
         }
 
