@@ -249,16 +249,18 @@ class TransportBehaviorTest {
         runTest {
             val server = MockWebServer()
             server.start()
-            server.enqueue(
-                MockResponse()
-                    .setResponseCode(200)
-                    .setBody("""{"data":[],"list_metadata":{}}""")
-                    .setSocketPolicy(SocketPolicy.DISCONNECT_DURING_RESPONSE_BODY),
-            )
+            server.use {
+                server.enqueue(
+                    MockResponse()
+                        .setResponseCode(200)
+                        .setBody("""{"data":[],"list_metadata":{}}""")
+                        .setSocketPolicy(SocketPolicy.DISCONNECT_DURING_RESPONSE_BODY),
+                )
 
-            val error = runCatching { client(server, maxRetries = 0).organizations.list() }.exceptionOrNull()
+                val error = runCatching { client(server, maxRetries = 0).organizations.list() }.exceptionOrNull()
 
-            assertTrue(error is NetworkException, "expected NetworkException, got $error")
+                assertTrue(error is NetworkException, "expected NetworkException, got $error")
+            }
         }
 
     /** The failed read must not poison the client: the retry gets a fresh, complete response. */
@@ -267,17 +269,19 @@ class TransportBehaviorTest {
         runTest {
             val server = MockWebServer()
             server.start()
-            server.enqueue(
-                MockResponse()
-                    .setResponseCode(200)
-                    .setBody("""{"data":[],"list_metadata":{}}""")
-                    .setSocketPolicy(SocketPolicy.DISCONNECT_DURING_RESPONSE_BODY),
-            )
-            server.enqueue(MockResponse().setResponseCode(200).setBody("""{"data":[],"list_metadata":{}}"""))
+            server.use {
+                server.enqueue(
+                    MockResponse()
+                        .setResponseCode(200)
+                        .setBody("""{"data":[],"list_metadata":{}}""")
+                        .setSocketPolicy(SocketPolicy.DISCONNECT_DURING_RESPONSE_BODY),
+                )
+                server.enqueue(MockResponse().setResponseCode(200).setBody("""{"data":[],"list_metadata":{}}"""))
 
-            client(server, maxRetries = 1).organizations.list()
+                client(server, maxRetries = 1).organizations.list()
 
-            assertEquals(2, server.requestCount)
+                assertEquals(2, server.requestCount)
+            }
         }
 
     /**
