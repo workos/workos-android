@@ -129,15 +129,19 @@ public class Transport(
         if (extra != null) {
             for (entry in extra) builder.header(entry.key, entry.value)
         }
-        val response = clientFor(options).newCall(builder.build()).execute()
-        val text = response.body?.string() ?: ""
-        val code = response.code
-        val retryAfter = response.header("Retry-After")?.toLongOrNull()
-        // OkHttp's header lookup is case-insensitive, so this covers the
-        // `X-Request-Id` / `x-request-id` spellings the API uses interchangeably.
-        val requestId = response.header("x-request-id")
-        response.close()
-        return RawResponse(code, text, retryAfter, requestId)
+        // `use` releases the exchange on every path out of this block, including a
+        // body read that throws (truncated body, timeout mid-stream). The body is
+        // materialized inside it, before any status or retry decision.
+        return clientFor(options).newCall(builder.build()).execute().use { response ->
+            RawResponse(
+                code = response.code,
+                body = response.body?.string() ?: "",
+                retryAfterSeconds = response.header("Retry-After")?.toLongOrNull(),
+                // OkHttp's header lookup is case-insensitive, so this covers the
+                // `X-Request-Id` / `x-request-id` spellings the API uses interchangeably.
+                requestId = response.header("x-request-id"),
+            )
+        }
     }
 
     /** Backoff for attempt N: initial * multiplier^N, capped, plus jitter. */

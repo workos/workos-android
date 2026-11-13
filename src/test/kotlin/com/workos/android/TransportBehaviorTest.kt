@@ -8,6 +8,7 @@ import com.workos.android.support.testClientWithStatus
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
+import okhttp3.mockwebserver.SocketPolicy
 import org.junit.jupiter.api.Test
 import java.util.concurrent.TimeUnit
 import kotlin.test.assertEquals
@@ -236,6 +237,51 @@ class TransportBehaviorTest {
             // A timeout is a transport failure, so it must surface as the SDK's own
             // NetworkException rather than leaking OkHttp's InterruptedIOException.
             assertTrue(error is NetworkException, "expected NetworkException, got $error")
+        }
+
+    /**
+     * A body that dies mid-stream fails inside the read, after the status line and
+     * headers have already arrived. It is still a transport failure, so it must
+     * surface as NetworkException rather than leaking OkHttp's ProtocolException.
+     */
+    @Test
+    fun `a response cut off mid-body surfaces as NetworkException`() =
+        runTest {
+            val server = MockWebServer()
+            server.start()
+            server.use {
+                server.enqueue(
+                    MockResponse()
+                        .setResponseCode(200)
+                        .setBody("""{"data":[],"list_metadata":{}}""")
+                        .setSocketPolicy(SocketPolicy.DISCONNECT_DURING_RESPONSE_BODY),
+                )
+
+                val error = runCatching { client(server, maxRetries = 0).organizations.list() }.exceptionOrNull()
+
+                assertTrue(error is NetworkException, "expected NetworkException, got $error")
+            }
+        }
+
+    /** The failed read must not poison the client: the retry gets a fresh, complete response. */
+    @Test
+    fun `retries a response cut off mid-body and then succeeds`() =
+        runTest {
+            val server = MockWebServer()
+            server.start()
+            server.use {
+                server.enqueue(
+                    MockResponse()
+                        .setResponseCode(200)
+                        .setBody("""{"data":[],"list_metadata":{}}""")
+                        .setSocketPolicy(SocketPolicy.DISCONNECT_DURING_RESPONSE_BODY),
+                )
+                server.enqueue(MockResponse().setResponseCode(200).setBody("""{"data":[],"list_metadata":{}}"""))
+
+                client(server, maxRetries = 1).organizations.list()
+
+                assertEquals(2, server.requestCount)
+            }
         }
 
     /**
